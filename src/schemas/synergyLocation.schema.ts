@@ -30,6 +30,10 @@ export const synergyLocationSchema = z.enum([
   "hull",
   "systems",
   "agility",
+  "other",
+  "hase",
+  "move",
+  "weapon",
 ]);
 
 export type SynergyLocation = z.infer<typeof synergyLocationSchema>;

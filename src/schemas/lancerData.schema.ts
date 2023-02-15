@@ -8,6 +8,11 @@ import { frameSchema } from "./frame.schema";
 import { manufacturerSchema } from "./manufacturer.schema";
 import { modSchema } from "./mod.schema";
 import { pilotGearSchema } from "./pilotGear.schema";
+import { reserveSchema } from "./reserve.schema";
+import { rulesSchema } from "./rules.schema";
+import { sitrepSchema } from "./sitrep.schema";
+import { skillSchema } from "./skill.schema";
+import { statusSchema } from "./status.schema";
 
 export const lancerDataSchema = z
   .object({
@@ -32,6 +37,11 @@ export const lancerDataSchema = z
     npc_features: z.never().array(),
     npc_templates: z.never().array(),
     pilot_gear: pilotGearSchema.array(),
+    reserves: reserveSchema.array(),
+    rules: rulesSchema,
+    sitreps: sitrepSchema.array(),
+    skills: skillSchema.array(),
+    statuses: statusSchema.array(),
   })
   .transform((o) => camelize(o, true));
 

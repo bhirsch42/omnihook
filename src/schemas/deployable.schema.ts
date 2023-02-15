@@ -5,23 +5,37 @@ import { deployableTypeSchema } from "./deployableType.schema";
 
 // Deployables from pilot gear (ex. "Thermite Charge") are formatted
 // differently, and need to be handled as a special case.
-const handlePilotGearDeployable = (o: any) => {
-  if (!o.pilot) return o;
-  return {
-    ...o,
-    hp: "1",
-    redeploy: "Full",
-    activation: "Full",
-    recall: "Full",
-    size: 0,
-  };
+const handleAlternateDeployables = (o: any) => {
+  if (o.name === "Deployable Shield (Reserve)") {
+    return {
+      ...o,
+      redeploy: "Full",
+      activation: "Full",
+      recall: "Full",
+    };
+  }
+
+  if (o.pilot) {
+    return {
+      ...o,
+      redeploy: "Full",
+      activation: "Full",
+      recall: "Full",
+      size: 0,
+    };
+  }
+
+  return o;
 };
 
 const _deployableSchema = z
   .object({
     activation: activationTypeSchema,
     detail: z.string(),
-    hp: z.string().regex(/[0-9]+( \+ \{grit\})?/),
+    hp: z
+      .string()
+      .regex(/[0-9]+( \+ \{grit\})?/)
+      .optional(),
     name: z.string(),
     type: deployableTypeSchema,
     recall: activationTypeSchema,
@@ -33,7 +47,7 @@ const _deployableSchema = z
   .strict();
 
 export const deployableSchema = z.preprocess(
-  handlePilotGearDeployable,
+  handleAlternateDeployables,
   _deployableSchema
 );
 
