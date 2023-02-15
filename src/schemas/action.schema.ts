@@ -1,12 +1,12 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { activationTypeSchema } from "./activationType.schema";
+import { actionTypeSchema } from "./actionType.schema";
 import { damageSchema } from "./damage.schema";
 import { rangeSchema } from "./range.schema";
 
 export const actionSchemaRaw = z
   .object({
-    activation: activationTypeSchema.default("Missing"),
+    activation: actionTypeSchema.default("Missing"),
     detail: z.string(),
     name: z.string().optional(),
     frequency: z.string().optional(),

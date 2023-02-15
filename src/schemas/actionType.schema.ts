@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const activationTypeSchema = z.enum([
+export const actionTypeSchema = z.enum([
   "Free",
   "Quick",
   "Reaction",
@@ -14,4 +14,4 @@ export const activationTypeSchema = z.enum([
   "Full Tech",
 ]);
 
-export type ActivationType = z.infer<typeof activationTypeSchema>;
+export type ActionType = z.infer<typeof actionTypeSchema>;

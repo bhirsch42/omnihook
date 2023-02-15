@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { actionSchema } from "./action.schema";
-import { activationTypeSchema } from "./activationType.schema";
+import { actionTypeSchema } from "./actionType.schema";
 import { counterSchema } from "./counter.schema";
 import { deployableTypeSchema } from "./deployableType.schema";
 import { rangeSchema } from "./range.schema";
@@ -8,7 +8,7 @@ import { tagRefSchema } from "./tagRef.schema";
 
 export const deployableSchema = z
   .object({
-    activation: activationTypeSchema.optional(),
+    activation: actionTypeSchema.optional(),
     detail: z.string(),
     hp: z.coerce
       .string()
@@ -16,8 +16,8 @@ export const deployableSchema = z
       .optional(),
     name: z.string(),
     type: deployableTypeSchema,
-    recall: activationTypeSchema.optional(),
-    redeploy: activationTypeSchema.optional(),
+    recall: actionTypeSchema.optional(),
+    redeploy: actionTypeSchema.optional(),
     size: z.number().optional(),
     pilot: z.boolean().default(false),
     actions: actionSchema.array().optional(),
@@ -28,7 +28,7 @@ export const deployableSchema = z
     cost: z.number().optional(),
     counters: counterSchema.array().optional(),
     tags: tagRefSchema.array().optional(),
-    deactivation: activationTypeSchema.optional(),
+    deactivation: actionTypeSchema.optional(),
     armor: z.number().optional(),
   })
   .strict();
