@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { synergyLocationSchema } from "./synergyLocation.schema";
 import camelize from "camelize-ts";
-import { actionSchema } from "./action.schema";
+import { actionSchema, actionSchemaRaw } from "./action.schema";
 
-export const standardActionSchema = actionSchema
+export const standardActionSchema = actionSchemaRaw
   .merge(
     z.object({
       hide_active: z.boolean().default(false),

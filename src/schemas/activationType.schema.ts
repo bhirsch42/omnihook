@@ -10,6 +10,8 @@ export const activationTypeSchema = z.enum([
   "Quick Tech",
   "Invade",
   "Move",
+  "Missing",
+  "Full Tech",
 ]);
 
 export type ActivationType = z.infer<typeof activationTypeSchema>;

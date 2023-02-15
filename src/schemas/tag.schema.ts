@@ -1,11 +1,15 @@
+import camelize from "camelize-ts";
 import { z } from "zod";
-import { weaponTypeSchema } from "./weaponType.schema";
 
 export const tagSchema = z
   .object({
     id: z.string(),
-    val: z.number().optional(),
+    name: z.string(),
+    description: z.string(),
+    filter_ignore: z.boolean().default(false),
+    hidden: z.boolean().default(false),
   })
-  .strict();
+  .strict()
+  .transform((o) => camelize(o, true));
 
 export type Tag = z.infer<typeof tagSchema>;

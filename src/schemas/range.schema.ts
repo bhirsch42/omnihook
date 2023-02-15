@@ -4,7 +4,8 @@ import { rangeTypeSchema } from "./rangeType.schema";
 export const rangeSchema = z
   .object({
     type: rangeTypeSchema,
-    val: z.number(),
+    val: z.union([z.number(), z.enum(["???", "N/A"])]),
+    override: z.boolean().default(false),
   })
   .strict();
 

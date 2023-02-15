@@ -1,7 +1,7 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { DICE_ROLL } from "./diceRoll.regex";
 import { fittingSizeSchema } from "./fittingSize.schema";
+import { rollValueSchema } from "./rollValue.schema";
 import { skillFamilySchema } from "./skillFamily.schema";
 import { weaponSizeSchema } from "./weaponSize.schema";
 
@@ -28,7 +28,7 @@ export const rulesSchema = z
     max_mech_armor: z.number(),
     max_hase: z.number(),
     mount_fittings: z.record(fittingSizeSchema, weaponSizeSchema.array()),
-    overcharge: z.string().regex(DICE_ROLL).array().length(4),
+    overcharge: rollValueSchema.array().length(4),
     skill_headers: z
       .object({ attr: skillFamilySchema, description: z.string() })
       .array(),

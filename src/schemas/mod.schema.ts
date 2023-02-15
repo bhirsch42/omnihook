@@ -1,6 +1,6 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { tagSchema } from "./tag.schema";
+import { tagRefSchema } from "./tagRef.schema";
 import { weaponTypeSchema } from "./weaponType.schema";
 import { weaponSizeSchema } from "./weaponSize.schema";
 import { actionSchema } from "./action.schema";
@@ -20,11 +20,11 @@ export const modSchema = z
     name: z.string(),
     source: z.string(),
     sp: z.number(),
-    tags: tagSchema.array().default([]),
+    tags: tagRefSchema.array().default([]),
     restricted_sizes: weaponSizeSchema.array().optional(),
     actions: actionSchema.array().optional(),
     added_range: rangeSchema.array().optional(),
-    added_tags: tagSchema.array().optional(),
+    added_tags: tagRefSchema.array().optional(),
   })
   .strict()
   .transform((o) => camelize(o, true));

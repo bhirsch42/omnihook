@@ -1,6 +1,6 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { tagSchema } from "./tag.schema";
+import { tagRefSchema } from "./tagRef.schema";
 import { weaponTypeSchema } from "./weaponType.schema";
 import { weaponSizeSchema } from "./weaponSize.schema";
 import { actionSchema } from "./action.schema";
@@ -16,7 +16,7 @@ export const pilotGearSchema = z
     id: z.string(),
     name: z.string(),
     range: rangeSchema.array().optional(),
-    tags: tagSchema.array().default([]),
+    tags: tagRefSchema.array().default([]),
     type: z.string(),
     effect: z.string().optional(),
     bonuses: bonusSchema.array().optional(),

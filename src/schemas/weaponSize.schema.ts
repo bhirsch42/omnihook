@@ -5,6 +5,8 @@ export const weaponSizeSchema = z.enum([
   "Main",
   "Heavy",
   "Superheavy",
+  "any",
+  "Ship-class",
 ]);
 
 export type WeaponSize = z.infer<typeof weaponSizeSchema>;

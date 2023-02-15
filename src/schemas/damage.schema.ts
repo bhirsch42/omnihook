@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { damageTypeSchema } from "./damageType.schema";
-import { DICE_ROLL } from "./diceRoll.regex";
-import { capitalize } from "inflection";
+import { rollValueSchema } from "./rollValue.schema";
 
 export const damageSchema = z
   .object({
-    type: damageTypeSchema,
-    val: z.union([z.number(), z.string().regex(DICE_ROLL)]),
+    type: damageTypeSchema.default("N/A"),
+    val: rollValueSchema,
+    override: z.boolean().default(false),
   })
   .strict();
 

@@ -13,6 +13,10 @@ import { rulesSchema } from "./rules.schema";
 import { sitrepSchema } from "./sitrep.schema";
 import { skillSchema } from "./skill.schema";
 import { statusSchema } from "./status.schema";
+import { systemSchema } from "./system.schema";
+import { tagSchema } from "./tag.schema";
+import { talentSchema } from "./talent.schema";
+import { weaponSchema } from "./weapon.schema";
 
 export const lancerDataSchema = z
   .object({
@@ -23,14 +27,16 @@ export const lancerDataSchema = z
     factions: z.never().array(),
     frames: frameSchema.array(),
     glossary: z.object({ name: z.string(), description: z.string() }).array(),
-    info: z.object({
-      active: z.boolean(),
-      author: z.string(),
-      description: z.string(),
-      name: z.string(),
-      version: z.string(),
-      website: z.string(),
-    }),
+    info: z
+      .object({
+        active: z.boolean(),
+        author: z.string(),
+        description: z.string(),
+        name: z.string(),
+        version: z.string(),
+        website: z.string(),
+      })
+      .strict(),
     manufacturers: manufacturerSchema.array(),
     mods: modSchema.array(),
     npc_classes: z.never().array(),
@@ -42,6 +48,20 @@ export const lancerDataSchema = z
     sitreps: sitrepSchema.array(),
     skills: skillSchema.array(),
     statuses: statusSchema.array(),
+    systems: systemSchema.array(),
+    tables: z
+      .object({
+        pilot_names: z.never().array(),
+        callsigns: z.never().array(),
+        mech_names: z.never().array(),
+        team_names: z.never().array(),
+        quirks: z.string().array(),
+      })
+      .strict()
+      .transform((o) => camelize(o, true)),
+    tags: tagSchema.array(),
+    talents: talentSchema.array(),
+    weapons: weaponSchema.array(),
   })
   .transform((o) => camelize(o, true));
 
