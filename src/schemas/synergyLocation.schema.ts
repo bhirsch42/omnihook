@@ -1,0 +1,35 @@
+import { z } from "zod";
+
+export const synergyLocationSchema = z.enum([
+  "overcharge",
+  "boost",
+  "ram",
+  "grapple",
+  "quick_tech",
+  "bolster",
+  "scan",
+  "lock_on",
+  "hide",
+  "search",
+  "eject",
+  "prepare",
+  "self_destruct",
+  "shut_down",
+  "reload",
+  "barrage",
+  "full_tech",
+  "stabilize",
+  "disengage",
+  "improvised_attack",
+  "full_activation",
+  "boot_up",
+  "dismount",
+  "skill_check",
+  "active_effects",
+  "engineering",
+  "hull",
+  "systems",
+  "agility",
+]);
+
+export type SynergyLocation = z.infer<typeof synergyLocationSchema>;
