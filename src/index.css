@@ -4,10 +4,11 @@
 
 :root {
   font-family: "Source Code Pro", monospace;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: black;
-  color: #4af626;
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: rgb(var(--color-red-400)); */
+  /* color: #4af626; */
+  /* color: lightgray; */
   font-size: 16px;
 
   font-synthesis: none;

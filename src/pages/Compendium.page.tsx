@@ -1,58 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Collection, lancerData, lancerFuse } from "../data/lancerData";
-import Fuse from "fuse.js";
-import {
-  ChangeEvent,
-  InputHTMLAttributes,
-  PropsWithChildren,
-  ReactNode,
-  useState,
-} from "react";
+import { Collection, lancerCollections } from "../data/lancerData";
+import { ChangeEvent, PropsWithChildren, ReactNode, useState } from "react";
+import { Input } from "../components/Input";
+import { BackgroundView } from "../components/BackgroundView";
+import { ManufacturerView } from "../components/ManufacturerView";
+import { SkillView } from "../components/SkillView";
 import { Background } from "../schemas/background.schema";
 import { Manufacturer } from "../schemas/manufacturer.schema";
 import { Skill } from "../schemas/skill.schema";
-
-function Background({ background }: { background: Background }) {
-  return (
-    <div className="mb-5" id={background.id}>
-      <div className="font-bold text-lg">{background.name}</div>
-      <div dangerouslySetInnerHTML={{ __html: background.description }}></div>
-    </div>
-  );
-}
-
-function Skill({ skill }: { skill: Skill }) {
-  return (
-    <div className="mb-5" id={skill.id}>
-      <div className="font-bold text-lg">{skill.name}</div>
-      <div dangerouslySetInnerHTML={{ __html: skill.description }}></div>
-    </div>
-  );
-}
-
-function Manufacturer({ manufacturer }: { manufacturer: Manufacturer }) {
-  return (
-    <div className="mb-5" id={manufacturer.id}>
-      <div className="font-bold text-lg">{manufacturer.name}</div>
-      <div
-        dangerouslySetInnerHTML={{ __html: manufacturer.quote }}
-        className="border-l-2 border-green-400 pl-3 ml-3"
-      ></div>
-      <div dangerouslySetInnerHTML={{ __html: manufacturer.description }}></div>
-    </div>
-  );
-}
-
-function Input(props: InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <input
-      {...props}
-      autoComplete="off"
-      autoCorrect="off"
-      className={`bg-transparent border border-green-700 py-1 px-3 outline-none focus:border-green-400 placeholder-green-700 transition-colors ${props.className}`}
-    ></input>
-  );
-}
+import { CoreBonusView } from "../components/CoreBonusView";
+import { CoreBonus } from "../schemas/coreBonus.schema";
 
 type SearchResultsProps<T> = {
   query: string;
@@ -73,7 +30,7 @@ function SearchResults<T>({
 
   return items.length > 0 ? (
     <div className={className}>
-      {label}
+      <div className="mb-3">{label}</div>
       {items.map(renderItem)}
     </div>
   ) : null;
@@ -103,18 +60,25 @@ type CompendiumCollection<T> = {
 
 const COMPENDIUM_COLLECTIONS = [
   {
-    collection: lancerFuse.backgrounds,
-    renderItem: (item) => <Background background={item} />,
+    collection: lancerCollections.coreBonuses,
+    renderItem: (item) => <CoreBonusView coreBonus={item} key={item.id} />,
+    label: "Core Bonuses",
+  } as const satisfies CompendiumCollection<CoreBonus>,
+  {
+    collection: lancerCollections.backgrounds,
+    renderItem: (item) => <BackgroundView background={item} key={item.id} />,
     label: "Backgrounds",
   } as const satisfies CompendiumCollection<Background>,
   {
-    collection: lancerFuse.manufacturers,
-    renderItem: (item) => <Manufacturer manufacturer={item} />,
+    collection: lancerCollections.manufacturers,
+    renderItem: (item) => (
+      <ManufacturerView manufacturer={item} key={item.id} />
+    ),
     label: "Manufacturers",
   } as const satisfies CompendiumCollection<Manufacturer>,
   {
-    collection: lancerFuse.skills,
-    renderItem: (item) => <Skill skill={item} />,
+    collection: lancerCollections.skills,
+    renderItem: (item) => <SkillView skill={item} key={item.id} />,
     label: "Skills",
   } as const satisfies CompendiumCollection<Skill>,
 ] as const;
@@ -134,8 +98,6 @@ export function Compendium() {
         </Link>{" "}
         {">"} Compendium
       </div>
-      {/* <div className="flex justify-center mb-5">
-      </div> */}
       <div className="grid grid-cols-4 gap-5 grid-flow-col">
         <div className="col-span-1">
           <div className="div sticky top-0 max-h-screen overflow-y-scroll py-3">
@@ -148,9 +110,12 @@ export function Compendium() {
             ></Input>
             {COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
               <SearchResults
+                key={compendiumCollection.label}
                 query={query}
                 collection={compendiumCollection.collection}
-                renderItem={(item) => <SearchResultSidebarItem item={item} />}
+                renderItem={(item) => (
+                  <SearchResultSidebarItem item={item} key={item.id} />
+                )}
                 label={
                   <SearchResultLabel>
                     {compendiumCollection.label}
@@ -164,11 +129,14 @@ export function Compendium() {
         <div className="col-span-3">
           {COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
             <SearchResults
+              key={compendiumCollection.label}
               query={query}
               collection={compendiumCollection.collection}
-              renderItem={(item) =>
-                compendiumCollection.renderItem(item as any)
-              }
+              renderItem={(item) => (
+                <div className="bg-gray-200 p-3 mb-3">
+                  {compendiumCollection.renderItem(item as any)}
+                </div>
+              )}
               label={
                 <SearchResultLabel>
                   {compendiumCollection.label}

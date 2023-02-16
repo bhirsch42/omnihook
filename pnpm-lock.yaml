@@ -4,6 +4,7 @@ specifiers:
   '@fontsource/fira-code': ^4.5.13
   '@fontsource/source-code-pro': ^4.5.14
   '@tanstack/react-router': 0.0.1-beta.82
+  '@twistezo/react-text-scramble': ^1.0.6
   '@types/ramda': ^0.28.23
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
@@ -19,8 +20,6 @@ specifiers:
   react-dom: ^18.2.0
   tailwindcss: ^3.2.6
   typescript: ^4.9.3
-  variable-italic.css: link:@fontsource/source-code-pro/variable-italic.css
-  variable.css: link:@fontsource/source-code-pro/variable.css
   vite: ^4.1.0
   zod: ^3.20.6
 
@@ -28,6 +27,7 @@ dependencies:
   '@fontsource/fira-code': 4.5.13
   '@fontsource/source-code-pro': 4.5.14
   '@tanstack/react-router': 0.0.1-beta.82_biqbaboplfbrettd7655fr4n2y
+  '@twistezo/react-text-scramble': 1.0.6
   '@types/ramda': 0.28.23
   camelize-ts: 2.3.0
   fuse.js: 6.6.2
@@ -36,8 +36,6 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  variable-italic.css: link:@fontsource/source-code-pro/variable-italic.css
-  variable.css: link:@fontsource/source-code-pro/variable.css
   zod: 3.20.6
 
 devDependencies:
@@ -433,6 +431,10 @@ packages:
   /@tanstack/store/0.0.1-beta.81:
     resolution: {integrity: sha512-OYFQ4RmDjSIzJnJrhsvpSpM4+lO/3NBaXGloC5IO3YNm0Ewgy/MSCePJgUamstXPmBAaLC2KEgi4O9FHyzA6lw==}
     engines: {node: '>=12'}
+    dev: false
+
+  /@twistezo/react-text-scramble/1.0.6:
+    resolution: {integrity: sha512-DOCy9Bt0sXXpLIDRzHcAv9yDd4yOYrf1I9hNMLjykKHQKQ2zdP8w4A+mHh0VP0cy/PjJSTeo3NWCY6ptNcR0YA==}
     dev: false
 
   /@types/prop-types/15.7.5:

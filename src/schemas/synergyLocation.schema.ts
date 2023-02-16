@@ -43,6 +43,7 @@ export const synergyLocationSchema = z.preprocess(
     "rest",
     "tech",
     "cascade",
+    "tech_attack",
   ])
 );
 

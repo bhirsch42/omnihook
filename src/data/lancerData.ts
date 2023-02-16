@@ -1,7 +1,9 @@
 import rawLancerData from "lancer-data";
 import { lancerDataSchema } from "../schemas/lancerData.schema";
 import Fuse from "fuse.js";
+import { CoreBonus } from "../schemas/coreBonus.schema";
 
+console.log(rawLancerData);
 export const lancerData = lancerDataSchema.parse(rawLancerData);
 
 export type Collection<T> = {
@@ -9,7 +11,7 @@ export type Collection<T> = {
   all: T[];
 };
 
-function createFuse<T>(
+function createCollection<T>(
   items: T[],
   keys: keyof T extends string ? (keyof T)[] : never[]
 ): Collection<T> {
@@ -25,12 +27,21 @@ function createFuse<T>(
   } as const;
 }
 
-export const lancerFuse = {
-  manufacturers: createFuse(lancerData.manufacturers, [
+export const lancerCollections = {
+  manufacturers: createCollection(lancerData.manufacturers, [
     "name",
     "description",
     "quote",
   ]),
-  backgrounds: createFuse(lancerData.backgrounds, ["name", "description"]),
-  skills: createFuse(lancerData.skills, ["name", "description"]),
+  backgrounds: createCollection(lancerData.backgrounds, [
+    "name",
+    "description",
+  ]),
+  skills: createCollection(lancerData.skills, ["name", "description"]),
+  coreBonuses: createCollection(lancerData.coreBonuses as CoreBonus[], [
+    "name",
+    "description",
+    "effect",
+    "mountedEffect",
+  ]),
 } as const;
