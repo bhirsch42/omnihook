@@ -7,7 +7,6 @@ function App() {
 
   return (
     <div className="p-3 App">
-      <div className="text-4xl">Omnihook</div>
       <Outlet />
     </div>
   );

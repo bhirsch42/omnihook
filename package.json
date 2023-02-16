@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@fontsource/fira-code": "^4.5.13",
+    "@fontsource/source-code-pro": "^4.5.14",
     "@tanstack/react-router": "0.0.1-beta.82",
     "@types/ramda": "^0.28.23",
     "camelize-ts": "^2.3.0",
+    "fuse.js": "^6.6.2",
     "inflection": "^2.0.1",
     "lancer-data": "^3.0.47",
     "ramda": "^0.28.0",
