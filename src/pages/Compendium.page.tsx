@@ -61,24 +61,22 @@ type CompendiumCollection<T> = {
 const COMPENDIUM_COLLECTIONS = [
   {
     collection: lancerCollections.coreBonuses,
-    renderItem: (item) => <CoreBonusView coreBonus={item} key={item.id} />,
+    renderItem: (item) => <CoreBonusView coreBonus={item} />,
     label: "Core Bonuses",
   } as const satisfies CompendiumCollection<CoreBonus>,
   {
     collection: lancerCollections.backgrounds,
-    renderItem: (item) => <BackgroundView background={item} key={item.id} />,
+    renderItem: (item) => <BackgroundView background={item} />,
     label: "Backgrounds",
   } as const satisfies CompendiumCollection<Background>,
   {
     collection: lancerCollections.manufacturers,
-    renderItem: (item) => (
-      <ManufacturerView manufacturer={item} key={item.id} />
-    ),
+    renderItem: (item) => <ManufacturerView manufacturer={item} />,
     label: "Manufacturers",
   } as const satisfies CompendiumCollection<Manufacturer>,
   {
     collection: lancerCollections.skills,
-    renderItem: (item) => <SkillView skill={item} key={item.id} />,
+    renderItem: (item) => <SkillView skill={item} />,
     label: "Skills",
   } as const satisfies CompendiumCollection<Skill>,
 ] as const;
@@ -91,16 +89,10 @@ export function Compendium() {
   };
 
   return (
-    <>
-      <div className="mb-5">
-        <Link to="/" className="underline">
-          Home
-        </Link>{" "}
-        {">"} Compendium
-      </div>
-      <div className="grid grid-cols-4 gap-5 grid-flow-col">
-        <div className="col-span-1">
-          <div className="div sticky top-0 max-h-screen overflow-y-scroll py-3">
+    <div className="grid grid-cols-4 gap-5 grid-flow-col h-full">
+      <div className="col-span-1 pl-3 ">
+        <div className="flex flex-col h-full">
+          <div className="pt-3">
             <Input
               type="text"
               value={query}
@@ -108,6 +100,8 @@ export function Compendium() {
               placeholder="Search compendium..."
               className="w-full mb-3"
             ></Input>
+          </div>
+          <div className="overflow-y-scroll basis-0 grow">
             {COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
               <SearchResults
                 key={compendiumCollection.label}
@@ -126,14 +120,16 @@ export function Compendium() {
             ))}
           </div>
         </div>
-        <div className="col-span-3">
+      </div>
+      <div className="col-span-3 flex flex-col h-full">
+        <div className="basis-0 grow overflow-scroll mr-3 pt-3">
           {COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
             <SearchResults
               key={compendiumCollection.label}
               query={query}
               collection={compendiumCollection.collection}
               renderItem={(item) => (
-                <div className="bg-gray-200 p-3 mb-3">
+                <div className="p-3 mb-3 bg-bgcolor-800" key={item.id}>
                   {compendiumCollection.renderItem(item as any)}
                 </div>
               )}
@@ -147,6 +143,6 @@ export function Compendium() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

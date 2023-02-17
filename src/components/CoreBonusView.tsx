@@ -40,7 +40,7 @@ export function CoreBonusView({ coreBonus }: { coreBonus: CoreBonus }) {
       {coreBonus.actions && (
         <div className="flex mt-3">
           {coreBonus.actions.map((action) => (
-            <ActionView action={action} />
+            <ActionView action={action} key={action.detail} />
           ))}
         </div>
       )}

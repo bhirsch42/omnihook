@@ -1,0 +1,32 @@
+.clip-tr-1 {
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, calc(100% - 0.5rem) 0%);
+}
+
+.clip-tr {
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, calc(100% - 1.5rem) 0%);
+}
+
+.clip-bl {
+  clip-path: polygon(0% 0%, 1.5rem 100%, 100% 100%, 100% 0%);
+}
+
+.bg-striped {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(31, 41, 55, 50%),
+    rgba(31, 41, 55, 50%) 0.5rem,
+    #a1a1aa 0.5rem,
+    #a1a1aa 1rem
+  );
+}
+
+.resize-handle {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(31, 41, 55),
+    rgba(31, 41, 55) 2px,
+    #a1a1aa 3px,
+    #a1a1aa 6px
+  );
+  clip-path: polygon(0% 100%, 100% 0%, 100% 100%);
+}

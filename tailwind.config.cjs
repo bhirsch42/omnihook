@@ -1,9 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
+        textcolor: colors.zinc,
+        bgcolor: colors.zinc,
+        accentcolor: colors.blue,
         green: {
           50: "#ecffe5",
           100: "#d5ffc7",
