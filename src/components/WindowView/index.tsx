@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { fPropsWithChildren, useRef, useState } from "react";
+import { PropsWithChildren, useRef, useState } from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
 
