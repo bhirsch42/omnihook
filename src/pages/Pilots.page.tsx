@@ -19,7 +19,7 @@ export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="text-lg mb-5">// SELECT USER // </h1>
+      <h1 className="text-lg mb-5 text-center">// SELECT USER // </h1>
       {pilots.map((pilot) => (
         <button
           type="button"
@@ -27,7 +27,7 @@ export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
           onClick={() => handleClick(pilot.id)}
         >
           <FontAwesomeIcon icon={faCircleUser} className="text-5xl mr-3" />
-          <div>
+          <div className="text-left">
             <div className="font-bold">{pilot.name}</div>
             <div className="text-sm">{pilot.callsign}</div>
           </div>

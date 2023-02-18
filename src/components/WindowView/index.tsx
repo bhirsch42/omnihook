@@ -3,6 +3,7 @@ import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
+import { always } from "ramda";
 
 function CloseButton({ onClick }: { onClick?: MouseEventHandler }) {
   return (
@@ -27,13 +28,20 @@ function MinimizeButton() {
   );
 }
 
-function MaximizeButton() {
+function MaximizeButton({
+  onClick,
+  isMaximized,
+}: {
+  onClick?: MouseEventHandler;
+  isMaximized: boolean;
+}) {
   return (
     <button
       type="button"
       className="bg-green-400 hover:bg-green-500 transition-colors w-4 h-4 rounded-full flex items-center justify-center text-zinc-900 text-xs row-span-1"
+      onClick={onClick}
     >
-      <FontAwesomeIcon icon={faPlus} />
+      <FontAwesomeIcon icon={isMaximized ? faMinus : faPlus} />
     </button>
   );
 }
@@ -54,7 +62,7 @@ function WindowViewDecoration() {
 
 function WindowViewButtonContainer({ children }: PropsWithChildren) {
   return (
-    <div className="absolute top-0 right-0 bg-bgcolor-400 text-bgcolor-900 font-bold pl-6 pr-1 clip-bl items-center pb-1 grid gap-2 grid-cols-3">
+    <div className="absolute top-0 right-0 bg-bgcolor-400 text-bgcolor-900 font-bold pl-6 pr-1 clip-bl items-center pb-1 grid gap-2 grid-cols-2">
       {children}
     </div>
   );
@@ -73,6 +81,15 @@ export function WindowView({
   onClickClose?: MouseEventHandler;
 }>) {
   const windowViewEl = useRef<HTMLDivElement | null>(null);
+
+  const [isMaximized, setIsMaximized] = useState<boolean>(false);
+
+  const [oldBounds, setOldBounds] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+  });
 
   const [bounds, setBounds] = useState({
     top: 0.1,
@@ -97,6 +114,23 @@ export function WindowView({
     },
   });
 
+  function handleMaximize() {
+    if (isMaximized) {
+      setBounds(oldBounds);
+    } else {
+      setOldBounds(bounds);
+
+      setBounds({
+        top: 0,
+        left: 0,
+        width: 1,
+        height: 1,
+      });
+    }
+
+    setIsMaximized(!isMaximized);
+  }
+
   const style = {
     width: `${bounds.width * 100}%`,
     height: `${bounds.height * 100}%`,
@@ -111,20 +145,25 @@ export function WindowView({
       ref={windowViewEl}
       onMouseDown={onMouseDown}
     >
-      <div onMouseDown={startDrag}>
-        <WindowViewDecoration />
-        <WindowViewLabel>{label}</WindowViewLabel>
-      </div>
-      <div
-        className="absolute -bottom-1 -right-1 w-7 h-7 bg-red-500 resize-handle border-0 border-bgcolor-400 cursor-nwse-resize"
-        onMouseDown={startResize}
-      ></div>
+      {!isMaximized && (
+        <>
+          <div onMouseDown={startDrag}>
+            <WindowViewDecoration />
+            <WindowViewLabel>{label}</WindowViewLabel>
+          </div>
+          <div
+            className="absolute -bottom-1 -right-1 w-7 h-7 bg-red-500 resize-handle border-0 border-bgcolor-400 cursor-nwse-resize"
+            onMouseDown={startResize}
+          ></div>
+        </>
+      )}
+
       <WindowViewButtonContainer>
+        <MaximizeButton onClick={handleMaximize} isMaximized={isMaximized} />
         <CloseButton onClick={onClickClose} />
-        <MinimizeButton />
-        <MaximizeButton />
       </WindowViewButtonContainer>
-      {children}
+
+      <div className="overflow-hidden w-full h-full">{children}</div>
     </div>
   );
 }

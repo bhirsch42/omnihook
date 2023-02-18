@@ -10,12 +10,13 @@ export type PilotsState = {
   all: Pilot[];
 };
 
-const initialState: PilotsState = import.meta.env.DEV
-  ? pilotsTestData
-  : {
-      activePilotId: null,
-      all: [],
-    };
+const initialState: PilotsState =
+  import.meta.env.DEV && false
+    ? pilotsTestData
+    : {
+        activePilotId: null,
+        all: [],
+      };
 
 export const pilotsSlice = createSlice({
   name: "pilots",
