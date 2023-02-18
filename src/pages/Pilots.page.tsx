@@ -1,52 +1,56 @@
-import { Link } from "@tanstack/react-router";
+import { CreatePilotForm } from "../components/CreatePilotForm";
+import { Pilot } from "../schemas/pilot.schema";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectAllPilots, setActivePilot } from "../store/pilotsSlice";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-type FormInputProps = {
-  label: string;
-  className?: string;
-};
-
-export function FormInput({ label, className }: FormInputProps) {
-  return (
-    <div className={` ${className}`}>
-      <label className="block text-sm text-textcolor-300 mb-1">
-        {">"} {label}
-      </label>
-      <input
-        type="text"
-        className="w-full bg-bgcolor-800 border-b-bgcolor-700 border-b-2 outline-none py-1 px-2 focus:border-b-bgcolor-50 transition-colors"
-      />
-    </div>
-  );
-}
-
-type ButtonProps = React.DetailedHTMLProps<
+export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
 
-export function Button({ className, children, ...buttonProps }: ButtonProps) {
+export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
+  const dispatch = useAppDispatch();
+
+  function handleClick(id: string) {
+    dispatch(setActivePilot(id));
+  }
+
   return (
-    <button
-      {...buttonProps}
-      className={`${className} bg-bgcolor-700 hover:bg-bgcolor-600 transition-colors px-2 py-1 rounded outline-none focus:border-bgcolor-400 border border-transparent`}
-    >
-      {children}
-    </button>
+    <div className="flex flex-col justify-center">
+      <h1 className="text-lg mb-5">// SELECT USER // </h1>
+      {pilots.map((pilot) => (
+        <button
+          type="button"
+          className="p-3 rounded bg-bgcolor-700 hover:bg-bgcolor-600 transition-colors flex items-center"
+          onClick={() => handleClick(pilot.id)}
+        >
+          <FontAwesomeIcon icon={faCircleUser} className="text-5xl mr-3" />
+          <div>
+            <div className="font-bold">{pilot.name}</div>
+            <div className="text-sm">{pilot.callsign}</div>
+          </div>
+        </button>
+      ))}
+    </div>
   );
 }
 
 export function Pilots() {
-  return (
-    <>
-      <div className="flex h-80 justify-center items-center">
-        <form className="p-3 w-80 border-2 border-bgcolor-700">
-          <FormInput label="Pilot Name" className="mb-3" />
-          <FormInput label="Callsign" className="mb-4" />
-          <div className="flex justify-end">
-            <Button type="submit">Register Pilot</Button>
-          </div>
-        </form>
+  const pilots = useAppSelector(selectAllPilots);
+
+  if (pilots.length === 0) {
+    return (
+      <div className="flex justify-center mt-10">
+        <CreatePilotForm />
       </div>
-    </>
+    );
+  }
+
+  return (
+    <div className="flex justify-center mt-10">
+      <SelectPilot pilots={pilots} />
+    </div>
   );
 }

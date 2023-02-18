@@ -1,15 +1,14 @@
-import { Link } from "@tanstack/react-router";
 import { Collection, lancerCollections } from "../data/lancerData";
 import { ChangeEvent, PropsWithChildren, ReactNode, useState } from "react";
 import { Input } from "../components/Input";
 import { BackgroundView } from "../components/BackgroundView";
 import { ManufacturerView } from "../components/ManufacturerView";
 import { SkillView } from "../components/SkillView";
-import { Background } from "../schemas/background.schema";
-import { Manufacturer } from "../schemas/manufacturer.schema";
-import { Skill } from "../schemas/skill.schema";
+import { Background } from "../schemas/lancerData/background.schema";
+import { Manufacturer } from "../schemas/lancerData/manufacturer.schema";
+import { Skill } from "../schemas/lancerData/skill.schema";
 import { CoreBonusView } from "../components/CoreBonusView";
-import { CoreBonus } from "../schemas/coreBonus.schema";
+import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 
 type SearchResultsProps<T> = {
   query: string;
@@ -89,9 +88,9 @@ export function Compendium() {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-5 grid-flow-col h-full">
-      <div className="col-span-1 pl-3 ">
-        <div className="flex flex-col h-full">
+    <div className="flex h-full">
+      <div className="pl-3 mr-5">
+        <div className="flex flex-col h-full whitespace-nowrap">
           <div className="pt-3">
             <Input
               type="text"
@@ -122,7 +121,7 @@ export function Compendium() {
         </div>
       </div>
       <div className="col-span-3 flex flex-col h-full">
-        <div className="basis-0 grow overflow-scroll mr-3 pt-3">
+        <div className="basis-0 grow overflow-scroll pr-3 pt-3">
           {COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
             <SearchResults
               key={compendiumCollection.label}

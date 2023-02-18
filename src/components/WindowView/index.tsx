@@ -4,11 +4,12 @@ import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
 
-function CloseButton() {
+function CloseButton({ onClick }: { onClick?: MouseEventHandler }) {
   return (
     <button
       type="button"
       className="bg-red-400 hover:bg-red-500 transition-colors w-4 h-4 rounded-full flex items-center justify-center text-zinc-900 text-xs row-span-1"
+      onClick={onClick}
     >
       <FontAwesomeIcon icon={faXmark} />
     </button>
@@ -65,7 +66,12 @@ export function WindowView({
   children,
   label,
   onMouseDown,
-}: PropsWithChildren<{ label: string; onMouseDown?: MouseEventHandler }>) {
+  onClickClose,
+}: PropsWithChildren<{
+  label: string;
+  onMouseDown?: MouseEventHandler;
+  onClickClose?: MouseEventHandler;
+}>) {
   const windowViewEl = useRef<HTMLDivElement | null>(null);
 
   const [bounds, setBounds] = useState({
@@ -114,7 +120,7 @@ export function WindowView({
         onMouseDown={startResize}
       ></div>
       <WindowViewButtonContainer>
-        <CloseButton />
+        <CloseButton onClick={onClickClose} />
         <MinimizeButton />
         <MaximizeButton />
       </WindowViewButtonContainer>

@@ -1,8 +1,6 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
 import { tagRefSchema } from "./tagRef.schema";
-import { weaponTypeSchema } from "./weaponType.schema";
-import { weaponSizeSchema } from "./weaponSize.schema";
 import { actionSchema } from "./action.schema";
 import { damageSchema } from "./damage.schema";
 import { rangeSchema } from "./range.schema";

@@ -1,33 +1,42 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from ".";
+import { CreatePilot } from "../schemas/createPilot.schema";
+import { v4 as uuidv4 } from "uuid";
+import { Pilot } from "../schemas/pilot.schema";
+import { pilotsTestData } from "../fixtures/pilotsTestData";
 
-type Pilot = {
-  id: string;
-  name: string;
-};
-
-type PilotsState = {
+export type PilotsState = {
   activePilotId: string | null;
   all: Pilot[];
 };
 
-const initialState: PilotsState = {
-  activePilotId: null,
-  all: [],
-};
+const initialState: PilotsState = import.meta.env.DEV
+  ? pilotsTestData
+  : {
+      activePilotId: null,
+      all: [],
+    };
 
 export const pilotsSlice = createSlice({
   name: "pilots",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    createPilot: (state, action: PayloadAction<Pilot>) => {
-      state.all.push(action.payload);
+    createPilot: (state, action: PayloadAction<CreatePilot>) => {
+      state.all.push({ id: uuidv4(), ...action.payload });
+    },
+
+    setActivePilot: (state, action: PayloadAction<Pilot["id"]>) => {
+      state.activePilotId = action.payload;
     },
   },
 });
 
-export const { createPilot } = pilotsSlice.actions;
+export const { createPilot, setActivePilot } = pilotsSlice.actions;
+
+export const selectAllPilots = (state: RootState): Pilot[] => {
+  return state.pilots.all;
+};
 
 export const selectActivePilotSafe = (state: RootState): Pilot | null => {
   return (
