@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { PropsWithChildren, useRef, useState } from "react";
+import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
 
@@ -64,7 +64,8 @@ const DRAG_BUFFER = 20;
 export function WindowView({
   children,
   label,
-}: PropsWithChildren<{ label: string }>) {
+  onMouseDown,
+}: PropsWithChildren<{ label: string; onMouseDown?: MouseEventHandler }>) {
   const windowViewEl = useRef<HTMLDivElement | null>(null);
 
   const [bounds, setBounds] = useState({
@@ -102,6 +103,7 @@ export function WindowView({
       className="absolute bg-bgcolor-900 border-4 border-bgcolor-400"
       style={style}
       ref={windowViewEl}
+      onMouseDown={onMouseDown}
     >
       <div onMouseDown={startDrag}>
         <WindowViewDecoration />

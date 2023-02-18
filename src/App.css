@@ -18,6 +18,8 @@
     #a1a1aa 0.5rem,
     #a1a1aa 1rem
   );
+
+  transform: translateY(0.5px) translateX(0.2px);
 }
 
 .resize-handle {
