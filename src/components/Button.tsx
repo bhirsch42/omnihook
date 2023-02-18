@@ -1,4 +1,4 @@
-import { ButtonProps } from "../pages/Pilots.page";
+import { ButtonProps } from "../pages/ChoosePilot.page";
 
 export function Button({ className, children, ...buttonProps }: ButtonProps) {
   return (

@@ -1,9 +1,10 @@
 import { CreatePilotForm } from "../components/CreatePilotForm";
 import { Pilot } from "../schemas/pilot.schema";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectAllPilots, setActivePilot } from "../store/pilotsSlice";
+import { setActivePilot } from "../store/pilots";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { selectAllPilots } from "../store/pilots/selectors/selectAllPilots";
 
 export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -37,7 +38,7 @@ export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
   );
 }
 
-export function Pilots() {
+export function ChoosePilot() {
   const pilots = useAppSelector(selectAllPilots);
 
   if (pilots.length === 0) {

@@ -4,7 +4,7 @@ import { FormInput } from "./FormInput";
 import { Button } from "./Button";
 import { createPilotSchema, CreatePilot } from "../schemas/createPilot.schema";
 import { useAppDispatch } from "../store/hooks";
-import { createPilot } from "../store/pilotsSlice";
+import { createPilot } from "../store/pilots";
 
 export function CreatePilotForm() {
   const dispatch = useAppDispatch();

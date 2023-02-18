@@ -1,10 +1,10 @@
 import { Route } from "@tanstack/react-router";
 import { Compendium } from "../pages/Compendium.page";
-import { Pilots } from "../pages/Pilots.page";
+import { ChoosePilot } from "../pages/ChoosePilot.page";
 import { rootRoute } from "../router";
 
 export const pilotsRoute = new Route({
-  component: Pilots,
+  component: ChoosePilot,
   getParentRoute: () => rootRoute,
   path: "/pilots",
 });

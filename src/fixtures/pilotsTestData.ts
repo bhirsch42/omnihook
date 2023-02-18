@@ -1,4 +1,5 @@
-import { PilotsState } from "../store/pilotsSlice";
+import { lancerData } from "../data/lancerData";
+import { PilotsState } from "../store/pilots";
 
 export const pilotsTestData: PilotsState = {
   activePilotId: "kelly",
@@ -7,6 +8,9 @@ export const pilotsTestData: PilotsState = {
       id: "kelly",
       name: "Kelly McSpacey",
       callsign: "Pot of Gold",
+      licenseLevel: 0,
+      canReallocate: false,
+      hp: lancerData.rules.basePilotHp,
     },
   ],
 };

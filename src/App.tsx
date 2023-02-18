@@ -1,9 +1,9 @@
 import "./App.css";
 import { Outlet } from "@tanstack/react-router";
-import { selectActivePilotSafe } from "./store/pilotsSlice";
 import { useAppSelector } from "./store/hooks";
-import { Pilots } from "./pages/Pilots.page";
+import { ChoosePilot } from "./pages/ChoosePilot.page";
 import { WindowManager } from "./components/WindowManager";
+import { selectActivePilotSafe } from "./store/pilots/selectors/selectActivePilotSafe";
 
 function App() {
   const pilot = useAppSelector(selectActivePilotSafe);
@@ -15,7 +15,7 @@ function App() {
           <Outlet />
         </WindowManager>
       ) : (
-        <Pilots />
+        <ChoosePilot />
       )}
     </div>
   );

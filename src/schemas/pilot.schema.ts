@@ -7,6 +7,9 @@ export const pilotSchema = z.object({
   background: z.string().optional(),
   biography: z.string().optional(),
   description: z.string().optional(),
+  licenseLevel: z.number(),
+  canReallocate: z.boolean(),
+  hp: z.number(),
 });
 
 export type Pilot = z.infer<typeof pilotSchema>;
