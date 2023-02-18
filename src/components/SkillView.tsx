@@ -1,4 +1,4 @@
-import { Skill } from "../schemas/skill.schema";
+import { Skill } from "../schemas/lancerData/skill.schema";
 
 export function SkillView({ skill }: { skill: Skill }) {
   return (

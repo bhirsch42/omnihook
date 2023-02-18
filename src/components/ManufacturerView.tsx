@@ -1,4 +1,4 @@
-import { Manufacturer } from "../schemas/manufacturer.schema";
+import { Manufacturer } from "../schemas/lancerData/manufacturer.schema";
 
 export function ManufacturerView({
   manufacturer,

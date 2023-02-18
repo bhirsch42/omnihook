@@ -1,7 +1,7 @@
 import rawLancerData from "lancer-data";
-import { lancerDataSchema } from "../schemas/lancerData.schema";
+import { lancerDataSchema } from "../schemas/lancerData/index.schema";
 import Fuse from "fuse.js";
-import { CoreBonus } from "../schemas/coreBonus.schema";
+import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 
 console.log(rawLancerData);
 export const lancerData = lancerDataSchema.parse(rawLancerData);

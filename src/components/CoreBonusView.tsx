@@ -1,6 +1,6 @@
 import { isNil, reject } from "ramda";
-import { Action } from "../schemas/action.schema";
-import { CoreBonus } from "../schemas/coreBonus.schema";
+import { Action } from "../schemas/lancerData/action.schema";
+import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 
 function ActionView({ action }: { action: Action }) {
   return (
