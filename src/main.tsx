@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import compconBackup from "./fixtures/compconBackup.json";
-import { compconBackupSchema } from "./schemas/compconBackup.schema";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router";
+import { Provider } from "react-redux";
 
 import "@fontsource/source-code-pro/200-italic.css";
 import "@fontsource/source-code-pro/200.css";
@@ -22,12 +21,12 @@ import "@fontsource/source-code-pro/800-italic.css";
 import "@fontsource/source-code-pro/800.css";
 import "@fontsource/source-code-pro/900-italic.css";
 import "@fontsource/source-code-pro/900.css";
-
-console.log("RAW COMPCON BACKUP", compconBackup);
-console.log("PARSED COMPCON BACKUP", compconBackupSchema.parse(compconBackup));
+import { store } from "./store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

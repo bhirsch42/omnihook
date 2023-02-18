@@ -77,12 +77,6 @@ export function Desktop() {
         </div>
       </div>
       <WindowManager />
-      {/* <WindowView label="Compendium">
-        <Compendium />
-      </WindowView>
-      <WindowView label="Compendium">
-        <Compendium />
-      </WindowView> */}
     </>
   );
 }
