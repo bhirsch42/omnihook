@@ -1,9 +1,9 @@
-import { Compendium } from "../pages/Compendium.page";
 import {
   createContext,
   PropsWithChildren,
   ReactNode,
   useContext,
+  useRef,
   useState,
 } from "react";
 import { reject, always } from "ramda";
@@ -24,18 +24,18 @@ type CreateWindowProps = OpenWindowProps & {
 
 type WindowManagerContextProps = {
   openWindow: (props: OpenWindowProps) => void;
+  focusWindow: (id: string) => void;
+  closeWindow: (id: string) => void;
 };
 
 const WindowManagerContext = createContext<WindowManagerContextProps>({
   openWindow: always,
+  closeWindow: always,
+  focusWindow: always,
 });
 
 export function useWindowManager() {
-  const { openWindow } = useContext(WindowManagerContext);
-
-  return {
-    openWindow,
-  };
+  return useContext(WindowManagerContext);
 }
 
 export function createWindow({
@@ -66,42 +66,52 @@ export type ManagedWindow = {
 };
 
 export function WindowManager({ children }: PropsWithChildren) {
-  const [windows, setWindows] = useState<ManagedWindow[]>([]);
+  const [displayWindows, setDisplayWindows] = useState<ManagedWindow[]>([]);
+  const windows = useRef<ManagedWindow[]>([]);
+
+  function updateDisplayWindows() {
+    setDisplayWindows([...windows.current]);
+  }
 
   function focusWindow(id: string) {
     const withoutActive = reject<ManagedWindow>((w) => w.id === id);
-    const activeWindow = windows.find((w) => w.id === id);
-    if (!activeWindow) throw new Error("Error focusing window");
-    setWindows([...withoutActive(windows), activeWindow]);
+    const activeWindow = windows.current.find((w) => w.id === id);
+    if (!activeWindow) throw new Error(`Error focusing window: ${id}`);
+    windows.current = [...withoutActive(windows.current), activeWindow];
+    updateDisplayWindows();
   }
 
   function closeWindow(id: string) {
     const withoutWindow = reject<ManagedWindow>((w) => w.id === id);
-    setWindows(withoutWindow(windows));
+    windows.current = withoutWindow(windows.current);
+    updateDisplayWindows();
   }
 
   function openWindow({ id, label, component }: OpenWindowProps) {
-    if (id && windows.find((w) => w.id === id)) {
+    if (id && windows.current.find((w) => w.id === id)) {
       focusWindow(id);
       return;
     }
 
-    setWindows([
-      ...windows,
+    windows.current.push(
       createWindow({
         id: id || uuidv4(),
         label,
         component,
         focusWindow,
         closeWindow,
-      }),
-    ]);
+      })
+    );
+
+    updateDisplayWindows();
   }
 
   return (
-    <WindowManagerContext.Provider value={{ openWindow }}>
+    <WindowManagerContext.Provider
+      value={{ openWindow, closeWindow, focusWindow }}
+    >
       {children}
-      {windows.map((w) => {
+      {displayWindows.map((w) => {
         return w.component;
       })}
     </WindowManagerContext.Provider>

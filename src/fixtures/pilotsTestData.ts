@@ -11,6 +11,7 @@ export const pilotsTestData: PilotsState = {
       licenseLevel: 0,
       canReallocate: false,
       hp: lancerData.rules.basePilotHp,
+      skills: [],
     },
   ],
 };

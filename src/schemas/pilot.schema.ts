@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { pilotSkillSchema } from "./pilotSkill.schema";
 
 export const pilotSchema = z.object({
   id: z.string(),
@@ -10,6 +11,7 @@ export const pilotSchema = z.object({
   licenseLevel: z.number(),
   canReallocate: z.boolean(),
   hp: z.number(),
+  skills: pilotSkillSchema.array(),
 });
 
 export type Pilot = z.infer<typeof pilotSchema>;

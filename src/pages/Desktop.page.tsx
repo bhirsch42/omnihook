@@ -6,13 +6,16 @@ import {
 import { DesktopBackground } from "../components/DesktopBackground";
 import { DesktopIcon } from "../components/DesktopIcon";
 import { useWindowManager } from "../components/WindowManager";
+import { useAppSelector } from "../store/hooks";
+import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
 import { Compendium } from "./Compendium.page";
-import { PilotView } from "./PilotView.page";
+import { PilotView } from "./PilotView/index.page";
 
 export function Desktop() {
   const { openWindow } = useWindowManager();
+  const pilotId = useAppSelector(selectActivePilot).id;
 
-  function handleClickCompendium() {
+  async function handleClickCompendium() {
     openWindow({
       id: "compendium",
       label: "Compendium",
@@ -20,11 +23,11 @@ export function Desktop() {
     });
   }
 
-  function handleClickPilot() {
+  async function handleClickPilot() {
     openWindow({
       id: "pilot",
       label: "Pilot",
-      component: <PilotView />,
+      component: <PilotView pilotId={pilotId} />,
     });
   }
 

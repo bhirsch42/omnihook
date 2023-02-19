@@ -2,6 +2,7 @@ import { pipe } from "ramda";
 import { RootState } from "../..";
 import { lancerData } from "../../../data/lancerData";
 import { selectActivePilot } from "./selectActivePilot";
+import { selectPilot } from "./selectPilot";
 
 type PilotStats = {
   maxHp: number;
@@ -52,8 +53,9 @@ const applyLicenseLevel =
     };
   };
 
-export function selectPilotStats(state: RootState): PilotStats {
-  const pilot = selectActivePilot(state);
-
-  return pipe(getBaseStats, applyLicenseLevel(pilot.licenseLevel))();
-}
+export const selectPilotStats =
+  (id: string) =>
+  (state: RootState): PilotStats => {
+    const pilot = selectPilot(id)(state);
+    return pipe(getBaseStats, applyLicenseLevel(pilot.licenseLevel))();
+  };

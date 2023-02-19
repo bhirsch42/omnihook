@@ -1,4 +1,4 @@
-import { Background } from "../schemas/background.schema";
+import { Background } from "../schemas/lancerData/background.schema";
 
 export function BackgroundView({ background }: { background: Background }) {
   return (

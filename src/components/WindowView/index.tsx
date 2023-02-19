@@ -1,6 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
+import {
+  MouseEventHandler,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
 import { always } from "ramda";
@@ -83,6 +89,8 @@ export function WindowView({
   const windowViewEl = useRef<HTMLDivElement | null>(null);
 
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
+  const [isIn, setIsIn] = useState<boolean>(false);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const [oldBounds, setOldBounds] = useState({
     top: 0,
@@ -115,6 +123,9 @@ export function WindowView({
   });
 
   function handleMaximize() {
+    setIsTransitioning(true);
+    setTimeout(() => setIsTransitioning(false), 150);
+
     if (isMaximized) {
       setBounds(oldBounds);
     } else {
@@ -128,8 +139,14 @@ export function WindowView({
       });
     }
 
-    setIsMaximized(!isMaximized);
+    setIsMaximized((state) => !state);
   }
+
+  const handleClose: MouseEventHandler = (e) => {
+    setIsIn(false);
+    setIsTransitioning(true);
+    onClickClose && setTimeout(() => onClickClose(e), 150);
+  };
 
   const style = {
     width: `${bounds.width * 100}%`,
@@ -138,9 +155,17 @@ export function WindowView({
     left: `${bounds.left * 100}%`,
   };
 
+  useEffect(() => {
+    setIsIn(true);
+    setIsTransitioning(true);
+    setTimeout(() => setIsTransitioning(false), 150);
+  }, []);
+
   return (
     <div
-      className="absolute bg-bgcolor-900 border-4 border-bgcolor-400"
+      className={`absolute bg-bgcolor-900 border-4 border-bgcolor-400 ${
+        isTransitioning && "transition-all"
+      } ease-out ${!isIn && "translate-y-6 opacity-0"}`}
       style={style}
       ref={windowViewEl}
       onMouseDown={onMouseDown}
@@ -160,7 +185,7 @@ export function WindowView({
 
       <WindowViewButtonContainer>
         <MaximizeButton onClick={handleMaximize} isMaximized={isMaximized} />
-        <CloseButton onClick={onClickClose} />
+        <CloseButton onClick={handleClose} />
       </WindowViewButtonContainer>
 
       <div className="overflow-hidden w-full h-full">{children}</div>
