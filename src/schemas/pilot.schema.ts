@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { licenseLevelSnapshotSchema } from "./licenseLevelSnapshot.schema";
 import { pilotSkillSchema } from "./pilotSkill.schema";
+import { pilotTalentSchema } from "./pilotTalent.schema";
 
 export const pilotSchema = z.object({
   id: z.string(),
@@ -13,6 +14,7 @@ export const pilotSchema = z.object({
   canReallocate: z.boolean(),
   hp: z.number(),
   skills: pilotSkillSchema.array(),
+  talents: pilotTalentSchema.array(),
   licenseLevelSnapshots: z.record(z.number(), licenseLevelSnapshotSchema),
 });
 

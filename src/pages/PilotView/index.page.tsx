@@ -6,6 +6,7 @@ import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { PilotSkills } from "./PilotSkills";
 import { LicenseLevel } from "./LicenseLevel";
 import { Grit } from "./Grit";
+import { PilotTalents } from "./PilotTalents";
 
 export function PilotView({ pilotId }: { pilotId: string }) {
   const pilot = useAppSelector(selectPilot(pilotId));
@@ -34,7 +35,13 @@ export function PilotView({ pilotId }: { pilotId: string }) {
           </div>
           <div>
             === Skills ===
-            <PilotSkills pilotId={pilotId} className="p-3 bg-bgcolor-800" />
+            <PilotSkills pilotId={pilotId} />
+          </div>
+        </div>
+        <div className="flex flex-col ml-3">
+          <div>
+            === Talents ===
+            <PilotTalents pilotId={pilotId} />
           </div>
         </div>
       </div>

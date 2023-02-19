@@ -14,6 +14,7 @@ export function createPilotReducer(
     canReallocate: false,
     hp: lancerData.rules.basePilotHp,
     skills: [],
+    talents: [],
     licenseLevelSnapshots: {},
     ...action.payload,
   });
