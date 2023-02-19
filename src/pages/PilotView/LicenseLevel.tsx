@@ -4,17 +4,24 @@ import {
   faChevronLeft,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { Button } from "../../components/Button";
+import { incrementLicenseLevel } from "../../store/pilots";
 
 export function LicenseLevel({ pilotId }: { pilotId: string }) {
+  const dispatch = useAppDispatch();
   const pilot = useAppSelector(selectPilot(pilotId));
+
+  function handleClickLevelUp() {
+    dispatch(incrementLicenseLevel(pilotId));
+  }
+
   return (
     <div className="flex">
       <div className="flex flex-col">
-        <div className="bg-bgcolor-800 text-center p-3">
-          <div className="flex justify-between items-center">
+        <div className="p-3 text-center bg-bgcolor-800">
+          <div className="flex items-center justify-between">
             <div>
               <FontAwesomeIcon
                 icon={faChevronRight}
@@ -39,7 +46,10 @@ export function LicenseLevel({ pilotId }: { pilotId: string }) {
           </div>
           <div className="text">License Level</div>
         </div>
-        <Button className="text-xs rounded-none flex items-center justify-center">
+        <Button
+          onClick={handleClickLevelUp}
+          className="flex items-center justify-center text-xs rounded-none"
+        >
           <div className="mr-2">Level Up</div>{" "}
           <FontAwesomeIcon icon={faArrowUp} className="text-bgcolor-400" />
         </Button>

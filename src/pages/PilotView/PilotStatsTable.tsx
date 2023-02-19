@@ -21,37 +21,41 @@ export function PilotStatsTable({
   const pilotStats = useAppSelector(selectPilotStats(pilotId));
 
   return (
-    <div className={`grid grid-cols-[auto_1fr] gap-x-3 ${className}`}>
+    <div className={`grid grid-cols-[auto_auto_1fr] gap-x-3 ${className}`}>
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faHeart} className="mr-2 text-bgcolor-400" />
-        <div>HP</div>
+        <FontAwesomeIcon icon={faHeart} className="text-bgcolor-400" />
       </div>
-      <div>
+      <div className="flex items-center">HP</div>
+      <div className="flex items-center">
         {pilot.hp}/{pilotStats.maxHp}
       </div>
+
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faShield} className="mr-2 text-bgcolor-400" />
-        <div>Armor</div>
+        <FontAwesomeIcon icon={faShield} className="text-bgcolor-400" />
       </div>
-      <div>{pilotStats.armor}</div>
+      <div className="flex items-center">Armor</div>
+      <div className="flex items-center">{pilotStats.armor}</div>
+
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faMicrochip} className="mr-2 text-bgcolor-400" />
-        <div>E-Defense</div>
+        <FontAwesomeIcon icon={faMicrochip} className="text-bgcolor-400" />
       </div>
-      <div>{pilotStats.edef}</div>
+      <div className="flex items-center">E-Defense</div>
+      <div className="flex items-center">{pilotStats.edef}</div>
+
       <div className="flex items-center">
         <FontAwesomeIcon
           icon={faPersonFallingBurst}
-          className="mr-2 text-bgcolor-400"
+          className="text-bgcolor-400"
         />
-        <div>Evasion</div>
       </div>
-      <div>{pilotStats.evasion}</div>
+      <div className="flex items-center">Evasion</div>
+      <div className="flex items-center">{pilotStats.evasion}</div>
+
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faRunning} className="mr-2 text-bgcolor-400" />
-        <div>Speed</div>
+        <FontAwesomeIcon icon={faRunning} className="text-bgcolor-400" />
       </div>
-      <div>{pilotStats.speed}</div>
+      <div className="flex items-center">Speed</div>
+      <div className="flex items-center">{pilotStats.speed}</div>
     </div>
   );
 }

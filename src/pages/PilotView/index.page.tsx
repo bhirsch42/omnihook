@@ -11,9 +11,9 @@ export function PilotView({ pilotId }: { pilotId: string }) {
   const pilot = useAppSelector(selectPilot(pilotId));
 
   return (
-    <div className="p-3 overflow-y-scroll h-full">
+    <div className="h-full p-3 overflow-y-scroll">
       <div className="flex items-center mb-3">
-        <FontAwesomeIcon icon={faCircleUser} className="text-5xl mr-3" />
+        <FontAwesomeIcon icon={faCircleUser} className="mr-3 text-5xl" />
         <div className="text-left">
           <div className="font-bold">{pilot.name}</div>
           <div className="text-sm">{pilot.callsign}</div>
@@ -29,11 +29,11 @@ export function PilotView({ pilotId }: { pilotId: string }) {
           </div>
 
           <div className="mb-3">
-            Stats
+            === Stats ===
             <PilotStatsTable pilotId={pilotId} className="p-3 bg-bgcolor-800" />
           </div>
           <div>
-            Skills
+            === Skills ===
             <PilotSkills pilotId={pilotId} className="p-3 bg-bgcolor-800" />
           </div>
         </div>
