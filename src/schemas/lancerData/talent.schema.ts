@@ -15,3 +15,5 @@ export const talentSchema = z
     synergies: synergySchema.array().optional(),
   })
   .strict();
+
+export type Talent = z.infer<typeof talentSchema>;

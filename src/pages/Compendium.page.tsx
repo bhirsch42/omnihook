@@ -12,6 +12,8 @@ import { SearchCollection } from "../components/SearchCollection";
 import { SearchResults } from "../components/SearchCollection/SearchResults";
 import { SearchResultSidebarItem } from "../components/SearchCollection/SearchResultSidebarItem";
 import { SearchResultLabel } from "../components/SearchCollection/SearchResultLabel";
+import { Talent } from "../schemas/lancerData/talent.schema";
+import { TalentView } from "../components/TalentView";
 
 type CompendiumCollection<T> = {
   collection: Collection<T>;
@@ -20,6 +22,11 @@ type CompendiumCollection<T> = {
 };
 
 const COMPENDIUM_COLLECTIONS = [
+  {
+    collection: lancerCollections.talents,
+    renderItem: (item) => <TalentView talent={item} />,
+    label: "Talents",
+  } as const satisfies CompendiumCollection<Talent>,
   {
     collection: lancerCollections.coreBonuses,
     renderItem: (item) => <CoreBonusView coreBonus={item} />,

@@ -1,36 +1,12 @@
-import { isNil, reject } from "ramda";
-import { Action } from "../schemas/lancerData/action.schema";
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
-
-function ActionView({ action }: { action: Action }) {
-  return (
-    <div className="p-2 border border-gray-500">
-      <div className="flex mb-3">
-        <div className="font-bold mr-auto">{action.name}</div>
-        <div className="italic">
-          {action.frequency && `${action.frequency}, `}
-          {action.activation}
-        </div>
-      </div>
-
-      <div>{action.detail}</div>
-
-      {action.trigger && (
-        <div className="">
-          <label className="text-sm text-gray-500">Trigger</label>
-          <div>{action.trigger}</div>
-        </div>
-      )}
-    </div>
-  );
-}
+import { ActionView } from "./ActionView";
 
 export function CoreBonusView({ coreBonus }: { coreBonus: CoreBonus }) {
   return (
     <div id={coreBonus.id}>
-      <div className="font-bold text-lg">{coreBonus.name}</div>
+      <div className="text-lg font-bold">{coreBonus.name}</div>
       <div dangerouslySetInnerHTML={{ __html: coreBonus.description }}></div>
-      <div className="mt-1 flex">
+      <div className="flex mt-1">
         <div className="pr-3">{">"}</div>
         <div
           className="font-bold"

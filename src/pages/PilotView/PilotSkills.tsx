@@ -13,6 +13,7 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Skill } from "../../schemas/lancerData/skill.schema";
 import { useDispatch } from "react-redux";
 import { selectUnspentPilotSkillPoints } from "../../store/pilots/selectors/selectUnspentPilotSkillPoints";
+import { HLine } from "../../components/HLine";
 
 export const CHOOSE_SKILL_WINDOW_ID = "choose-new-skill";
 
@@ -52,7 +53,7 @@ function PilotSkillRow({
       <div>
         <div className="flex items-center font-bold">
           <div>{skill.name}</div>
-          <div className="ml-2 grow bg-bgcolor-700 h-1px"></div>
+          <HLine />
         </div>
         <div className="max-w-md text-sm">{skill.description}</div>
       </div>

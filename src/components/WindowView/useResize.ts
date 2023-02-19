@@ -32,8 +32,6 @@ export function useResize({
     const width = clampResizeX(x + dimensions.width * clientWidth);
     const height = clampResizeY(y + dimensions.height * clientHeight);
 
-    console.log(width, height);
-
     windowViewEl.current.style.width = `${width}px`;
     windowViewEl.current.style.height = `${height}px`;
   };

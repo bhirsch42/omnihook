@@ -2,6 +2,7 @@ import rawLancerData from "lancer-data";
 import { lancerDataSchema } from "../schemas/lancerData/index.schema";
 import Fuse from "fuse.js";
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
+import { Talent } from "../schemas/lancerData/talent.schema";
 
 console.log(rawLancerData);
 export const lancerData = lancerDataSchema.parse(rawLancerData);
@@ -48,20 +49,11 @@ function createCollection<T extends { id: string }>(
 }
 
 export const lancerCollections = {
-  manufacturers: createCollection(lancerData.manufacturers, [
-    "name",
-    "description",
-    "quote",
-  ]),
-  backgrounds: createCollection(lancerData.backgrounds, [
-    "name",
-    "description",
-  ]),
-  skills: createCollection(lancerData.skills, ["name", "description"]),
+  manufacturers: createCollection(lancerData.manufacturers, ["name"]),
+  backgrounds: createCollection(lancerData.backgrounds, ["name"]),
+  skills: createCollection(lancerData.skills, ["name"]),
   coreBonuses: createCollection(lancerData.coreBonuses as CoreBonus[], [
     "name",
-    "description",
-    "effect",
-    "mountedEffect",
   ]),
+  talents: createCollection(lancerData.talents as Talent[], ["name"]),
 } as const;

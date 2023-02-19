@@ -19,3 +19,5 @@ export const talentRankSchema = z
   })
   .strict()
   .transform((o) => camelize(o, true));
+
+export type TalentRank = z.infer<typeof talentRankSchema>;

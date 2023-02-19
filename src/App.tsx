@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { Outlet } from "@tanstack/react-router";
 import { useAppSelector } from "./store/hooks";
 import { ChoosePilot } from "./pages/ChoosePilot.page";
