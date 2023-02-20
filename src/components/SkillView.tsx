@@ -8,7 +8,8 @@ export function SkillView({
   className?: string;
 }) {
   return (
-    <div id={skill.id} className={className}>
+    <div className={`relative ${className}`}>
+      <div className="absolute -top-6" id={skill.id}></div>
       <div className="text-lg font-bold">{skill.name}</div>
       <div dangerouslySetInnerHTML={{ __html: skill.description }}></div>
     </div>

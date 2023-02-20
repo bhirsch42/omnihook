@@ -1,9 +1,16 @@
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 import { ActionView } from "./ActionView";
 
-export function CoreBonusView({ coreBonus }: { coreBonus: CoreBonus }) {
+export function CoreBonusView({
+  coreBonus,
+  className,
+}: {
+  coreBonus: CoreBonus;
+  className?: string;
+}) {
   return (
-    <div id={coreBonus.id}>
+    <div className={`relative ${className}`}>
+      <div className="absolute -top-6" id={coreBonus.id}></div>
       <div className="text-lg font-bold">{coreBonus.name}</div>
       <div dangerouslySetInnerHTML={{ __html: coreBonus.description }}></div>
       <div className="flex mt-1">

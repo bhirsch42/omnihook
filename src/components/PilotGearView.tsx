@@ -5,8 +5,9 @@ import { AttackStatsTable } from "./WeaponStatsTable";
 
 export function PilotGearView({ pilotGear }: { pilotGear: PilotGear }) {
   return (
-    <div>
-      <div className="font-bold">{pilotGear.name}</div>
+    <div className="relative">
+      <div className="absolute -top-6" id={pilotGear.id}></div>
+      <div className="mb-1 text-lg font-bold">{pilotGear.name}</div>
       <div className="flex">
         <AttackStatsTable
           item={pilotGear}
