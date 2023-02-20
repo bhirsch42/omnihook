@@ -1,9 +1,10 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
+import { tagIdSchema } from "./tagId.schema";
 
 export const tagSchema = z
   .object({
-    id: z.string(),
+    id: tagIdSchema,
     name: z.string(),
     description: z.string(),
     filter_ignore: z.boolean().default(false),

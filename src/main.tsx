@@ -45,6 +45,8 @@ w.lancerData = lancerData;
 //   )
 // ).map((bonus: unknown) => (bonus as Bonus).id);
 
+console.log(lancerData.tags.map((tag) => tag.id));
+
 // console.log(allBonuses);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

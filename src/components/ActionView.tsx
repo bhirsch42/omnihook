@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Action } from "../schemas/lancerData/action.schema";
 import { Button } from "./Button";
+import { AttackStatsTable } from "./WeaponStatsTable";
 
 export function ActionView({
   action,
@@ -31,28 +32,33 @@ export function ActionView({
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </div>
       </button>
-
       {isOpen && (
-        <div className="mx-2 mb-2">
-          {action.init && (
-            <div className="">
-              <div
-                className="text-sm"
-                dangerouslySetInnerHTML={{ __html: action.init }}
-              ></div>
-            </div>
-          )}
-          {action.trigger && (
-            <div className="">
-              <label className="text-sm text-gray-400">Trigger</label>
-              <div className="text-sm">{action.trigger}</div>
-            </div>
-          )}
-          <label className="text-sm text-gray-400">Effect</label>
-          <div
-            className="text-sm"
-            dangerouslySetInnerHTML={{ __html: action.detail }}
-          ></div>
+        <div className="flex mx-2 mb-2">
+          <AttackStatsTable
+            item={action}
+            className="pr-2 mr-2 border-r border-r-bgcolor-700"
+          />
+          <div>
+            {action.init && (
+              <div className="">
+                <div
+                  className="text-sm"
+                  dangerouslySetInnerHTML={{ __html: action.init }}
+                ></div>
+              </div>
+            )}
+            {action.trigger && (
+              <div className="">
+                <label className="text-sm text-gray-400">Trigger</label>
+                <div className="text-sm">{action.trigger}</div>
+              </div>
+            )}
+            <label className="text-sm text-gray-400">Effect</label>
+            <div
+              className="text-sm"
+              dangerouslySetInnerHTML={{ __html: action.detail }}
+            ></div>
+          </div>
         </div>
       )}
     </div>

@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { rollValueSchema } from "./rollValue.schema";
+import { tagIdSchema } from "./tagId.schema";
 
 export const tagRefSchema = z
   .object({
-    id: z.string(),
+    id: tagIdSchema,
     val: rollValueSchema.optional(),
   })
   .strict();
