@@ -21,28 +21,21 @@ export function PilotView({ pilotId }: { pilotId: string }) {
         </div>
       </div>
       <div className="flex">
-        <div className="flex flex-col">
-          <div className="mb-3">
-            <LicenseLevel pilotId={pilotId} />
-          </div>
-          <div className="mb-3">
-            <Grit pilotId={pilotId} />
-          </div>
-
-          <div className="mb-3">
-            === Stats ===
-            <PilotStatsTable pilotId={pilotId} className="p-3 bg-bgcolor-800" />
+        <div className="flex flex-col mr-5">
+          <div className="grid grid-rows-[auto_auto] gap-2 grid-cols-[auto_1fr] mb-3">
+            <LicenseLevel pilotId={pilotId} className="w-full h-full" />
+            <PilotStatsTable
+              pilotId={pilotId}
+              className="row-span-2 p-3 bg-bgcolor-800"
+            />
+            <Grit pilotId={pilotId} className="w-full h-full" />
           </div>
           <div>
-            === Skills ===
             <PilotSkills pilotId={pilotId} />
           </div>
         </div>
-        <div className="flex flex-col ml-3">
-          <div>
-            === Talents ===
-            <PilotTalents pilotId={pilotId} />
-          </div>
+        <div className="flex flex-col">
+          <PilotTalents pilotId={pilotId} className="max-w-lg" />
         </div>
       </div>
     </div>

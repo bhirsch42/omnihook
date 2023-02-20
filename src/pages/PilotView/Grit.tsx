@@ -6,33 +6,39 @@ import {
 import { useAppSelector } from "../../store/hooks";
 import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
 
-export function Grit({ pilotId }: { pilotId: string }) {
+export function Grit({
+  pilotId,
+  className,
+}: {
+  pilotId: string;
+  className?: string;
+}) {
   const pilotStats = useAppSelector(selectPilotStats(pilotId));
 
   return (
-    <div className="flex">
-      <div className="flex flex-col">
-        <div className="bg-bgcolor-800 text-center p-3">
-          <div className="flex justify-between items-center">
+    <div className={`flex ${className}`}>
+      <div className="flex flex-col w-full">
+        <div className="p-3 text-center bg-bgcolor-800">
+          <div className="flex items-center justify-between">
             <div>
               <FontAwesomeIcon
                 icon={faChevronRight}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
               <FontAwesomeIcon
                 icon={faChevronRight}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
             </div>
-            <div className="text-4xl mx-3">+{pilotStats.grit}</div>
+            <div className="mx-3 text-3xl">+{pilotStats.grit}</div>
             <div>
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
             </div>
           </div>

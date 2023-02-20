@@ -1,5 +1,6 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
+import { bonusIdSchema } from "./bonusId.schema";
 import { damageTypeSchema } from "./damageType.schema";
 import { rangeTypeSchema } from "./rangeType.schema";
 import { rollValueSchema } from "./rollValue.schema";
@@ -8,7 +9,7 @@ import { weaponTypeSchema } from "./weaponType.schema";
 export const bonusSchema = z
   .object({
     damage_types: damageTypeSchema.array().optional(),
-    id: z.string(),
+    id: bonusIdSchema,
     val: z.union([z.number(), z.boolean(), rollValueSchema.array()]),
     replace: z.boolean().default(false),
     range_types: rangeTypeSchema.array().optional(),

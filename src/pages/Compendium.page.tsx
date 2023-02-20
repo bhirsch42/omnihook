@@ -14,6 +14,8 @@ import { SearchResultSidebarItem } from "../components/SearchCollection/SearchRe
 import { SearchResultLabel } from "../components/SearchCollection/SearchResultLabel";
 import { Talent } from "../schemas/lancerData/talent.schema";
 import { TalentView } from "../components/TalentView";
+import { PilotGearView } from "../components/PilotGearView";
+import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 
 type CompendiumCollection<T> = {
   collection: Collection<T>;
@@ -23,8 +25,13 @@ type CompendiumCollection<T> = {
 
 const COMPENDIUM_COLLECTIONS = [
   {
+    collection: lancerCollections.pilotGear,
+    renderItem: (item) => <PilotGearView pilotGear={item} />,
+    label: "Pilot Gear",
+  } as const satisfies CompendiumCollection<PilotGear>,
+  {
     collection: lancerCollections.talents,
-    renderItem: (item) => <TalentView talent={item} />,
+    renderItem: (item) => <TalentView talent={item} showDescription />,
     label: "Talents",
   } as const satisfies CompendiumCollection<Talent>,
   {

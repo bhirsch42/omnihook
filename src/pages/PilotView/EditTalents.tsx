@@ -16,7 +16,7 @@ export function EditTalents({ pilotId }: EditTalentsProps) {
       renderSidebar={(query) => (
         <SearchResults
           query={query}
-          collection={skillsCollection}
+          collection={lancerCollections.talents}
           renderItem={(item) => (
             <SearchResultSidebarItem item={item} key={item.id} />
           )}
@@ -29,7 +29,13 @@ export function EditTalents({ pilotId }: EditTalentsProps) {
           collection={lancerCollections.talents}
           label="Select a new skill:"
           renderItem={(item) => (
-            <TalentView talent={item} pilotId={pilotId} isEditing={true} />
+            <TalentView
+              className="p-3 mb-3 bg-bgcolor-800"
+              talent={item}
+              pilotId={pilotId}
+              isEditing={true}
+              key={item.id}
+            />
           )}
           className="mb-3"
         />

@@ -14,6 +14,7 @@ import { Skill } from "../../schemas/lancerData/skill.schema";
 import { useDispatch } from "react-redux";
 import { selectUnspentPilotSkillPoints } from "../../store/pilots/selectors/selectUnspentPilotSkillPoints";
 import { HLine } from "../../components/HLine";
+import { UnspentPoints } from "../../components/UnspentPoints";
 
 export const CHOOSE_SKILL_WINDOW_ID = "choose-new-skill";
 
@@ -55,7 +56,7 @@ function PilotSkillRow({
           <div>{skill.name}</div>
           <HLine />
         </div>
-        <div className="max-w-md text-sm">{skill.description}</div>
+        <div className="max-w-sm text-sm">{skill.description}</div>
       </div>
       <div>+{modifier}</div>
       <div className="grid grid-cols-2 gap-1 pt-1">
@@ -128,6 +129,22 @@ export function PilotSkills({
 
   return (
     <>
+      <div className="flex items-center h-10 px-3 mb-2 bg-bgcolor-800">
+        <div className="pr-3 mr-auto whitespace-nowrap">=== Skills ===</div>
+        {unspentPoints > 0 && (
+          <>
+            <UnspentPoints count={unspentPoints} />
+
+            <Button
+              onClick={handleClickAddSkill}
+              className="ml-3 text-xs whitespace-nowrap"
+            >
+              Add Skill
+            </Button>
+          </>
+        )}
+      </div>
+
       <div className="grid grid-cols-[auto_1fr_auto] gap-2">
         {skills.map((skill, i) => {
           const prevSkill = prevPilotSnapshot.skills.find(
@@ -149,22 +166,6 @@ export function PilotSkills({
           );
         })}
       </div>
-      {unspentPoints > 0 && (
-        <>
-          <div className="my-2">
-            <Button onClick={handleClickAddSkill} className="w-full">
-              Add Skill
-            </Button>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 mr-2 bg-red-500 rounded-full"></div>
-            <div className="text-sm">
-              Unspent points:
-              <span className="ml-2 font-bold">{unspentPoints}</span>
-            </div>
-          </div>
-        </>
-      )}
     </>
   );
 }

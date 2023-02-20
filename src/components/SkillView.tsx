@@ -1,9 +1,15 @@
 import { Skill } from "../schemas/lancerData/skill.schema";
 
-export function SkillView({ skill }: { skill: Skill }) {
+export function SkillView({
+  skill,
+  className,
+}: {
+  skill: Skill;
+  className?: string;
+}) {
   return (
-    <div id={skill.id}>
-      <div className="font-bold text-lg">{skill.name}</div>
+    <div id={skill.id} className={className}>
+      <div className="text-lg font-bold">{skill.name}</div>
       <div dangerouslySetInnerHTML={{ __html: skill.description }}></div>
     </div>
   );

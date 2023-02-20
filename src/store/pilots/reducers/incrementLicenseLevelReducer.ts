@@ -12,6 +12,7 @@ export function incrementLicenseLevelReducer(
 
   pilot.licenseLevelSnapshots[pilot.licenseLevel] = {
     skills: pilot.skills,
+    talents: pilot.talents,
   };
 
   pilot.canReallocate = true;

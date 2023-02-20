@@ -5,36 +5,36 @@ import { selectActivePilot } from "./selectActivePilot";
 import { selectPilot } from "./selectPilot";
 
 type PilotStats = {
-  maxHp: number;
+  armor: number;
+  coreBonusPoints: number;
   edef: number;
   evasion: number;
-  speed: number;
-  pilotSkillPoints: number;
-  maxPointsPerSkill: number;
-  mechSkillPoints: number;
-  talentPoints: number;
-  maxPointsPerTalent: number;
   grit: number;
-  coreBonusPoints: number;
-  armor: number;
+  maxHp: number;
+  maxPointsPerSkill: number;
+  maxPointsPerTalent: number;
+  mechSkillPoints: number;
+  pilotSkillPoints: number;
+  speed: number;
+  talentPoints: number;
 };
 
 const getBaseStats = (): PilotStats => {
   const { rules } = lancerData;
 
   return {
-    maxHp: rules.basePilotHp,
+    armor: 0,
+    coreBonusPoints: 0,
     edef: rules.basePilotEdef,
     evasion: rules.basePilotEvasion,
-    speed: rules.basePilotSpeed,
-    pilotSkillPoints: rules.minimumPilotSkills,
-    maxPointsPerSkill: 1,
-    mechSkillPoints: rules.minimumMechSkills,
-    talentPoints: rules.minimumPilotTalents,
-    maxPointsPerTalent: 1,
     grit: 0,
-    coreBonusPoints: 0,
-    armor: 0,
+    maxHp: rules.basePilotHp,
+    maxPointsPerSkill: 1,
+    maxPointsPerTalent: 1,
+    mechSkillPoints: rules.minimumMechSkills,
+    pilotSkillPoints: rules.minimumPilotSkills,
+    speed: rules.basePilotSpeed,
+    talentPoints: rules.minimumPilotTalents,
   };
 };
 
@@ -43,13 +43,13 @@ const applyLicenseLevel =
   (stats: PilotStats): PilotStats => {
     return {
       ...stats,
-      pilotSkillPoints: stats.pilotSkillPoints + licenseLevel,
-      maxPointsPerSkill: stats.maxPointsPerSkill + licenseLevel,
-      mechSkillPoints: stats.mechSkillPoints + licenseLevel,
-      talentPoints: stats.talentPoints + licenseLevel,
-      maxPointsPerTalent: stats.maxPointsPerTalent + licenseLevel,
-      grit: stats.grit + Math.ceil(licenseLevel / 2),
       coreBonusPoints: stats.coreBonusPoints + Math.floor(licenseLevel / 3),
+      grit: stats.grit + Math.ceil(licenseLevel / 2),
+      maxPointsPerSkill: licenseLevel > 0 ? 3 : stats.maxPointsPerTalent,
+      maxPointsPerTalent: licenseLevel > 0 ? 3 : stats.maxPointsPerTalent,
+      mechSkillPoints: stats.mechSkillPoints + licenseLevel,
+      pilotSkillPoints: stats.pilotSkillPoints + licenseLevel,
+      talentPoints: stats.talentPoints + licenseLevel,
     };
   };
 

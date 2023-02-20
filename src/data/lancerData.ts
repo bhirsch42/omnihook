@@ -3,6 +3,7 @@ import { lancerDataSchema } from "../schemas/lancerData/index.schema";
 import Fuse from "fuse.js";
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 import { Talent } from "../schemas/lancerData/talent.schema";
+import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 
 console.log(rawLancerData);
 export const lancerData = lancerDataSchema.parse(rawLancerData);
@@ -56,4 +57,5 @@ export const lancerCollections = {
     "name",
   ]),
   talents: createCollection(lancerData.talents as Talent[], ["name"]),
+  pilotGear: createCollection(lancerData.pilotGear as PilotGear[], ["name"]),
 } as const;

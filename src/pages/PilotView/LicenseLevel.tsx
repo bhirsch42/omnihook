@@ -9,7 +9,13 @@ import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { Button } from "../../components/Button";
 import { incrementLicenseLevel } from "../../store/pilots";
 
-export function LicenseLevel({ pilotId }: { pilotId: string }) {
+export function LicenseLevel({
+  pilotId,
+  className,
+}: {
+  pilotId: string;
+  className?: string;
+}) {
   const dispatch = useAppDispatch();
   const pilot = useAppSelector(selectPilot(pilotId));
 
@@ -18,29 +24,29 @@ export function LicenseLevel({ pilotId }: { pilotId: string }) {
   }
 
   return (
-    <div className="flex">
-      <div className="flex flex-col">
+    <div className={`flex ${className}`}>
+      <div className="flex flex-col w-full">
         <div className="p-3 text-center bg-bgcolor-800">
           <div className="flex items-center justify-between">
             <div>
               <FontAwesomeIcon
                 icon={faChevronRight}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
               <FontAwesomeIcon
                 icon={faChevronRight}
                 className="text-2xl text-bgcolor-700"
               />
             </div>
-            <div className="text-4xl">{pilot.licenseLevel}</div>
+            <div className="text-3xl">{pilot.licenseLevel}</div>
             <div>
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                className="text-2xl text-bgcolor-700"
+                className="text-xl text-bgcolor-700"
               />
             </div>
           </div>

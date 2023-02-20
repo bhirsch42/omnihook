@@ -6,6 +6,8 @@ import { addSkillReducer } from "./reducers/addSkill";
 import { incrementLicenseLevelReducer } from "./reducers/incrementLicenseLevelReducer";
 import { decrementSkillReducer } from "./reducers/decrementSkill";
 import { incrementSkillReducer } from "./reducers/incrementSkill";
+import { addTalentRankReducer } from "./reducers/addTalentRank";
+import { removeTalentRankReducer } from "./reducers/removeTalentRank";
 
 export type PilotsState = {
   activePilotId: string | null;
@@ -33,6 +35,8 @@ export const pilotsSlice = createSlice({
     incrementLicenseLevel: incrementLicenseLevelReducer,
     incrementSkill: incrementSkillReducer,
     decrementSkill: decrementSkillReducer,
+    addTalentRank: addTalentRankReducer,
+    removeTalentRank: removeTalentRankReducer,
   },
 });
 
@@ -43,6 +47,8 @@ export const {
   incrementLicenseLevel,
   incrementSkill,
   decrementSkill,
+  addTalentRank,
+  removeTalentRank,
 } = pilotsSlice.actions;
 
 export const pilotsReducer = pilotsSlice.reducer;

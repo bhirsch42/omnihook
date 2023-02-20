@@ -1,10 +1,12 @@
 import { Button } from "../../components/Button";
 import { TalentView } from "../../components/TalentView";
+import { UnspentPoints } from "../../components/UnspentPoints";
 import { useWindowManager } from "../../components/WindowManager";
 import { lancerCollections } from "../../data/lancerData";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
+import { selectUnspentPilotTalentPoints } from "../../store/pilots/selectors/selectUnspentPilotTalentPoints";
 import { EditTalents } from "./EditTalents";
 
 export function PilotTalents({
@@ -14,11 +16,12 @@ export function PilotTalents({
   pilotId: string;
   className?: string;
 }) {
-  const { openWindow, closeWindow } = useWindowManager();
-  const dispatch = useAppDispatch();
+  const { openWindow } = useWindowManager();
 
   const pilot = useAppSelector(selectPilot(pilotId));
-  const pilotStats = useAppSelector(selectPilotStats(pilotId));
+  const unspentTalentPoints = useAppSelector(
+    selectUnspentPilotTalentPoints(pilotId)
+  );
 
   const talentIds = pilot.talents.map((talent) => talent.id);
   const talents = lancerCollections.talents.findAll(talentIds);
@@ -33,10 +36,30 @@ export function PilotTalents({
 
   return (
     <div className={className}>
+      <div className="flex items-center h-10 px-3 bg-bgcolor-800">
+        <div className="pr-3 mr-auto whitespace-nowrap">=== Talents ===</div>
+        {unspentTalentPoints > 0 && (
+          <>
+            <UnspentPoints count={unspentTalentPoints} />
+
+            <Button
+              onClick={handleClickEditTalents}
+              className="ml-3 text-xs whitespace-nowrap"
+            >
+              Edit Talents
+            </Button>
+          </>
+        )}
+      </div>
+
       {talents.map((talent, i) => (
-        <TalentView talent={talent} pilotId={pilotId} />
+        <TalentView
+          key={talent.id}
+          talent={talent}
+          pilotId={pilotId}
+          className="p-3 border-b-4 border-b-bgcolor-800"
+        />
       ))}
-      <Button onClick={handleClickEditTalents}>Edit Talents</Button>
     </div>
   );
 }
