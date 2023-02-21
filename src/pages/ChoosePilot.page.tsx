@@ -43,7 +43,7 @@ export function ChoosePilot() {
 
   if (pilots.length === 0) {
     return (
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center h-screen items-center">
         <CreatePilotForm />
       </div>
     );

@@ -105,7 +105,10 @@ function BonusTableRow({ bonus }: { bonus: Bonus }) {
         <FontAwesomeIcon icon={icon} className="text-bgcolor-400" />
       </div>
       <div className="flex items-center whitespace-nowrap">{bonusName}</div>
-      <div className="flex items-center">+{bonus.val}</div>
+      <div className="flex items-center">
+        {!bonus.replace && "+"}
+        {bonus.val}
+      </div>
     </>
   );
 }

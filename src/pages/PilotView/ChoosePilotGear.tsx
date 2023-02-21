@@ -1,24 +1,20 @@
 import { lancerCollections } from "../../data/lancerData";
-import { SkillView } from "../../components/SkillView";
+import { PilotGearView } from "../../components/PilotGearView";
 import { SearchCollection } from "../../components/SearchCollection";
 import { SearchResultsSection } from "../../components/SearchCollection/SearchResultsSection";
 import { SearchResultSidebarItem } from "../../components/SearchCollection/SearchResultSidebarItem";
+import { PilotGearType } from "../../schemas/lancerData/pilotGearType.schema";
 import { SearchResult } from "../../components/SearchCollection/SearchResult";
 
-const { skills: skillsCollection } = lancerCollections;
+const { pilotGear: pilotGearCollection } = lancerCollections;
 
-type ChooseSkillProps = {
-  onSelect: (skillId: string) => void;
-  alreadySelectedSkillIds: string[];
+type ChoosePilotGearProps = {
+  onSelect: (pilotGearId: string) => void;
+  type: PilotGearType;
 };
 
-export function ChooseSkill({
-  onSelect,
-  alreadySelectedSkillIds,
-}: ChooseSkillProps) {
-  const collection = skillsCollection.filter(
-    (skill) => !alreadySelectedSkillIds.includes(skill.id)
-  );
+export function ChoosePilotGear({ onSelect, type }: ChoosePilotGearProps) {
+  const collection = pilotGearCollection.filter((gear) => gear.type === type);
 
   return (
     <SearchCollection
@@ -36,10 +32,13 @@ export function ChooseSkill({
         <SearchResultsSection
           query={query}
           collection={collection}
-          label="Select a new skill:"
+          label="Select a new pilotGear:"
           renderItem={(item) => (
             <SearchResult id={item.id} key={item.id}>
-              <SkillView skill={item} onSelect={onSelect} />
+              <PilotGearView
+                pilotGear={item}
+                onSelect={() => onSelect(item.id)}
+              />
             </SearchResult>
           )}
           className="mb-3"

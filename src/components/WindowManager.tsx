@@ -77,6 +77,8 @@ export function WindowManager({ children }: PropsWithChildren) {
     const withoutActive = reject<ManagedWindow>((w) => w.id === id);
     const activeWindow = windows.current.find((w) => w.id === id);
     if (!activeWindow) throw new Error(`Error focusing window: ${id}`);
+    if (activeWindow === windows.current[windows.current.length - 1]) return;
+    console.info(`Focusing window:`);
     windows.current = [...withoutActive(windows.current), activeWindow];
     updateDisplayWindows();
   }

@@ -57,7 +57,7 @@ export function PilotTalents({
           key={talent.id}
           talent={talent}
           pilotId={pilotId}
-          className="p-3 border-b-4 border-b-bgcolor-800"
+          className="py-3 border-b-4 border-b-bgcolor-800"
         />
       ))}
     </div>

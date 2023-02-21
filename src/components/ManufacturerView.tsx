@@ -8,8 +8,7 @@ export function ManufacturerView({
   className?: string;
 }) {
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute -top-6" id={manufacturer.id}></div>
+    <div className={className}>
       <div className="text-lg font-bold">{manufacturer.name}</div>
       <div
         dangerouslySetInnerHTML={{ __html: manufacturer.quote }}

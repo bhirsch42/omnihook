@@ -14,6 +14,7 @@ export const pilotsTestData: PilotsState = {
       skills: [],
       talents: [],
       licenseLevelSnapshots: {},
+      gear: [],
     },
   ],
 };

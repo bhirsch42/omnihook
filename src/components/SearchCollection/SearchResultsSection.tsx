@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { Collection } from "../../data/lancerData";
+import { SearchResult } from "./SearchResult";
 
-export type SearchResultsProps<T> = {
+export type SearchResultsSectionProps<T extends { id: string }> = {
   query: string;
   collection: Collection<T>;
   renderItem: (item: T) => React.ReactNode;
@@ -9,13 +10,13 @@ export type SearchResultsProps<T> = {
   className?: string;
 };
 
-export function SearchResults<T>({
+export function SearchResultsSection<T extends { id: string }>({
   query,
   collection,
   renderItem,
   label,
   className,
-}: SearchResultsProps<T>) {
+}: SearchResultsSectionProps<T>) {
   const items = query === "" ? collection.all : collection.search(query);
 
   return items.length > 0 ? (

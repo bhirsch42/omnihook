@@ -9,8 +9,7 @@ export function CoreBonusView({
   className?: string;
 }) {
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute -top-6" id={coreBonus.id}></div>
+    <div className={className}>
       <div className="text-lg font-bold">{coreBonus.name}</div>
       <div dangerouslySetInnerHTML={{ __html: coreBonus.description }}></div>
       <div className="flex mt-1">

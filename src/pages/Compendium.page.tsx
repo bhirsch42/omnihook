@@ -9,13 +9,14 @@ import { Skill } from "../schemas/lancerData/skill.schema";
 import { CoreBonusView } from "../components/CoreBonusView";
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 import { SearchCollection } from "../components/SearchCollection";
-import { SearchResults } from "../components/SearchCollection/SearchResults";
+import { SearchResultsSection } from "../components/SearchCollection/SearchResultsSection";
 import { SearchResultSidebarItem } from "../components/SearchCollection/SearchResultSidebarItem";
 import { SearchResultLabel } from "../components/SearchCollection/SearchResultLabel";
 import { Talent } from "../schemas/lancerData/talent.schema";
 import { TalentView } from "../components/TalentView";
 import { PilotGearView } from "../components/PilotGearView";
 import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
+import { SearchResult } from "../components/SearchCollection/SearchResult";
 
 type CompendiumCollection<T> = {
   collection: Collection<T>;
@@ -61,7 +62,7 @@ export function Compendium() {
     <SearchCollection
       renderSidebar={(query) =>
         COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
-          <SearchResults
+          <SearchResultsSection
             key={compendiumCollection.label}
             query={query}
             collection={compendiumCollection.collection}
@@ -79,14 +80,14 @@ export function Compendium() {
       }
       renderMain={(query) =>
         COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
-          <SearchResults
+          <SearchResultsSection
             key={compendiumCollection.label}
             query={query}
             collection={compendiumCollection.collection}
             renderItem={(item) => (
-              <div className="p-3 mb-3 bg-bgcolor-800" key={item.id}>
+              <SearchResult id={item.id} key={item.id}>
                 {compendiumCollection.renderItem(item as any)}
-              </div>
+              </SearchResult>
             )}
             label={
               <SearchResultLabel>

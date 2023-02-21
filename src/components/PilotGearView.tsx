@@ -1,13 +1,36 @@
 import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 import { ActionsList } from "./ActionsList";
 import { BonusTable } from "./BonusTable";
+import { Button } from "./Button";
 import { AttackStatsTable } from "./WeaponStatsTable";
 
-export function PilotGearView({ pilotGear }: { pilotGear: PilotGear }) {
+export function PilotGearView({
+  pilotGear,
+  onSelect,
+  className,
+}: {
+  pilotGear: PilotGear;
+  onSelect?: (pilotGearId: string) => void;
+  className?: string;
+}) {
+  let description = pilotGear.description;
+
+  if (pilotGear.actions) {
+    for (const action of pilotGear.actions) {
+      description = description.replace(new RegExp(`${action.detail}\\.?`), "");
+    }
+  }
+
   return (
-    <div className="relative">
-      <div className="absolute -top-6" id={pilotGear.id}></div>
-      <div className="mb-1 text-lg font-bold">{pilotGear.name}</div>
+    <div className={className}>
+      <div className="mb-1 flex items-center">
+        <div className="text-lg font-bold mr-auto">{pilotGear.name}</div>
+        {onSelect && (
+          <Button onClick={() => onSelect(pilotGear.id)} className="text-sm">
+            Add
+          </Button>
+        )}
+      </div>
       <div className="flex">
         <AttackStatsTable
           item={pilotGear}
@@ -19,7 +42,7 @@ export function PilotGearView({ pilotGear }: { pilotGear: PilotGear }) {
         />
         <div
           className="text-sm"
-          dangerouslySetInnerHTML={{ __html: pilotGear.description }}
+          dangerouslySetInnerHTML={{ __html: description }}
         ></div>
       </div>
       <ActionsList actions={pilotGear.actions} />

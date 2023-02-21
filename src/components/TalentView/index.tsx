@@ -52,8 +52,7 @@ export function TalentView({
   }
 
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute -top-6" id={talent.id}></div>
+    <div className={className}>
       <div className="text-xl font-bold">{talent.name}</div>
       <div dangerouslySetInnerHTML={{ __html: talent.terse }}></div>
       {showDescription && (

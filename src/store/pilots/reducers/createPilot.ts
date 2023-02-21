@@ -16,6 +16,7 @@ export function createPilotReducer(
     skills: [],
     talents: [],
     licenseLevelSnapshots: {},
+    gear: [],
     ...action.payload,
   });
 }

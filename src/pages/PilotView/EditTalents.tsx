@@ -1,8 +1,9 @@
 import { lancerCollections } from "../../data/lancerData";
 import { SearchCollection } from "../../components/SearchCollection";
-import { SearchResults } from "../../components/SearchCollection/SearchResults";
+import { SearchResultsSection } from "../../components/SearchCollection/SearchResultsSection";
 import { SearchResultSidebarItem } from "../../components/SearchCollection/SearchResultSidebarItem";
 import { TalentView } from "../../components/TalentView";
+import { SearchResult } from "../../components/SearchCollection/SearchResult";
 
 const { skills: skillsCollection } = lancerCollections;
 
@@ -14,7 +15,7 @@ export function EditTalents({ pilotId }: EditTalentsProps) {
   return (
     <SearchCollection
       renderSidebar={(query) => (
-        <SearchResults
+        <SearchResultsSection
           query={query}
           collection={lancerCollections.talents}
           renderItem={(item) => (
@@ -24,18 +25,14 @@ export function EditTalents({ pilotId }: EditTalentsProps) {
         />
       )}
       renderMain={(query) => (
-        <SearchResults
+        <SearchResultsSection
           query={query}
           collection={lancerCollections.talents}
           label="Select a new skill:"
           renderItem={(item) => (
-            <TalentView
-              className="p-3 mb-3 bg-bgcolor-800"
-              talent={item}
-              pilotId={pilotId}
-              isEditing={true}
-              key={item.id}
-            />
+            <SearchResult id={item.id} key={item.id}>
+              <TalentView talent={item} pilotId={pilotId} isEditing={true} />
+            </SearchResult>
           )}
           className="mb-3"
         />

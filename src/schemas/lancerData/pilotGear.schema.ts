@@ -6,6 +6,7 @@ import { damageSchema } from "./damage.schema";
 import { rangeSchema } from "./range.schema";
 import { bonusSchema } from "./bonus.schema";
 import { deployableSchema } from "./deployable.schema";
+import { pilotGearTypeSchema } from "./pilotGearType.schema";
 
 export const pilotGearSchema = z
   .object({
@@ -15,7 +16,7 @@ export const pilotGearSchema = z
     name: z.string(),
     range: rangeSchema.array().optional(),
     tags: tagRefSchema.array().default([]),
-    type: z.string(),
+    type: pilotGearTypeSchema,
     effect: z.string().optional(),
     bonuses: bonusSchema.array().optional(),
     actions: actionSchema.array().optional(),
