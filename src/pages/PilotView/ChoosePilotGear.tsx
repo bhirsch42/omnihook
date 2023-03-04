@@ -38,6 +38,7 @@ export function ChoosePilotGear({ onSelect, type }: ChoosePilotGearProps) {
               <PilotGearView
                 pilotGear={item}
                 onSelect={() => onSelect(item.id)}
+                showDescription
               />
             </SearchResult>
           )}

@@ -4,6 +4,7 @@ import "./index.css";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router";
 import { Provider } from "react-redux";
+import "@total-typescript/ts-reset";
 
 import "@fontsource/source-code-pro/200-italic.css";
 import "@fontsource/source-code-pro/200.css";
@@ -23,11 +24,9 @@ import "@fontsource/source-code-pro/900-italic.css";
 import "@fontsource/source-code-pro/900.css";
 import { store } from "./store";
 import { lancerData } from "./data/lancerData";
-import { flatten, isNil, reject, uniq } from "ramda";
-import { Bonus } from "./schemas/lancerData/bonus.schema";
+import { initDebug } from "./debug";
 
-const w = window as any;
-w.lancerData = lancerData;
+initDebug();
 
 // const allBonuses = uniq(
 //   reject(

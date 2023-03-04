@@ -8,6 +8,7 @@ import { Damage } from "../schemas/lancerData/damage.schema";
 import { Range } from "../schemas/lancerData/range.schema";
 import { TagRef } from "../schemas/lancerData/tagRef.schema";
 import { isNilOrEmpty } from "../utils/isNilOrEmpty";
+import { StatsTable } from "./StatsTable";
 
 type AttackItem = {
   damage?: Damage[];
@@ -35,48 +36,25 @@ export function AttackStatsTable({
     .replace(" Range", "");
 
   return (
-    <div className={`flex flex-col ${className}`}>
-      <div className={`grid grid-cols-[auto_1fr_auto] gap-x-3`}>
-        {damageString && (
-          <>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faExplosion}
-                className="text-bgcolor-400"
-              />
-            </div>
-            <div className="flex items-center whitespace-nowrap">Damage:</div>
-            <div className="flex items-center font-bold whitespace-nowrap">
-              {damageString}
-            </div>
-          </>
-        )}
-        {rangeString && (
-          <>
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faBullseye} className="text-bgcolor-400" />
-            </div>
-            <div className="flex items-center whitespace-nowrap">Range:</div>
-            <div className="flex items-center font-bold whitespace-nowrap">
-              {rangeString}
-            </div>
-          </>
-        )}
-        {usesCount && (
-          <>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faCubesStacked}
-                className="text-bgcolor-400"
-              />
-            </div>
-            <div className="flex items-center whitespace-nowrap">Ammo:</div>
-            <div className="flex items-center font-bold whitespace-nowrap">
-              {usesCount}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    <StatsTable
+      className={className}
+      rows={[
+        damageString && [
+          faExplosion,
+          "Damage",
+          <span className="font-bold">{damageString}</span>,
+        ],
+        rangeString && [
+          faBullseye,
+          "Range",
+          <span className="font-bold">{rangeString}</span>,
+        ],
+        usesCount && [
+          faCubesStacked,
+          "Uses",
+          <span className="font-bold">{usesCount}</span>,
+        ],
+      ]}
+    />
   );
 }

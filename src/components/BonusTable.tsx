@@ -26,6 +26,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Bonus } from "../schemas/lancerData/bonus.schema";
 import { BonusId } from "../schemas/lancerData/bonusId.schema";
 import { humanize } from "inflection";
+import { StatsTable, StatsTableRow } from "./StatsTable";
+import { Fragment } from "react";
 
 const BONUS_ICONS: Record<BonusId, IconDefinition> = {
   ai_cap: faMicrochip,
@@ -95,22 +97,15 @@ function bonusIdToName(bonusId: BonusId): string {
   return humanize(name).replace("Hp", "HP").replace("Edef", "E-Defense");
 }
 
-function BonusTableRow({ bonus }: { bonus: Bonus }) {
-  const icon = BONUS_ICONS[bonus.id];
-  const bonusName = bonusIdToName(bonus.id);
-
-  return (
+function createBonusStatRow(bonus: Bonus): StatsTableRow {
+  return [
+    BONUS_ICONS[bonus.id],
+    bonusIdToName(bonus.id),
     <>
-      <div className="flex items-center">
-        <FontAwesomeIcon icon={icon} className="text-bgcolor-400" />
-      </div>
-      <div className="flex items-center whitespace-nowrap">{bonusName}</div>
-      <div className="flex items-center">
-        {!bonus.replace && "+"}
-        {bonus.val}
-      </div>
-    </>
-  );
+      {bonus.replace ? <>&nbsp;</> : "+"}
+      {bonus.val}
+    </>,
+  ];
 }
 
 export function BonusTable({
@@ -122,13 +117,7 @@ export function BonusTable({
 }) {
   if (!bonuses || bonuses.length === 0) return null;
 
-  return (
-    <div className={`flex flex-col ${className}`}>
-      <div className={`grid grid-cols-[auto_auto_1fr] gap-x-3`}>
-        {bonuses.map((bonus) => (
-          <BonusTableRow bonus={bonus} key={bonus.id} />
-        ))}
-      </div>
-    </div>
-  );
+  const rows = bonuses.map(createBonusStatRow);
+
+  return <StatsTable rows={rows} className={className} />;
 }

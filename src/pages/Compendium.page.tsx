@@ -17,6 +17,8 @@ import { TalentView } from "../components/TalentView";
 import { PilotGearView } from "../components/PilotGearView";
 import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 import { SearchResult } from "../components/SearchCollection/SearchResult";
+import { Frame } from "../schemas/lancerData/frame.schema";
+import { MechFrameView } from "../components/MechFrameView";
 
 type CompendiumCollection<T> = {
   collection: Collection<T>;
@@ -26,8 +28,13 @@ type CompendiumCollection<T> = {
 
 const COMPENDIUM_COLLECTIONS = [
   {
+    collection: lancerCollections.mechFrames,
+    renderItem: (item) => <MechFrameView mechFrame={item} />,
+    label: "Mech Frames",
+  } as const satisfies CompendiumCollection<Frame>,
+  {
     collection: lancerCollections.pilotGear,
-    renderItem: (item) => <PilotGearView pilotGear={item} />,
+    renderItem: (item) => <PilotGearView pilotGear={item} showDescription />,
     label: "Pilot Gear",
   } as const satisfies CompendiumCollection<PilotGear>,
   {

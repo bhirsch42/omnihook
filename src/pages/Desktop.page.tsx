@@ -9,6 +9,7 @@ import { useWindowManager } from "../components/WindowManager";
 import { useAppSelector } from "../store/hooks";
 import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
 import { Compendium } from "./Compendium.page";
+import { Mechs } from "./Mechs.page";
 import { PilotView } from "./PilotView/index.page";
 
 export function Desktop() {
@@ -31,6 +32,14 @@ export function Desktop() {
     });
   }
 
+  async function handleClickMechs() {
+    openWindow({
+      id: "mechs",
+      label: "Mechs",
+      component: <Mechs pilotId={pilotId} />,
+    });
+  }
+
   return (
     <>
       <DesktopBackground />
@@ -49,7 +58,11 @@ export function Desktop() {
             onClick={handleClickPilot}
           />
 
-          <DesktopIcon icon={faWarehouse} label="Mechs" />
+          <DesktopIcon
+            icon={faWarehouse}
+            label="Mechs"
+            onClick={handleClickMechs}
+          />
         </div>
       </div>
     </>

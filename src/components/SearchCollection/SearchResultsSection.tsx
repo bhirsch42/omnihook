@@ -17,7 +17,7 @@ export function SearchResultsSection<T extends { id: string }>({
   label,
   className,
 }: SearchResultsSectionProps<T>) {
-  const items = query === "" ? collection.all : collection.search(query);
+  const items = query === "" ? collection.all() : collection.search(query);
 
   return items.length > 0 ? (
     <div className={className}>

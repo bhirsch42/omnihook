@@ -4,8 +4,8 @@ import Fuse from "fuse.js";
 import { CoreBonus } from "../schemas/lancerData/coreBonus.schema";
 import { Talent } from "../schemas/lancerData/talent.schema";
 import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
+import { Frame } from "../schemas/lancerData/frame.schema";
 
-console.log(rawLancerData);
 export const lancerData = lancerDataSchema.parse(rawLancerData);
 
 export type Collection<T> = {
@@ -13,7 +13,7 @@ export type Collection<T> = {
   find: (id: string) => T;
   findSafe: (id: string) => T | null;
   findAll: (ids: string[]) => T[];
-  all: T[];
+  all: () => T[];
   filter: (fn: (item: T) => boolean) => Collection<T>;
 };
 
@@ -21,12 +21,14 @@ function createCollection<T extends { id: string }>(
   items: T[],
   keys: keyof T extends string ? (keyof T)[] : never[]
 ): Collection<T> {
-  const fuse = new Fuse(items, {
+  const validItems = items.filter((item) => !item.id.match(/^missing_/));
+
+  const fuse = new Fuse(validItems, {
     keys,
   });
 
   function find(id: string) {
-    const item = items.find((item) => item.id === id);
+    const item = validItems.find((item) => item.id === id);
     if (!item) throw new Error(`Could not find item: ${id}`);
     return item;
   }
@@ -40,11 +42,11 @@ function createCollection<T extends { id: string }>(
       return fuse.search(query).map((result) => result.item);
     },
     findSafe(id: string) {
-      return items.find((item) => item.id === id) || null;
+      return validItems.find((item) => item.id === id) || null;
     },
-    all: items,
+    all: () => validItems,
     filter(fn) {
-      return createCollection(items.filter(fn), keys);
+      return createCollection(validItems.filter(fn), keys);
     },
   } as const;
 }
@@ -58,4 +60,5 @@ export const lancerCollections = {
   ]),
   talents: createCollection(lancerData.talents as Talent[], ["name"]),
   pilotGear: createCollection(lancerData.pilotGear as PilotGear[], ["name"]),
+  mechFrames: createCollection(lancerData.frames as Frame[], ["name"]),
 } as const;

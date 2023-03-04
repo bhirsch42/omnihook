@@ -4,15 +4,19 @@ import { BonusTable } from "./BonusTable";
 import { Button } from "./Button";
 import { AttackStatsTable } from "./WeaponStatsTable";
 
+type PilotGearViewProps = {
+  pilotGear: PilotGear;
+  onSelect?: (pilotGearId: string) => void;
+  className?: string;
+  showDescription?: boolean;
+};
+
 export function PilotGearView({
   pilotGear,
   onSelect,
   className,
-}: {
-  pilotGear: PilotGear;
-  onSelect?: (pilotGearId: string) => void;
-  className?: string;
-}) {
+  showDescription,
+}: PilotGearViewProps) {
   let description = pilotGear.description;
 
   if (pilotGear.actions) {
@@ -34,16 +38,18 @@ export function PilotGearView({
       <div className="flex">
         <AttackStatsTable
           item={pilotGear}
-          className="pr-2 mr-2 border-r border-r-bgcolor-700"
+          className="pr-2 mr-2 border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
         />
         <BonusTable
           bonuses={pilotGear.bonuses}
-          className="pr-2 mr-2 border-r border-r-bgcolor-700"
+          className="pr-2 mr-2 border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
         />
-        <div
-          className="text-sm"
-          dangerouslySetInnerHTML={{ __html: description }}
-        ></div>
+        {showDescription && (
+          <div
+            className="text-sm"
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></div>
+        )}
       </div>
       <ActionsList actions={pilotGear.actions} />
     </div>
