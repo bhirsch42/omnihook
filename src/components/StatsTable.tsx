@@ -25,7 +25,9 @@ export function StatsTable({ rows, className, fillHeight }: StatsTableProps) {
               <FontAwesomeIcon icon={row[0]} className="text-bgcolor-400" />
             </div>
             <div className="flex items-center whitespace-nowrap">{row[1]}</div>
-            <div className="flex items-center whitespace-nowrap">{row[2]}</div>
+            <div className="flex items-center text-right whitespace-nowrap">
+              {row[2]}
+            </div>
           </Fragment>
         ))}
       </div>

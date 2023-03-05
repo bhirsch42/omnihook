@@ -23,8 +23,8 @@ export function PilotView({ pilotId }: { pilotId: string }) {
         </div>
       </div>
       <div className="grid grid-cols-[auto_1fr] @7xl:grid-cols-[auto_auto_1fr] gap-3">
-        <div className="">
-          <div className="grid grid-rows-[auto_auto] gap-2 grid-cols-[auto_1fr] mb-3">
+        <div className="grid gap-3 grid-rows-[auto_auto_1fr]">
+          <div className="grid grid-rows-[auto_auto] gap-2 grid-cols-[auto_1fr]">
             <LicenseLevel pilotId={pilotId} className="w-full h-full" />
             <PilotStatsTable
               pilotId={pilotId}
@@ -32,17 +32,21 @@ export function PilotView({ pilotId }: { pilotId: string }) {
             />
             <Grit pilotId={pilotId} className="w-full h-full" />
           </div>
-          <div>
-            <PilotSkills pilotId={pilotId} />
-          </div>
+
+          <PilotSkills pilotId={pilotId} />
+
+          <PilotGearInventory pilotId={pilotId} className="block @7xl:hidden" />
         </div>
+
         <div className="@7xl:max-w-2xl">
           <PilotWeaponsAndArmor pilotId={pilotId} className="mb-3" />
           <PilotTalents pilotId={pilotId} />
         </div>
-        <div className="">
-          <PilotGearInventory pilotId={pilotId} className="@7xl:max-w-lg" />
-        </div>
+
+        <PilotGearInventory
+          pilotId={pilotId}
+          className="hidden @7xl:block @7xl:max-w-lg"
+        />
       </div>
     </div>
   );

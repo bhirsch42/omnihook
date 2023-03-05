@@ -128,7 +128,7 @@ export function PilotSkills({
   }
 
   return (
-    <>
+    <div className={className}>
       <div className="flex items-center h-10 px-3 mb-2 bg-bgcolor-800">
         <div className="pr-3 mr-auto whitespace-nowrap">=== Skills ===</div>
         {unspentPoints > 0 && (
@@ -166,6 +166,6 @@ export function PilotSkills({
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

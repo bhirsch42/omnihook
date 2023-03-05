@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Damage } from "../schemas/lancerData/damage.schema";
 import { Range } from "../schemas/lancerData/range.schema";
 import { TagRef } from "../schemas/lancerData/tagRef.schema";
+import { ICONS } from "../utils/icons";
 import { isNilOrEmpty } from "../utils/isNilOrEmpty";
 import { StatsTable } from "./StatsTable";
 
@@ -40,12 +41,12 @@ export function AttackStatsTable({
       className={className}
       rows={[
         damageString && [
-          faExplosion,
+          ICONS.damage,
           "Damage",
           <span className="font-bold">{damageString}</span>,
         ],
         rangeString && [
-          faBullseye,
+          ICONS.range,
           "Range",
           <span className="font-bold">{rangeString}</span>,
         ],

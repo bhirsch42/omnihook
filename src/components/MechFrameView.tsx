@@ -1,5 +1,8 @@
+import { lancerCollections } from "../data/lancerData";
 import { Frame } from "../schemas/lancerData/frame.schema";
+import { Trait } from "../schemas/lancerData/trait.schema";
 import { MechFrameStatsView } from "./MechFrameStatsView";
+import { TraitView } from "./TraitView";
 
 type MechFrameViewProps = {
   mechFrame: Frame;
@@ -7,33 +10,54 @@ type MechFrameViewProps = {
 
 function ImageCol({ imageUrl }: { imageUrl: string }) {
   return (
-    <div className="float-right relative isolate flex ml-3">
-      <div className="h-96"></div> {/* make sure container is tall enough */}
-      <div className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center -z-10 opacity-50">
-        <div className="w-60 h-60 bg-bgcolor-700 rotate-45"></div>
+    <div className="flex flex-col">
+      <div className="relative flex flex-col items-center justify-center ml-3 min-h-lg isolate">
+        <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center opacity-50 -z-10">
+          <div className="rotate-45 w-40 h-40 @3xl:w-60 @3xl:h-60 bg-bgcolor-700"></div>
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center -z-10 opacity-30">
+          <div className="rotate-45 border-4 w-44 h-44 @3xl:w-72 @3xl:h-72 border-bgcolor-700 max-h-full"></div>
+        </div>
+        <img className="w-full max-w-md" src={imageUrl} alt="" />
       </div>
-      <div className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center -z-10 opacity-30">
-        <div className="w-72 h-72 border-4 border-bgcolor-700 rotate-45"></div>
-      </div>
-      <img className="max-w-md" src={imageUrl} alt="" />
     </div>
   );
 }
 
 export function MechFrameView({ mechFrame }: MechFrameViewProps) {
-  const { name, description, imageUrl } = mechFrame;
+  const { name, description, imageUrl, source, traits } = mechFrame;
+  const manufacturer = lancerCollections.manufacturers.find(source);
+
   return (
-    <div>
-      <div className="text-lg font-bold">{name}</div>
-      <div className="grid grid-cols-[auto_auto] gap-3">
-        <div>
-          <MechFrameStatsView mechFrame={mechFrame} />
-          <ImageCol imageUrl={imageUrl} />
+    <div className="@container">
+      <div className="flex mb-2 text-lg font-bold">
+        <div>{name}</div>
+        <div className="pl-3 ml-3 border-l-4 text-bgcolor-400 border-l-bgcolor-700">
+          {manufacturer.name}
+        </div>
+        <div className="pl-3 ml-3 italic border-l-4 text-bgcolor-400 border-l-bgcolor-700">
+          {mechFrame.mechType.join(", ")}
+        </div>
+      </div>
+      <div className="grid grid-cols-2 grid-rows-[auto_1fr] gap-3 @5xl:grid-rows-1 @5xl:grid-cols-[auto_1fr_auto]">
+        <div className="flex flex-col">
+          <MechFrameStatsView
+            mechFrame={mechFrame}
+            className="px-3 py-2 border border-bgcolor-700"
+          />
+        </div>
+        <div className="row-span-2">
           <div
             className="text-sm"
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
+          <div>
+            {traits.map((trait) => (
+              <TraitView trait={trait} key={trait.name} className="mt-2" />
+            ))}
+          </div>
         </div>
+        <ImageCol imageUrl={imageUrl} />
       </div>
     </div>
   );

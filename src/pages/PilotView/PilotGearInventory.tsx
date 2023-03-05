@@ -32,7 +32,7 @@ export function PilotEquipment({
   const emptyGearSlotCount = maxGear - gear.length;
 
   return (
-    <div className="max-w-lg">
+    <div className={className}>
       <div className="flex items-center h-10 px-3 mb-2 bg-bgcolor-800 whitespace-nowrap">
         === Gear ===
       </div>
