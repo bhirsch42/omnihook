@@ -2,6 +2,7 @@ import camelize from "camelize-ts";
 import { z } from "zod";
 import { actionTypeSchema } from "./actionType.schema";
 import { damageSchema } from "./damage.schema";
+import { frequencySchema } from "./frequency.schema";
 import { rangeSchema } from "./range.schema";
 
 export const actionSchemaRaw = z
@@ -9,7 +10,7 @@ export const actionSchemaRaw = z
     activation: actionTypeSchema.default("Missing"),
     detail: z.string(),
     name: z.string().optional(),
-    frequency: z.string().optional(),
+    frequency: frequencySchema.optional(),
     trigger: z.string().optional(),
     init: z.string().optional(),
     pilot: z.boolean().default(false),

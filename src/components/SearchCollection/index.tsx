@@ -34,7 +34,7 @@ export function SearchCollection({
           </div>
         </div>
       </div>
-      <div className="col-span-3 flex flex-col h-full">
+      <div className="col-span-3 flex flex-col h-full w-full">
         <div className="basis-0 grow overflow-scroll pr-3 pt-3">
           {renderMain(query)}
         </div>

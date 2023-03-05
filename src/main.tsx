@@ -23,7 +23,6 @@ import "@fontsource/source-code-pro/800.css";
 import "@fontsource/source-code-pro/900-italic.css";
 import "@fontsource/source-code-pro/900.css";
 import { store } from "./store";
-import { lancerData } from "./data/lancerData";
 import { initDebug } from "./debug";
 
 initDebug();
@@ -44,7 +43,7 @@ initDebug();
 //   )
 // ).map((bonus: unknown) => (bonus as Bonus).id);
 
-console.log(lancerData.tags.map((tag) => tag.id));
+// console.log(lancerData.tags.map((tag) => tag.id));
 
 // console.log(allBonuses);
 

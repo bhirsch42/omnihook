@@ -14,7 +14,7 @@ export function PilotView({ pilotId }: { pilotId: string }) {
   const pilot = useAppSelector(selectPilot(pilotId));
 
   return (
-    <div className="h-full p-3 overflow-y-scroll">
+    <div className="h-full p-3 overflow-y-scroll @container">
       <div className="flex items-center mb-3">
         <FontAwesomeIcon icon={faCircleUser} className="mr-3 text-5xl" />
         <div className="text-left">
@@ -22,8 +22,8 @@ export function PilotView({ pilotId }: { pilotId: string }) {
           <div className="text-sm">{pilot.callsign}</div>
         </div>
       </div>
-      <div className="flex">
-        <div className="flex flex-col mr-5">
+      <div className="grid grid-cols-[auto_1fr] @7xl:grid-cols-[auto_auto_1fr] gap-3">
+        <div className="">
           <div className="grid grid-rows-[auto_auto] gap-2 grid-cols-[auto_1fr] mb-3">
             <LicenseLevel pilotId={pilotId} className="w-full h-full" />
             <PilotStatsTable
@@ -36,12 +36,12 @@ export function PilotView({ pilotId }: { pilotId: string }) {
             <PilotSkills pilotId={pilotId} />
           </div>
         </div>
-        <div className="flex flex-col mr-5">
+        <div className="@7xl:max-w-2xl">
           <PilotWeaponsAndArmor pilotId={pilotId} className="mb-3" />
           <PilotTalents pilotId={pilotId} />
         </div>
-        <div className="flex flex-col">
-          <PilotGearInventory pilotId={pilotId} className="max-w-lg" />
+        <div className="">
+          <PilotGearInventory pilotId={pilotId} className="@7xl:max-w-lg" />
         </div>
       </div>
     </div>

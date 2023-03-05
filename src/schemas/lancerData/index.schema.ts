@@ -17,6 +17,7 @@ import { systemSchema } from "./system.schema";
 import { tagSchema } from "./tag.schema";
 import { talentSchema } from "./talent.schema";
 import { weaponSchema } from "./weapon.schema";
+import { ExpandRecursively } from "../../utils/types";
 
 export const lancerDataSchema = z
   .object({
@@ -65,4 +66,4 @@ export const lancerDataSchema = z
   })
   .transform((o) => camelize(o, true));
 
-export type LancerData = z.infer<typeof lancerDataSchema>;
+export type LancerData = ExpandRecursively<z.infer<typeof lancerDataSchema>>;

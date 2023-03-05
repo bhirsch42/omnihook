@@ -170,6 +170,8 @@ export function WindowView({
       ref={windowViewEl}
       onMouseDown={onMouseDown}
     >
+      <div className="overflow-hidden w-full h-full">{children}</div>
+
       {!isMaximized && (
         <>
           <div onMouseDown={startDrag}>
@@ -187,8 +189,6 @@ export function WindowView({
         <MaximizeButton onClick={handleMaximize} isMaximized={isMaximized} />
         <CloseButton onClick={handleClose} />
       </WindowViewButtonContainer>
-
-      <div className="overflow-hidden w-full h-full">{children}</div>
     </div>
   );
 }

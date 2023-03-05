@@ -38,7 +38,7 @@ export function PilotEquipment({
       </div>
       {gear.map((item) => (
         <PilotGearView
-          className="py-3 border-b-4 border-b-bgcolor-800"
+          className="py-3 border-b-4 border-b-bgcolor-800 last:border-b-0"
           pilotGear={item}
           key={item.id}
           showDescription

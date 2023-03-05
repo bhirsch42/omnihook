@@ -1,4 +1,4 @@
 declare module "lancer-data" {
-  const type: any;
+  const type: unknown;
   export default type;
 }

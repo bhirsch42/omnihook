@@ -26,7 +26,7 @@ export function PilotGearView({
   }
 
   return (
-    <div className={className}>
+    <div className={`@container ${className}`}>
       <div className="mb-1 flex items-center">
         <div className="text-lg font-bold mr-auto">{pilotGear.name}</div>
         {onSelect && (
@@ -35,14 +35,14 @@ export function PilotGearView({
           </Button>
         )}
       </div>
-      <div className="flex">
+      <div className="w-full @lg:flex">
         <AttackStatsTable
           item={pilotGear}
-          className="pr-2 mr-2 border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
+          className="pr-2 mr-2 mb-2 @lg:mb-0 last:mb-0 @lg:border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
         />
         <BonusTable
           bonuses={pilotGear.bonuses}
-          className="pr-2 mr-2 border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
+          className="pr-2 mr-2 mb-2 @lg:mb-0 last:mb-0 @lg:border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
         />
         {showDescription && (
           <div

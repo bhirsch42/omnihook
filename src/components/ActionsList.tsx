@@ -10,9 +10,9 @@ export function ActionsList({
 }) {
   if (!actions || actions.length === 0) return null;
   return (
-    <div className={`flex flex-wrap mt-3 -mb-2 -mr-2 ${className}`}>
+    <div className={`@container flex flex-wrap mt-3 -mb-2 -mr-2 ${className}`}>
       {actions.map((action) => (
-        <div key={action.detail} className="mb-2 mr-2">
+        <div key={action.detail} className="mb-2 mr-2 w-full @md:w-auto">
           <ActionView action={action} />
         </div>
       ))}

@@ -11,12 +11,7 @@ export type StatsTableProps = {
   fillHeight?: boolean;
 };
 
-export function StatsTable({
-  rows,
-  className,
-  fillHeight,
-  narrow,
-}: StatsTableProps) {
+export function StatsTable({ rows, className, fillHeight }: StatsTableProps) {
   return (
     <div className={`flex flex-col ${className}`}>
       <div
@@ -30,7 +25,7 @@ export function StatsTable({
               <FontAwesomeIcon icon={row[0]} className="text-bgcolor-400" />
             </div>
             <div className="flex items-center whitespace-nowrap">{row[1]}</div>
-            <div className="flex items-center">{row[2]}</div>
+            <div className="flex items-center whitespace-nowrap">{row[2]}</div>
           </Fragment>
         ))}
       </div>

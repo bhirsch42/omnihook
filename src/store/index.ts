@@ -19,7 +19,7 @@ export const store = configureStore({
   reducer: {
     pilots: pilotsReducer,
   },
-  preloadedState: persistedState,
+  preloadedState: persistedState as any,
   middleware: [localStorageMiddleware],
 });
 
