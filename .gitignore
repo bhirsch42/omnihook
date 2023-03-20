@@ -1,3 +1,5 @@
+src/fixtures/ignore/*
+
 # Logs
 logs
 *.log
