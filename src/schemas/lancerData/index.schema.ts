@@ -64,6 +64,7 @@ export const lancerDataSchema = z
     talents: talentSchema.array(),
     weapons: weaponSchema.array(),
   })
+  .strict()
   .transform((o) => camelize(o, true));
 
 export type LancerData = ExpandRecursively<z.infer<typeof lancerDataSchema>>;

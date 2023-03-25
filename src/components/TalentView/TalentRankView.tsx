@@ -5,6 +5,7 @@ import { ActionsList } from "../ActionsList";
 import { ActionView } from "../ActionView";
 import { Button } from "../Button";
 import { HLine } from "../HLine";
+import { UserText } from "../UserText";
 
 export type TalentRankViewProps = {
   talentRank: TalentRank;
@@ -76,10 +77,7 @@ export function TalentRankView({
           <div>Rank {rankNum}</div>
         </div>
       </div>
-      <div
-        className="text-sm user-text"
-        dangerouslySetInnerHTML={{ __html: talentRank.description }}
-      ></div>
+      <UserText className="text-sm user-text" text={talentRank.description} />
       <ActionsList actions={talentRank.actions} />
     </div>
   );

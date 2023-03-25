@@ -1,7 +1,6 @@
 import { times } from "ramda";
 import { PilotGearView } from "../../components/PilotGearView";
-import { lancerCollections } from "../../data/lancerData";
-import { PilotGear } from "../../schemas/lancerData/pilotGear.schema";
+import { useCollections } from "../../hooks/useCollections";
 import { useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
@@ -16,6 +15,7 @@ export function PilotWeaponsAndArmor({
 }) {
   const pilot = useAppSelector(selectPilot(pilotId));
   const pilotStats = useAppSelector(selectPilotStats(pilotId));
+  const lancerCollections = useCollections();
 
   const { maxWeapons, maxArmor } = pilotStats;
 

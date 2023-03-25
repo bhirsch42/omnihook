@@ -1,13 +1,14 @@
 import { RootState } from "../..";
-import { lancerCollections } from "../../../data/lancerData";
 import { Bonus } from "../../../schemas/lancerData/bonus.schema";
 import { selectPilot } from "./selectPilot";
 import { flatten, isNil, reject } from "ramda";
+import { useCollections } from "../../../hooks/useCollections";
 
 export const selectPilotBonuses =
   (id: string) =>
   (state: RootState): Bonus[] => {
     const pilot = selectPilot(id)(state);
+    const lancerCollections = useCollections();
 
     const gearBonuses = reject(
       isNil,

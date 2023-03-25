@@ -27,26 +27,6 @@ import { initDebug } from "./debug";
 
 initDebug();
 
-// const allBonuses = uniq(
-//   reject(
-//     isNil,
-//     flatten([
-//       lancerData.coreBonuses.map((coreBonus) => coreBonus.bonuses),
-//       lancerData.frames.map((frame) => frame.coreSystem.activeBonuses),
-//       lancerData.pilotGear.map((pilotGear) => pilotGear.bonuses),
-//       lancerData.reserves.map((reserve) => reserve.bonuses),
-//       lancerData.systems.map((system) => system.bonuses),
-//       lancerData.talents.map((talent) =>
-//         talent.ranks.map((talentRank) => talentRank.bonuses)
-//       ),
-//     ])
-//   )
-// ).map((bonus: unknown) => (bonus as Bonus).id);
-
-// console.log(lancerData.tags.map((tag) => tag.id));
-
-// console.log(allBonuses);
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>

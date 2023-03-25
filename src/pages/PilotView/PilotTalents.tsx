@@ -2,10 +2,9 @@ import { Button } from "../../components/Button";
 import { TalentView } from "../../components/TalentView";
 import { UnspentPoints } from "../../components/UnspentPoints";
 import { useWindowManager } from "../../components/WindowManager";
-import { lancerCollections } from "../../data/lancerData";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useCollections } from "../../hooks/useCollections";
+import { useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
-import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
 import { selectUnspentPilotTalentPoints } from "../../store/pilots/selectors/selectUnspentPilotTalentPoints";
 import { EditTalents } from "./EditTalents";
 
@@ -17,6 +16,7 @@ export function PilotTalents({
   className?: string;
 }) {
   const { openWindow } = useWindowManager();
+  const lancerCollections = useCollections();
 
   const pilot = useAppSelector(selectPilot(pilotId));
   const unspentTalentPoints = useAppSelector(

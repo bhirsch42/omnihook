@@ -3,6 +3,7 @@ import { Frame } from "../schemas/lancerData/frame.schema";
 import { Trait } from "../schemas/lancerData/trait.schema";
 import { MechFrameStatsView } from "./MechFrameStatsView";
 import { TraitView } from "./TraitView";
+import { UserText } from "./UserText";
 
 type MechFrameViewProps = {
   mechFrame: Frame;
@@ -47,10 +48,7 @@ export function MechFrameView({ mechFrame }: MechFrameViewProps) {
           />
         </div>
         <div className="row-span-2">
-          <div
-            className="text-sm"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
+          <UserText text={description} className="text-sm" />
           <div>
             {traits.map((trait) => (
               <TraitView trait={trait} key={trait.name} className="mt-2" />

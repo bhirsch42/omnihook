@@ -1,4 +1,4 @@
-import { Collection, lancerCollections } from "../data/lancerData";
+import { lancerCollections } from "../data/lancerData";
 import { ReactNode } from "react";
 import { BackgroundView } from "../components/BackgroundView";
 import { ManufacturerView } from "../components/ManufacturerView";
@@ -19,6 +19,10 @@ import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 import { SearchResult } from "../components/SearchCollection/SearchResult";
 import { Frame } from "../schemas/lancerData/frame.schema";
 import { MechFrameView } from "../components/MechFrameView";
+import { Collection } from "../utils/collection";
+import { NpcTemplateView } from "../components/NpcTemplateView";
+import { NpcTemplate } from "../schemas/lancerData/npcTemplate.schema";
+import { useCollections } from "../hooks/useCollections";
 
 type CompendiumCollection<T> = {
   collection: Collection<T>;
@@ -26,49 +30,59 @@ type CompendiumCollection<T> = {
   label: string;
 };
 
-const COMPENDIUM_COLLECTIONS = [
-  {
-    collection: lancerCollections.mechFrames,
-    renderItem: (item) => <MechFrameView mechFrame={item} />,
-    label: "Mech Frames",
-  } as const satisfies CompendiumCollection<Frame>,
-  {
-    collection: lancerCollections.pilotGear,
-    renderItem: (item) => <PilotGearView pilotGear={item} showDescription />,
-    label: "Pilot Gear",
-  } as const satisfies CompendiumCollection<PilotGear>,
-  {
-    collection: lancerCollections.talents,
-    renderItem: (item) => <TalentView talent={item} showDescription />,
-    label: "Talents",
-  } as const satisfies CompendiumCollection<Talent>,
-  {
-    collection: lancerCollections.coreBonuses,
-    renderItem: (item) => <CoreBonusView coreBonus={item} />,
-    label: "Core Bonuses",
-  } as const satisfies CompendiumCollection<CoreBonus>,
-  {
-    collection: lancerCollections.backgrounds,
-    renderItem: (item) => <BackgroundView background={item} />,
-    label: "Backgrounds",
-  } as const satisfies CompendiumCollection<Background>,
-  {
-    collection: lancerCollections.manufacturers,
-    renderItem: (item) => <ManufacturerView manufacturer={item} />,
-    label: "Manufacturers",
-  } as const satisfies CompendiumCollection<Manufacturer>,
-  {
-    collection: lancerCollections.skills,
-    renderItem: (item) => <SkillView skill={item} />,
-    label: "Skills",
-  } as const satisfies CompendiumCollection<Skill>,
-] as const;
+function useCompendiumCollections() {
+  const lancerCollections = useCollections();
+
+  return [
+    {
+      collection: lancerCollections.npcTemplates,
+      renderItem: (item) => <NpcTemplateView npcTemplate={item} />,
+      label: "NPC Templates",
+    } as const satisfies CompendiumCollection<NpcTemplate>,
+    {
+      collection: lancerCollections.mechFrames,
+      renderItem: (item) => <MechFrameView mechFrame={item} />,
+      label: "Mech Frames",
+    } as const satisfies CompendiumCollection<Frame>,
+    {
+      collection: lancerCollections.pilotGear,
+      renderItem: (item) => <PilotGearView pilotGear={item} showDescription />,
+      label: "Pilot Gear",
+    } as const satisfies CompendiumCollection<PilotGear>,
+    {
+      collection: lancerCollections.talents,
+      renderItem: (item) => <TalentView talent={item} showDescription />,
+      label: "Talents",
+    } as const satisfies CompendiumCollection<Talent>,
+    {
+      collection: lancerCollections.coreBonuses,
+      renderItem: (item) => <CoreBonusView coreBonus={item} />,
+      label: "Core Bonuses",
+    } as const satisfies CompendiumCollection<CoreBonus>,
+    {
+      collection: lancerCollections.backgrounds,
+      renderItem: (item) => <BackgroundView background={item} />,
+      label: "Backgrounds",
+    } as const satisfies CompendiumCollection<Background>,
+    {
+      collection: lancerCollections.manufacturers,
+      renderItem: (item) => <ManufacturerView manufacturer={item} />,
+      label: "Manufacturers",
+    } as const satisfies CompendiumCollection<Manufacturer>,
+    {
+      collection: lancerCollections.skills,
+      renderItem: (item) => <SkillView skill={item} />,
+      label: "Skills",
+    } as const satisfies CompendiumCollection<Skill>,
+  ] as const;
+}
 
 export function Compendium() {
+  const compendiumCollections = useCompendiumCollections();
   return (
     <SearchCollection
       renderSidebar={(query) =>
-        COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
+        compendiumCollections.map((compendiumCollection) => (
           <SearchResultsSection
             key={compendiumCollection.label}
             query={query}
@@ -86,7 +100,7 @@ export function Compendium() {
         ))
       }
       renderMain={(query) =>
-        COMPENDIUM_COLLECTIONS.map((compendiumCollection) => (
+        compendiumCollections.map((compendiumCollection) => (
           <SearchResultsSection
             key={compendiumCollection.label}
             query={query}

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Trait } from "../schemas/lancerData/trait.schema";
 import { Button } from "./Button";
+import { UserText } from "./UserText";
 import { AttackStatsTable } from "./WeaponStatsTable";
 
 export function TraitView({
@@ -23,10 +24,7 @@ export function TraitView({
         <div className="text-sm italic">{trait.use}</div>
       </div>
       <div className="flex mx-2 mb-2">
-        <div
-          className="text-sm"
-          dangerouslySetInnerHTML={{ __html: trait.description }}
-        ></div>
+        <UserText text={trait.description} className="text-sm" />
       </div>
     </div>
   );

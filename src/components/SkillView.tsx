@@ -1,5 +1,6 @@
 import { Skill } from "../schemas/lancerData/skill.schema";
 import { Button } from "./Button";
+import { UserText } from "./UserText";
 
 export function SkillView({
   skill,
@@ -21,7 +22,7 @@ export function SkillView({
         )}
       </div>
 
-      <div dangerouslySetInnerHTML={{ __html: skill.description }}></div>
+      <UserText text={skill.description} />
     </div>
   );
 }

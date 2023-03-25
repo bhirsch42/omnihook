@@ -1,9 +1,11 @@
 import { z } from "zod";
 
 export const rollValueSchema = z.union([
-  z.coerce.string().regex(/^[0-9]+$/),
+  z.coerce.string().regex(/^-?[0-9]+$/),
   z.coerce.string().regex(/^[0-9]+d(3|4|6|8|12)$/),
   z.coerce.string().regex(/^[0-9]+d(3|4|6|8|12) ?\+ ?[0-9]+$/),
+  z.coerce.string().regex(/^\{?\+?[0-9]+\/\+?[0-9]+\/\+?[0-9]+\}?$/), // {1/2/3}, 2/+4/+6
+  z.coerce.string().regex(/^[0-9]+-[0-9]+$/),
   z.enum(["???", "N/A"]),
 ]);
 

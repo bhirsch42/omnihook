@@ -1,4 +1,5 @@
 import { Background } from "../schemas/lancerData/background.schema";
+import { UserText } from "./UserText";
 
 export function BackgroundView({
   background,
@@ -10,7 +11,7 @@ export function BackgroundView({
   return (
     <div className={className}>
       <div className="text-lg font-bold">{background.name}</div>
-      <div dangerouslySetInnerHTML={{ __html: background.description }}></div>
+      <UserText text={background.description} />
     </div>
   );
 }

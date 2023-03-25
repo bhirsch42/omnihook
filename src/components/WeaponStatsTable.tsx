@@ -9,6 +9,7 @@ import { Range } from "../schemas/lancerData/range.schema";
 import { TagRef } from "../schemas/lancerData/tagRef.schema";
 import { ICONS } from "../utils/icons";
 import { isNilOrEmpty } from "../utils/isNilOrEmpty";
+import { RangeView } from "./RangeView";
 import { StatsTable } from "./StatsTable";
 
 type AttackItem = {
@@ -31,10 +32,6 @@ export function AttackStatsTable({
   if (isNilOrEmpty(damage) && isNilOrEmpty(range) && !usesCount) return null;
 
   const damageString = damage?.map((d) => `${d.val} ${d.type}`).join(", ");
-  const rangeString = range
-    ?.map((r) => `${r.val} ${r.type}`)
-    .join(", ")
-    .replace(" Range", "");
 
   return (
     <StatsTable
@@ -45,11 +42,7 @@ export function AttackStatsTable({
           "Damage",
           <span className="font-bold">{damageString}</span>,
         ],
-        rangeString && [
-          ICONS.range,
-          "Range",
-          <span className="font-bold">{rangeString}</span>,
-        ],
+        range && [ICONS.range, "Range", <RangeView range={range} />],
         usesCount && [
           faCubesStacked,
           "Uses",

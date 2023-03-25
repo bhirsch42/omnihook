@@ -2,6 +2,7 @@ import { Talent } from "../../schemas/lancerData/talent.schema";
 import { TalentRank } from "../../schemas/lancerData/talentRank.schema";
 import { useAppSelector } from "../../store/hooks";
 import { selectPilotSafe } from "../../store/pilots/selectors/selectPilotSafe";
+import { UserText } from "../UserText";
 import { EditableTalentRankView } from "./EditableTalentRankView";
 import { TalentRankView } from "./TalentRankView";
 
@@ -54,13 +55,16 @@ export function TalentView({
   return (
     <div className={className}>
       <div className="text-xl font-bold">{talent.name}</div>
-      <div dangerouslySetInnerHTML={{ __html: talent.terse }}></div>
+
+      <UserText text={talent.terse} />
+
       {showDescription && (
-        <div
+        <UserText
+          text={talent.description}
           className="pl-3 my-2 ml-3 text-sm italic border-l-2 border-accentcolor-400 user-text"
-          dangerouslySetInnerHTML={{ __html: talent.description }}
-        ></div>
+        />
       )}
+
       {ranks.map(renderRank)}
     </div>
   );

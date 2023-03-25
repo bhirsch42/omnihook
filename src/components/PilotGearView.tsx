@@ -2,6 +2,7 @@ import { PilotGear } from "../schemas/lancerData/pilotGear.schema";
 import { ActionsList } from "./ActionsList";
 import { BonusTable } from "./BonusTable";
 import { Button } from "./Button";
+import { UserText } from "./UserText";
 import { AttackStatsTable } from "./WeaponStatsTable";
 
 type PilotGearViewProps = {
@@ -44,12 +45,7 @@ export function PilotGearView({
           bonuses={pilotGear.bonuses}
           className="pr-2 mr-2 mb-2 @lg:mb-0 last:mb-0 @lg:border-r border-r-bgcolor-700 last:pr-0 last:mr-0 last:border-r-0"
         />
-        {showDescription && (
-          <div
-            className="text-sm"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
-        )}
+        {showDescription && <UserText text={description} className="text-sm" />}
       </div>
       <ActionsList actions={pilotGear.actions} />
     </div>

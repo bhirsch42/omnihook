@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
-import { Collection } from "../../data/lancerData";
-import { SearchResult } from "./SearchResult";
+import { Collection } from "../../utils/collection";
 
-export type SearchResultsSectionProps<T extends { id: string }> = {
+export type SearchResultsSectionProps<T> = {
   query: string;
   collection: Collection<T>;
   renderItem: (item: T) => React.ReactNode;
@@ -10,7 +9,7 @@ export type SearchResultsSectionProps<T extends { id: string }> = {
   className?: string;
 };
 
-export function SearchResultsSection<T extends { id: string }>({
+export function SearchResultsSection<T>({
   query,
   collection,
   renderItem,

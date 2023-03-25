@@ -61,6 +61,9 @@ export const bonusIdSchema = z.enum([
   "structure",
   "talent_point",
   "tech_attack",
+  "activations",
+  "evade",
+  "sizes",
 ]);
 
 export type BonusId = z.infer<typeof bonusIdSchema>;

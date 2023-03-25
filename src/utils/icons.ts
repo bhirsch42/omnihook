@@ -24,6 +24,8 @@ import {
   faCircleRadiation,
   faHeart,
   faScaleBalanced,
+  faCubesStacked,
+  faCrosshairs,
 } from "@fortawesome/free-solid-svg-icons";
 import { BonusId } from "../schemas/lancerData/bonusId.schema";
 
@@ -76,7 +78,7 @@ export const ICONS: Record<BonusId, IconDefinition> = {
   pilot_hp: faHeart,
   pilot_speed: faRunning,
   ram: faCarBurst,
-  range: faBullseye,
+  range: faCrosshairs,
   repcap: faWrench,
   save: faScaleBalanced,
   sensor: faSatelliteDish,
@@ -88,4 +90,7 @@ export const ICONS: Record<BonusId, IconDefinition> = {
   structure: faCube,
   talent_point: faCirclePlus,
   tech_attack: faBolt,
+  activations: faCubesStacked,
+  evade: faPersonFallingBurst,
+  sizes: faExpand,
 };
