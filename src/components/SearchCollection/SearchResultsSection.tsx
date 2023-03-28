@@ -1,10 +1,15 @@
 import { ReactNode } from "react";
 import { Collection } from "../../utils/collection";
 
-export type SearchResultsSectionProps<T> = {
+type SearchResultsSectionItem = {
+  id: string;
+  name: string;
+};
+
+export type SearchResultsSectionProps = {
   query: string;
-  collection: Collection<T>;
-  renderItem: (item: T) => React.ReactNode;
+  collection: Collection<SearchResultsSectionItem>;
+  renderItem: (item: SearchResultsSectionItem) => React.ReactNode;
   label?: ReactNode;
   className?: string;
 };
@@ -15,7 +20,7 @@ export function SearchResultsSection<T>({
   renderItem,
   label,
   className,
-}: SearchResultsSectionProps<T>) {
+}: SearchResultsSectionProps) {
   const items = query === "" ? collection.all() : collection.search(query);
 
   return items.length > 0 ? (
