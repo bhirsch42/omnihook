@@ -21,7 +21,6 @@ export function NpcClassView({
 
   return (
     <div className={className}>
-      {/* <div className="text-lg font-bold">{npcClass.name}</div> */}
       <div className="flex mb-2 text-lg font-bold">
         <div>{npcClass.name}</div>
         <div className="pl-3 ml-3 border-l-4 text-bgcolor-400 border-l-bgcolor-700 capitalize italic">
