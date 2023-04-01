@@ -26,10 +26,15 @@ import {
   faScaleBalanced,
   faCubesStacked,
   faCrosshairs,
+  faScrewdriverWrench,
+  faNetworkWired,
+  faHandFist,
 } from "@fortawesome/free-solid-svg-icons";
 import { BonusId } from "../schemas/lancerData/bonusId.schema";
 
-export const ICONS: Record<BonusId, IconDefinition> = {
+type MoreIcons = "hull" | "agility" | "systems" | "engineering";
+
+export const ICONS: Record<BonusId | MoreIcons, IconDefinition> = {
   ai_cap: faMicrochip,
   armor: faShield,
   attack: faBurst,
@@ -93,4 +98,8 @@ export const ICONS: Record<BonusId, IconDefinition> = {
   activations: faCubesStacked,
   evade: faPersonFallingBurst,
   sizes: faExpand,
+  hull: faHandFist,
+  agility: faPersonRunning,
+  systems: faNetworkWired,
+  engineering: faScrewdriverWrench,
 };

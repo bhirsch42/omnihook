@@ -11,35 +11,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isEmpty } from "ramda";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { NpcFeature } from "../schemas/lancerData/npcFeature.schema";
-import { TieredStat } from "../schemas/lancerData/tieredStat.schema";
 import { ICONS } from "../utils/icons";
 import { RangeView } from "./RangeView";
 import { StatsTable, StatsTableRow } from "./StatsTable";
 import { UserText } from "./UserText";
-
-function TieredStatView({ tieredStat }: { tieredStat: TieredStat }) {
-  return (
-    <div className="inline-block">
-      <div className="font-medium flex items-center bg-bgcolor-700 overflow-hidden h-4 px-3 rounded-full text-sm">
-        {tieredStat.map((stat, i) => {
-          const isLast = i === tieredStat.length - 1;
-
-          return (
-            <Fragment key={i}>
-              <div>{stat}</div>
-
-              {!isLast && (
-                <div className="pill-divider h-5 mx-2 bg-bgcolor-800"></div>
-              )}
-            </Fragment>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+import { TieredStatView } from "./TieredStatView";
 
 function TieredDamageView({
   tieredDamage,

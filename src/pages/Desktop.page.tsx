@@ -2,7 +2,7 @@ import {
   faBookAtlas,
   faWarehouse,
   faCircleUser,
-  faHandFist,
+  faChess,
 } from "@fortawesome/free-solid-svg-icons";
 import { DesktopBackground } from "../components/DesktopBackground";
 import { DesktopIcon } from "../components/DesktopIcon";
@@ -75,7 +75,7 @@ export function Desktop() {
           />
 
           <DesktopIcon
-            icon={faHandFist}
+            icon={faChess}
             label="Encounters"
             onClick={handleClickEncounters}
           />

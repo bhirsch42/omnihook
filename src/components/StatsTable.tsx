@@ -9,9 +9,15 @@ export type StatsTableProps = {
   rows: StatsTableRow[];
   className?: string;
   fillHeight?: boolean;
+  rightAlignLastColumn?: boolean;
 };
 
-export function StatsTable({ rows, className, fillHeight }: StatsTableProps) {
+export function StatsTable({
+  rows,
+  className,
+  fillHeight,
+  rightAlignLastColumn,
+}: StatsTableProps) {
   return (
     <div className={`flex flex-col ${className}`}>
       <div
@@ -25,7 +31,11 @@ export function StatsTable({ rows, className, fillHeight }: StatsTableProps) {
               <FontAwesomeIcon icon={row[0]} className="text-bgcolor-400" />
             </div>
             <div className="flex items-center whitespace-nowrap">{row[1]}</div>
-            <div className="flex items-center text-right whitespace-nowrap">
+            <div
+              className={`flex items-center text-right whitespace-nowrap ${
+                rightAlignLastColumn ? "justify-end" : "justify-start"
+              }`}
+            >
               {row[2]}
             </div>
           </Fragment>
