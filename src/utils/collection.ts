@@ -9,7 +9,9 @@ export type Collection<T> = {
   filter: (fn: (item: T) => boolean) => Collection<T>;
 };
 
-export function createCollection<T extends { id: string }>(
+export type CollectionItem = { id: string; name: string };
+
+export function createCollection<T extends CollectionItem>(
   items: T[],
   keys: keyof T extends string ? (keyof T)[] : never[]
 ): Collection<T> {

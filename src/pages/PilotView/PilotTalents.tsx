@@ -1,7 +1,7 @@
 import { Button } from "../../components/Button";
 import { TalentView } from "../../components/TalentView";
 import { UnspentPoints } from "../../components/UnspentPoints";
-import { useWindowManager } from "../../components/WindowManager";
+import { useWindowManager } from "../../components/WindowManager/WindowManagerContext";
 import { useCollections } from "../../hooks/useCollections";
 import { useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";

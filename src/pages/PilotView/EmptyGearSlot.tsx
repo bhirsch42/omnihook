@@ -1,4 +1,4 @@
-import { useWindowManager } from "../../components/WindowManager";
+import { useWindowManager } from "../../components/WindowManager/WindowManagerContext";
 import { PilotGearType } from "../../schemas/lancerData/pilotGearType.schema";
 import { useAppDispatch } from "../../store/hooks";
 import { addPilotGear } from "../../store/pilots";
@@ -13,7 +13,6 @@ export function EmptyGearSlot({
 }) {
   const dispatch = useAppDispatch();
   const { openWindow, closeWindow } = useWindowManager();
-  console.log("Render EmptyGearSlot");
   const windowId = `choose-pilot-${type}`;
 
   const handleSelect = (pilotGearId: string) => {

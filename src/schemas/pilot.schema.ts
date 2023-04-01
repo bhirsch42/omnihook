@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { pilotGearSchema } from "./lancerData/pilotGear.schema";
 import { licenseLevelSnapshotSchema } from "./licenseLevelSnapshot.schema";
 import { pilotGearRefSchema } from "./pilotGearRef.schema";
 import { pilotSkillSchema } from "./pilotSkill.schema";

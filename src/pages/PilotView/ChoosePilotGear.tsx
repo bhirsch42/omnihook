@@ -5,6 +5,7 @@ import { SearchResultsSection } from "../../components/SearchCollection/SearchRe
 import { SearchResultSidebarItem } from "../../components/SearchCollection/SearchResultSidebarItem";
 import { PilotGearType } from "../../schemas/lancerData/pilotGearType.schema";
 import { SearchResult } from "../../components/SearchCollection/SearchResult";
+import { PilotGear } from "../../schemas/lancerData/pilotGear.schema";
 
 const { pilotGear: pilotGearCollection } = lancerCollections;
 

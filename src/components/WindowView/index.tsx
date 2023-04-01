@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   MouseEventHandler,
   PropsWithChildren,
@@ -9,102 +7,62 @@ import {
 } from "react";
 import { useDrag } from "./useDrag";
 import { useResize } from "./useResize";
-import { always } from "ramda";
-
-function CloseButton({ onClick }: { onClick?: MouseEventHandler }) {
-  return (
-    <button
-      type="button"
-      className="bg-red-400 hover:bg-red-500 transition-colors w-4 h-4 rounded-full flex items-center justify-center text-zinc-900 text-xs row-span-1"
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faXmark} />
-    </button>
-  );
-}
-
-function MinimizeButton() {
-  return (
-    <button
-      type="button"
-      className="bg-yellow-400 hover:bg-yellow-500 transition-colors w-4 h-4 rounded-full flex items-center justify-center text-zinc-900 text-xs row-span-1"
-    >
-      <FontAwesomeIcon icon={faMinus} />
-    </button>
-  );
-}
-
-function MaximizeButton({
-  onClick,
-  isMaximized,
-}: {
-  onClick?: MouseEventHandler;
-  isMaximized: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      className="bg-green-400 hover:bg-green-500 transition-colors w-4 h-4 rounded-full flex items-center justify-center text-zinc-900 text-xs row-span-1"
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={isMaximized ? faMinus : faPlus} />
-    </button>
-  );
-}
-
-function WindowViewLabel({ children }: PropsWithChildren) {
-  return (
-    <div className="absolute -top-6 -left-1 bg-bgcolor-400 text-bgcolor-900 font-bold pl-3 pr-8 clip-tr cursor-move">
-      {children}
-    </div>
-  );
-}
-
-function WindowViewDecoration() {
-  return (
-    <div className="absolute -top-3 left-1 w-full h-2 bg-striped border border-bgcolor-400 clip-tr-1 cursor-move"></div>
-  );
-}
-
-function WindowViewButtonContainer({ children }: PropsWithChildren) {
-  return (
-    <div className="absolute top-0 right-0 bg-bgcolor-400 text-bgcolor-900 font-bold pl-6 pr-1 clip-bl items-center pb-1 grid gap-2 grid-cols-2">
-      {children}
-    </div>
-  );
-}
+import { CloseButton } from "./CloseButton";
+import { MaximizeButton } from "./MaximizeButton";
+import { WindowViewLabel } from "./WindowViewLabel";
+import { WindowViewDecoration } from "./WindowViewDecoration";
+import { WindowViewButtonContainer } from "./WindowViewButtonContainer";
 
 const DRAG_BUFFER = 20;
+
+export const DEFAULT_WINDOW_VIEW_BOUNDS: WindowViewBounds = {
+  top: 0.1,
+  left: 0.1,
+  width: 0.8,
+  height: 0.8,
+};
+
+const EMPTY_WINDOW_VIEW_BOUNDS: WindowViewBounds = {
+  top: 0,
+  left: 0,
+  width: 0,
+  height: 0,
+};
+
+export type WindowViewBounds = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+};
+
+type WindowViewProps = PropsWithChildren<{
+  label: string;
+  onMouseDown?: MouseEventHandler;
+  onClickClose?: MouseEventHandler;
+  initialBounds?: WindowViewBounds;
+}>;
 
 export function WindowView({
   children,
   label,
   onMouseDown,
   onClickClose,
-}: PropsWithChildren<{
-  label: string;
-  onMouseDown?: MouseEventHandler;
-  onClickClose?: MouseEventHandler;
-}>) {
+  initialBounds,
+}: WindowViewProps) {
   const windowViewEl = useRef<HTMLDivElement | null>(null);
 
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
-  const [oldBounds, setOldBounds] = useState({
-    top: 0,
-    left: 0,
-    width: 0,
-    height: 0,
-  });
+  const [oldBounds, setOldBounds] = useState<WindowViewBounds>(
+    EMPTY_WINDOW_VIEW_BOUNDS
+  );
 
-  const [bounds, setBounds] = useState({
-    top: 0.1,
-    left: 0.1,
-    width: 0.8,
-    height: 0.8,
-  });
+  const [bounds, setBounds] = useState<WindowViewBounds>(
+    initialBounds || DEFAULT_WINDOW_VIEW_BOUNDS
+  );
 
   const { startDrag } = useDrag({
     windowViewEl,

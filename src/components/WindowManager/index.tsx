@@ -1,64 +1,15 @@
-import {
-  createContext,
-  PropsWithChildren,
-  ReactNode,
-  useContext,
-  useRef,
-  useState,
-} from "react";
-import { reject, always } from "ramda";
-import { WindowView } from "./WindowView";
+import { PropsWithChildren, ReactNode, useRef, useState } from "react";
+import { reject } from "ramda";
 import { v4 as uuidv4 } from "uuid";
+import { createWindow } from "./createWindow";
+import { WindowManagerContext } from "./WindowManagerContext";
 
-type OpenWindowProps = {
+export type OpenWindowProps = {
   id?: string;
   label: string;
   component: ReactNode;
+  size?: "sm" | "md" | "lg" | "full";
 };
-
-type CreateWindowProps = OpenWindowProps & {
-  id: string;
-  focusWindow: (id: string) => void;
-  closeWindow: (id: string) => void;
-};
-
-type WindowManagerContextProps = {
-  openWindow: (props: OpenWindowProps) => void;
-  focusWindow: (id: string) => void;
-  closeWindow: (id: string) => void;
-};
-
-const WindowManagerContext = createContext<WindowManagerContextProps>({
-  openWindow: always,
-  closeWindow: always,
-  focusWindow: always,
-});
-
-export function useWindowManager() {
-  return useContext(WindowManagerContext);
-}
-
-export function createWindow({
-  id,
-  label,
-  component,
-  focusWindow,
-  closeWindow,
-}: CreateWindowProps): ManagedWindow {
-  return {
-    id,
-    component: (
-      <WindowView
-        label={label}
-        onMouseDown={() => focusWindow(id)}
-        key={id}
-        onClickClose={() => closeWindow(id)}
-      >
-        {component}
-      </WindowView>
-    ),
-  };
-}
 
 export type ManagedWindow = {
   id: string;

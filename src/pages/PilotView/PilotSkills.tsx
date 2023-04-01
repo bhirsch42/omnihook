@@ -3,7 +3,7 @@ import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats"
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { lancerCollections } from "../../data/lancerData";
 import { Button } from "../../components/Button";
-import { useWindowManager } from "../../components/WindowManager";
+import { useWindowManager } from "../../components/WindowManager/WindowManagerContext";
 import { ChooseSkill } from "./ChooseSkill";
 import { addSkill, decrementSkill, incrementSkill } from "../../store/pilots";
 import { selectPilotSkillModifiers } from "../../store/pilots/selectors/selectPilotSkillModifiers";

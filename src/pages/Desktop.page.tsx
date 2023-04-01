@@ -2,21 +2,23 @@ import {
   faBookAtlas,
   faWarehouse,
   faCircleUser,
+  faHandFist,
 } from "@fortawesome/free-solid-svg-icons";
 import { DesktopBackground } from "../components/DesktopBackground";
 import { DesktopIcon } from "../components/DesktopIcon";
-import { useWindowManager } from "../components/WindowManager";
 import { useAppSelector } from "../store/hooks";
 import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
 import { Compendium } from "./Compendium.page";
 import { Mechs } from "./Mechs.page";
 import { PilotView } from "./PilotView/index.page";
+import { Encounters } from "./Encounters.page";
+import { useWindowManager } from "../components/WindowManager/WindowManagerContext";
 
 export function Desktop() {
   const { openWindow } = useWindowManager();
   const pilotId = useAppSelector(selectActivePilot).id;
 
-  async function handleClickCompendium() {
+  function handleClickCompendium() {
     openWindow({
       id: "compendium",
       label: "Compendium",
@@ -24,7 +26,7 @@ export function Desktop() {
     });
   }
 
-  async function handleClickPilot() {
+  function handleClickPilot() {
     openWindow({
       id: "pilot",
       label: "Pilot",
@@ -32,11 +34,19 @@ export function Desktop() {
     });
   }
 
-  async function handleClickMechs() {
+  function handleClickMechs() {
     openWindow({
       id: "mechs",
       label: "Mechs",
       component: <Mechs pilotId={pilotId} />,
+    });
+  }
+
+  function handleClickEncounters() {
+    openWindow({
+      id: "encounters",
+      label: "Encounters",
+      component: <Encounters />,
     });
   }
 
@@ -62,6 +72,12 @@ export function Desktop() {
             icon={faWarehouse}
             label="Mechs"
             onClick={handleClickMechs}
+          />
+
+          <DesktopIcon
+            icon={faHandFist}
+            label="Encounters"
+            onClick={handleClickEncounters}
           />
         </div>
       </div>

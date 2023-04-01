@@ -6,8 +6,12 @@ export function SearchResult({
   id,
 }: PropsWithChildren<{ className?: string; id: string }>) {
   return (
-    <div className={`${className} pt-2`} id={id}>
-      <div className="bg-bgcolor-800 p-3">{children}</div>
+    <div
+      id={id}
+      className={`bg-bgcolor-800 p-3 mt-2 scroll-mt-2 ${className}`}
+      style={{ scrollPaddingBlockStart: "1rem" }}
+    >
+      {children}
     </div>
   );
 }

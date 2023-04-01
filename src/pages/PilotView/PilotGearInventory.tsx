@@ -1,14 +1,9 @@
 import { times } from "ramda";
 import { PilotGearView } from "../../components/PilotGearView";
-import { useWindowManager } from "../../components/WindowManager";
 import { lancerCollections } from "../../data/lancerData";
-import { PilotGear } from "../../schemas/lancerData/pilotGear.schema";
-import { PilotGearType } from "../../schemas/lancerData/pilotGearType.schema";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addPilotGear } from "../../store/pilots";
+import { useAppSelector } from "../../store/hooks";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
-import { ChoosePilotGear } from "./ChoosePilotGear";
 import { EmptyGearSlot } from "./EmptyGearSlot";
 
 export function PilotEquipment({
