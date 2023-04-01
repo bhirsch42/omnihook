@@ -9,7 +9,11 @@ import {
 import { useAppDispatch } from "../store/hooks";
 import { createEncounter } from "../store/encounters";
 
-export function CreateEncounterForm() {
+type CreateEncounterFormProps = {
+  afterSubmit?: () => void;
+};
+
+export function CreateEncounterForm({ afterSubmit }: CreateEncounterFormProps) {
   const dispatch = useAppDispatch();
 
   const {
@@ -22,23 +26,24 @@ export function CreateEncounterForm() {
 
   function handleCreateEncounter(data: CreateEncounter) {
     dispatch(createEncounter(data));
+    afterSubmit && afterSubmit();
   }
 
   return (
-    <form
-      className="p-3 w-80 border-2 border-bgcolor-700"
-      onSubmit={handleSubmit(handleCreateEncounter)}
-    >
-      <FormInput
-        label="Encounter Name"
-        className="mb-3"
-        register={register}
-        errors={errors}
-        fieldName="name"
-      />
-      <div className="flex justify-end">
-        <Button type="submit">Create Encounter</Button>
-      </div>
-    </form>
+    <div className="flex justify-center pt-3">
+      <form className="w-80" onSubmit={handleSubmit(handleCreateEncounter)}>
+        <FormInput
+          label="Encounter Name"
+          className="mb-3"
+          register={register}
+          errors={errors}
+          fieldName="name"
+          autoFocus
+        />
+        <div className="flex justify-end">
+          <Button type="submit">Create Encounter</Button>
+        </div>
+      </form>
+    </div>
   );
 }

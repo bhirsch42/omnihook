@@ -1,14 +1,14 @@
 import { PropsWithChildren, ReactNode, useRef, useState } from "react";
 import { reject } from "ramda";
 import { v4 as uuidv4 } from "uuid";
-import { createWindow } from "./createWindow";
+import { WindowSizes, createWindow } from "./createWindow";
 import { WindowManagerContext } from "./WindowManagerContext";
 
 export type OpenWindowProps = {
   id?: string;
   label: string;
   component: ReactNode;
-  size?: "sm" | "md" | "lg" | "full";
+  size?: WindowSizes | "full";
 };
 
 export type ManagedWindow = {
@@ -40,7 +40,7 @@ export function WindowManager({ children }: PropsWithChildren) {
     updateDisplayWindows();
   }
 
-  function openWindow({ id, label, component }: OpenWindowProps) {
+  function openWindow({ id, label, component, size }: OpenWindowProps) {
     if (id && windows.current.find((w) => w.id === id)) {
       focusWindow(id);
       return;
@@ -53,6 +53,7 @@ export function WindowManager({ children }: PropsWithChildren) {
         component,
         focusWindow,
         closeWindow,
+        size,
       })
     );
 

@@ -1,5 +1,6 @@
 import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { pilotsReducer } from "./pilots";
+import { encountersReducer } from "./encounters";
 
 const LOCAL_STORAGE_KEY = "omnihook-data";
 
@@ -18,6 +19,7 @@ const localStorageMiddleware: Middleware = ({ getState }) => {
 export const store = configureStore({
   reducer: {
     pilots: pilotsReducer,
+    encounters: encountersReducer,
   },
   preloadedState: persistedState as any,
   middleware: [localStorageMiddleware],

@@ -3,6 +3,7 @@ import { npcSchema } from "./npc.schema";
 import { initiativeSchema } from "./initiative.schema";
 
 export const encounterSchema = z.object({
+  id: z.string().uuid(),
   name: z.string(),
   pcs: z.never().array(),
   npcs: npcSchema.array(),

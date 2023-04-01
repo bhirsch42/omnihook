@@ -15,3 +15,5 @@ export const encountersSlice = createSlice({
 });
 
 export const { createEncounter } = encountersSlice.actions;
+
+export const encountersReducer = encountersSlice.reducer;

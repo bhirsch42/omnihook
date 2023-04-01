@@ -17,6 +17,7 @@ import { TieredStat } from "../schemas/lancerData/tieredStat.schema";
 import { ICONS } from "../utils/icons";
 import { RangeView } from "./RangeView";
 import { StatsTable, StatsTableRow } from "./StatsTable";
+import { UserText } from "./UserText";
 
 function TieredStatView({ tieredStat }: { tieredStat: TieredStat }) {
   return (
@@ -146,14 +147,14 @@ export function NpcFeatureView({
           {npcFeature.trigger && (
             <div>
               <label className="text-sm text-gray-400">Trigger</label>
-              <div className="text-sm">{npcFeature.trigger}</div>
+              <UserText className="text-sm" text={npcFeature.trigger} />
             </div>
           )}
 
           {npcFeature.effect && (
             <div>
               <label className="text-sm text-gray-400">Effect</label>
-              <div className="text-sm">{npcFeature.effect}</div>
+              <UserText className="text-sm" text={npcFeature.effect} />
             </div>
           )}
 

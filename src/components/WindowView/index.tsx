@@ -22,13 +22,6 @@ export const DEFAULT_WINDOW_VIEW_BOUNDS: WindowViewBounds = {
   height: 0.8,
 };
 
-const EMPTY_WINDOW_VIEW_BOUNDS: WindowViewBounds = {
-  top: 0,
-  left: 0,
-  width: 0,
-  height: 0,
-};
-
 export type WindowViewBounds = {
   top: number;
   left: number;
@@ -41,6 +34,7 @@ type WindowViewProps = PropsWithChildren<{
   onMouseDown?: MouseEventHandler;
   onClickClose?: MouseEventHandler;
   initialBounds?: WindowViewBounds;
+  maximized?: boolean;
 }>;
 
 export function WindowView({
@@ -49,19 +43,22 @@ export function WindowView({
   onMouseDown,
   onClickClose,
   initialBounds,
+  maximized,
 }: WindowViewProps) {
   const windowViewEl = useRef<HTMLDivElement | null>(null);
 
-  const [isMaximized, setIsMaximized] = useState<boolean>(false);
+  const [isMaximized, setIsMaximized] = useState<boolean>(maximized || false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const [oldBounds, setOldBounds] = useState<WindowViewBounds>(
-    EMPTY_WINDOW_VIEW_BOUNDS
+    initialBounds || DEFAULT_WINDOW_VIEW_BOUNDS
   );
 
   const [bounds, setBounds] = useState<WindowViewBounds>(
-    initialBounds || DEFAULT_WINDOW_VIEW_BOUNDS
+    maximized
+      ? { top: 0, left: 0, width: 1, height: 1 }
+      : initialBounds || DEFAULT_WINDOW_VIEW_BOUNDS
   );
 
   const { startDrag } = useDrag({
