@@ -29,10 +29,11 @@ import {
   faScrewdriverWrench,
   faNetworkWired,
   faHandFist,
+  faStairs,
 } from "@fortawesome/free-solid-svg-icons";
 import { BonusId } from "../schemas/lancerData/bonusId.schema";
 
-type MoreIcons = "hull" | "agility" | "systems" | "engineering";
+type MoreIcons = "hull" | "agility" | "systems" | "engineering" | "tier";
 
 export const ICONS: Record<BonusId | MoreIcons, IconDefinition> = {
   ai_cap: faMicrochip,
@@ -102,4 +103,5 @@ export const ICONS: Record<BonusId | MoreIcons, IconDefinition> = {
   agility: faPersonRunning,
   systems: faNetworkWired,
   engineering: faScrewdriverWrench,
+  tier: faStairs,
 };

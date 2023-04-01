@@ -3,6 +3,7 @@ import { NpcClass } from "../schemas/lancerData/npcClass.schema";
 import { ICONS } from "../utils/icons";
 import { StatsTable, StatsTableRow } from "./StatsTable";
 import { TieredStatView } from "./TieredStatView";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 function TieredSizeView({
   tieredSize,
