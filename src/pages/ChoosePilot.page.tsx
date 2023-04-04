@@ -6,11 +6,6 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { selectAllPilots } from "../store/pilots/selectors/selectAllPilots";
 
-export type ButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
-
 export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
   const dispatch = useAppDispatch();
 

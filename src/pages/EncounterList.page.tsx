@@ -4,6 +4,7 @@ import { useWindowManager } from "../components/WindowManager/WindowManagerConte
 import { Encounter } from "../schemas/encounter.schema";
 import { selectAllEncounters } from "../store/encounters/selectors/selectAllEncounters";
 import { useAppSelector } from "../store/hooks";
+import { EncounterView } from "./EncounterView.page";
 
 const CREATE_ENCOUNTER_WINDOW_ID = "create-encounter";
 
@@ -35,22 +36,39 @@ type EncounterViewProps = {
   className?: string;
 };
 
-function EncounterView({ encounter, className }: EncounterViewProps) {
+function EncounterListItem({ encounter, className }: EncounterViewProps) {
+  const { openWindow } = useWindowManager();
+
+  const handleClick = () => {
+    openWindow({
+      id: encounter.id,
+      label: `Encounter • ${encounter.name}`,
+      component: <EncounterView encounterId={encounter.id} />,
+    });
+  };
+
   return (
-    <div>
-      <div className="text-lg">{encounter.name}</div>
-    </div>
+    <Button
+      className={`block mb-2 text-left ${className}`}
+      onClick={handleClick}
+    >
+      {encounter.name}
+    </Button>
   );
 }
 
-export function Encounters() {
+export function EncounterList() {
   const encounters = useAppSelector(selectAllEncounters);
 
   return (
     <div className="p-3">
-      {encounters.map((encounter) => (
-        <EncounterView key={encounter.id} encounter={encounter} />
-      ))}
+      <div className="flex">
+        <div className="flex flex-col">
+          {encounters.map((encounter) => (
+            <EncounterListItem key={encounter.id} encounter={encounter} />
+          ))}
+        </div>
+      </div>
 
       <CreateEncounterButton className="mt-3" />
     </div>

@@ -5,14 +5,19 @@ import { NpcFeatureView } from "./NpcFeatureView";
 import { UserText } from "./UserText";
 import { NpcClassStatsView } from "./NpcClassStatsView";
 import { NpcClassSkillsView } from "./NpcClassSkillsView";
+import { ReactNode } from "react";
+
+type NpcClassViewProps = {
+  npcClass: NpcClass;
+  className?: string;
+  actions?: ReactNode;
+};
 
 export function NpcClassView({
   npcClass,
   className,
-}: {
-  npcClass: NpcClass;
-  className?: string;
-}) {
+  actions,
+}: NpcClassViewProps) {
   const { npcFeatures } = useCollections();
 
   const baseFeatures = npcFeatures.findAll(npcClass.baseFeatures);
@@ -28,6 +33,7 @@ export function NpcClassView({
         <div className="pl-3 ml-3 border-l-4 text-bgcolor-400 border-l-bgcolor-700 capitalize italic">
           {npcClass.role}
         </div>
+        {actions && <div className="ml-auto">{actions}</div>}
       </div>
 
       <div className="grid grid-cols-[1fr_auto] gap-3">

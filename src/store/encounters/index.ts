@@ -8,7 +8,7 @@ export type EncountersState = {
 
 export const encountersSlice = createSlice({
   name: "encounters",
-  initialState: { all: [] },
+  initialState: { all: [] as Encounter[] },
   reducers: {
     createEncounter: createEncounterReducer,
   },

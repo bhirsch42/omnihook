@@ -1,6 +1,5 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { ExpandRecursively } from "../../utils/types";
 import { actionSchema } from "./action.schema";
 import { bonusSchema } from "./bonus.schema";
 import { deployableSchema } from "./deployable.schema";
@@ -27,4 +26,4 @@ export const coreSystemSchema = z
   .strict()
   .transform((o) => camelize(o, true));
 
-export type CoreSystem = ExpandRecursively<z.infer<typeof coreSystemSchema>>;
+export type CoreSystem = z.infer<typeof coreSystemSchema>;

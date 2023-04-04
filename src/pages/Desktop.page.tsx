@@ -11,7 +11,7 @@ import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
 import { Compendium } from "./Compendium.page";
 import { Mechs } from "./Mechs.page";
 import { PilotView } from "./PilotView/index.page";
-import { Encounters } from "./Encounters.page";
+import { EncounterList } from "./EncounterList.page";
 import { useWindowManager } from "../components/WindowManager/WindowManagerContext";
 
 export function Desktop() {
@@ -46,7 +46,7 @@ export function Desktop() {
     openWindow({
       id: "encounters",
       label: "Encounters",
-      component: <Encounters />,
+      component: <EncounterList />,
     });
   }
 

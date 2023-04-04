@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-export function initDebug() {
+export function useDebug() {
   window.debug = {
     rawLcpData: {
       npcClasses,

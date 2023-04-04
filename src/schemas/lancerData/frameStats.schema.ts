@@ -1,7 +1,5 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { ExpandRecursively } from "../../utils/types";
-import { coreSystemSchema } from "./coreSystem.schema";
 
 export const frameStatsSchema = z
   .object({
@@ -23,4 +21,4 @@ export const frameStatsSchema = z
   .strict()
   .transform((o) => camelize(o, true));
 
-export type FrameStats = ExpandRecursively<z.infer<typeof frameStatsSchema>>;
+export type FrameStats = z.infer<typeof frameStatsSchema>;

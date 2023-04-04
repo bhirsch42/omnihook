@@ -1,6 +1,5 @@
 import camelize from "camelize-ts";
 import { z } from "zod";
-import { ExpandRecursively } from "../../utils/types";
 import { artSchema } from "./art.schema";
 import { coreSystemSchema } from "./coreSystem.schema";
 import { counterSchema } from "./counter.schema";
@@ -31,4 +30,4 @@ export const frameSchema = z
   .strict()
   .transform((o) => ({ ...camelize(o, true), mechType: o.mechtype }));
 
-export type Frame = ExpandRecursively<z.infer<typeof frameSchema>>;
+export type Frame = z.infer<typeof frameSchema>;

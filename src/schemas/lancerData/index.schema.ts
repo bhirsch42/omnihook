@@ -17,9 +17,11 @@ import { systemSchema } from "./system.schema";
 import { tagSchema } from "./tag.schema";
 import { talentSchema } from "./talent.schema";
 import { weaponSchema } from "./weapon.schema";
-import { ExpandRecursively } from "../../utils/types";
+import { npcClassSchema } from "./npcClass.schema";
+import { npcFeatureSchema } from "./npcFeature.schema";
+import { npcTemplateSchema } from "./npcTemplate.schema";
 
-export const lancerDataSchema = z
+const _lancerDataSchema = z
   .object({
     actions: standardActionSchema.array(),
     backgrounds: backgroundSchema.array(),
@@ -40,9 +42,9 @@ export const lancerDataSchema = z
       .strict(),
     manufacturers: manufacturerSchema.array(),
     mods: modSchema.array(),
-    npc_classes: z.never().array(),
-    npc_features: z.never().array(),
-    npc_templates: z.never().array(),
+    npc_classes: npcClassSchema.array(),
+    npc_features: npcFeatureSchema.array(),
+    npc_templates: npcTemplateSchema.array(),
     pilot_gear: pilotGearSchema.array(),
     reserves: reserveSchema.array(),
     rules: rulesSchema,
@@ -64,7 +66,14 @@ export const lancerDataSchema = z
     talents: talentSchema.array(),
     weapons: weaponSchema.array(),
   })
-  .strict()
+  .strict();
+
+export const lancerDataSchemaPartial = _lancerDataSchema
+  .partial()
   .transform((o) => camelize(o, true));
 
-export type LancerData = ExpandRecursively<z.infer<typeof lancerDataSchema>>;
+export const lancerDataSchema = _lancerDataSchema.transform((o) =>
+  camelize(o, true)
+);
+
+export type LancerData = z.infer<typeof lancerDataSchema>;
