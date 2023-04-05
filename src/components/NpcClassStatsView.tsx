@@ -14,10 +14,13 @@ function TieredSizeView({
 }) {
   return (
     <div className="flex text-sm font-medium rounded-lg overflow-hidden my-1">
-      {tieredSize.map((sizes) => (
-        <div className="flex flex-col mr-0.5 last:mr-0">
-          {sizes.map((size) => (
-            <div className="bg-bgcolor-700 h-4 px-2 flex items-center justify-center text-center mb-0.5 last:mb-0 w-8">
+      {tieredSize.map((sizes, i) => (
+        <div className="flex flex-col mr-0.5 last:mr-0" key={i}>
+          {sizes.map((size, j) => (
+            <div
+              className="bg-bgcolor-700 h-4 px-2 flex items-center justify-center text-center mb-0.5 last:mb-0 w-8"
+              key={j}
+            >
               {size.toString().replace("0.", ".")}
             </div>
           ))}
@@ -37,8 +40,8 @@ export function NpcClassStatsView({
 
   const sizes = stats.size.map((tieredSize) => (
     <div className="flex flex-col">
-      {tieredSize.map((size) => (
-        <div>{size}</div>
+      {tieredSize.map((size, i) => (
+        <div key={i}>{size}</div>
       ))}
     </div>
   ));

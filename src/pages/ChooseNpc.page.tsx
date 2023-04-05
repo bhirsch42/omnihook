@@ -10,22 +10,40 @@ import { Button } from "../components/Button";
 import { useWindowManager } from "../components/WindowManager/WindowManagerContext";
 import { EditNpc } from "./EditNpc.page";
 import { useAppDispatch } from "../store/hooks";
-import { createNpc } from "../store/npcs";
+import { createNpc, deleteNpc } from "../store/npcs";
 import { v4 as uuidv4 } from "uuid";
+import { NpcClass } from "../schemas/lancerData/npcClass.schema";
 
-export function ChooseNpc() {
+type ChooseNpcProps = {
+  onSelect: (npcId: string) => void;
+};
+
+export function ChooseNpc({ onSelect }: ChooseNpcProps) {
   const lancerCollections = useCollections();
-  const { openWindow } = useWindowManager();
+  const { openWindow, closeWindow } = useWindowManager();
   const dispatch = useAppDispatch();
 
-  const handleSelectNpcClass = (npcClassId: string) => {
+  const handleSelectNpcClass = (npcClass: NpcClass) => {
     const npcId = uuidv4();
 
-    dispatch(createNpc({ id: npcId }));
+    dispatch(createNpc({ id: npcId, class: npcClass }));
+
+    const handleSave = () => {
+      onSelect(npcId);
+      closeWindow(npcId);
+    };
+
+    const handleCancel = () => {
+      closeWindow(npcId);
+      dispatch(deleteNpc({ id: npcId }));
+    };
 
     openWindow({
+      id: npcId,
       label: "Edit NPC",
-      component: <EditNpc npcId={npcId} />,
+      component: (
+        <EditNpc npcId={npcId} onSave={handleSave} onCancel={handleCancel} />
+      ),
     });
   };
 
@@ -58,7 +76,7 @@ export function ChooseNpc() {
                     <Button
                       className="text-sm"
                       color="green"
-                      onClick={() => handleSelectNpcClass(item.id)}
+                      onClick={() => handleSelectNpcClass(item)}
                     >
                       Add to encounter
                     </Button>

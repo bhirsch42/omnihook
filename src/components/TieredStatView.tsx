@@ -1,5 +1,4 @@
 import { Fragment, ReactNode } from "react";
-import { TieredStat } from "../schemas/lancerData/tieredStat.schema";
 
 export function TieredStatView({ tieredStat }: { tieredStat: ReactNode[] }) {
   return (

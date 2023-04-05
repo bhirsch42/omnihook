@@ -21,7 +21,6 @@ export function EmptyGearSlot({
   };
 
   const handleClickEmptySlot = () => {
-    console.log("click!");
     openWindow({
       component: <ChoosePilotGear type={type} onSelect={handleSelect} />,
       label: `Choose ${type}`,

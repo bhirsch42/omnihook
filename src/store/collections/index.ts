@@ -4,7 +4,7 @@ import { loadLancerDataReducer } from "./reducers/loadLancerData";
 
 export type CollectionsState = Omit<LancerData, "info" | "tables" | "factions">;
 
-const INITIAL_STATE: CollectionsState = {
+export const INITIAL_STATE: CollectionsState = {
   systems: [],
   actions: [],
   backgrounds: [],

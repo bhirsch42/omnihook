@@ -7,12 +7,14 @@ export function createNpcReducer(
   state: Draft<NpcsState>,
   action: PayloadAction<CreateNpc>
 ) {
+  const { payload } = action;
+
   state.all.push({
-    id: uuidv4(),
-    name: "",
-    classId: "",
+    id: payload.id || uuidv4(),
+    featureIds: payload.class.baseFeatures,
+    classId: payload.class.id,
+    name: payload.class.name,
     tier: 1,
-    featureIds: [],
     stats: {
       statuses: [],
       conditions: [],
@@ -24,6 +26,5 @@ export function createNpcReducer(
       burn: 0,
       activations: 0,
     },
-    ...action.payload,
   });
 }
