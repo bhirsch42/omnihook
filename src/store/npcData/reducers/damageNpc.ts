@@ -1,6 +1,6 @@
 import { PayloadAction, Draft } from "@reduxjs/toolkit";
 import { NpcsState } from "..";
-import { SelectNpcReturns } from "../selectors/selectNpc";
+import { SelectNpcReturns } from "../selectors/selectNpcById";
 
 type DamageNpcPayload = {
   npc: SelectNpcReturns;

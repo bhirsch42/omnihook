@@ -1,6 +1,6 @@
 import { StatsTable, StatsTableRow } from "../../components/StatsTable";
 import { useAppSelector } from "../../store/hooks";
-import { selectNpc } from "../../store/npcs/selectors/selectNpc";
+import { selectNpcById } from "../../store/npcData/selectors/selectNpcById";
 import { ICONS } from "../../utils/icons";
 
 export function NpcSkills({
@@ -10,7 +10,7 @@ export function NpcSkills({
   npcId: string;
   className?: string;
 }) {
-  const npc = useAppSelector(selectNpc(npcId));
+  const npc = useAppSelector(selectNpcById(npcId));
 
   const rows: StatsTableRow[] = [
     [ICONS.hull, "Hull", npc.skills.hull],

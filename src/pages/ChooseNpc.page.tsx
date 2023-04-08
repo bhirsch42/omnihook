@@ -10,9 +10,9 @@ import { Button } from "../components/Button";
 import { useWindowManager } from "../components/WindowManager/WindowManagerContext";
 import { EditNpc } from "./EditNpc.page";
 import { useAppDispatch } from "../store/hooks";
-import { createNpc, deleteNpc } from "../store/npcs";
 import { v4 as uuidv4 } from "uuid";
-import { NpcClass } from "../schemas/lancerData/npcClass.schema";
+import { addNpc } from "../store/thunks/addNpc";
+import { removeNpc } from "../store/thunks/removeNpc";
 
 type ChooseNpcProps = {
   onSelect: (npcId: string) => void;
@@ -23,10 +23,10 @@ export function ChooseNpc({ onSelect }: ChooseNpcProps) {
   const { openWindow, closeWindow } = useWindowManager();
   const dispatch = useAppDispatch();
 
-  const handleSelectNpcClass = (npcClass: NpcClass) => {
+  const handleSelectNpcClass = (classId: string) => {
     const npcId = uuidv4();
 
-    dispatch(createNpc({ id: npcId, class: npcClass }));
+    dispatch(addNpc({ id: npcId, classId }));
 
     const handleSave = () => {
       onSelect(npcId);
@@ -35,7 +35,7 @@ export function ChooseNpc({ onSelect }: ChooseNpcProps) {
 
     const handleCancel = () => {
       closeWindow(npcId);
-      dispatch(deleteNpc({ id: npcId }));
+      dispatch(removeNpc(npcId));
     };
 
     openWindow({
@@ -76,7 +76,7 @@ export function ChooseNpc({ onSelect }: ChooseNpcProps) {
                     <Button
                       className="text-sm"
                       color="green"
-                      onClick={() => handleSelectNpcClass(item)}
+                      onClick={() => handleSelectNpcClass(item.id)}
                     >
                       Add to encounter
                     </Button>

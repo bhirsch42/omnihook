@@ -1,15 +1,15 @@
 import { PayloadAction, Draft } from "@reduxjs/toolkit";
 import { NpcsState } from "..";
-import { SelectNpcReturns } from "../selectors/selectNpc";
+import { SelectNpcReturns } from "../selectors/selectNpcById";
 
-type HealNpcPayload = {
+type AddOvershieldToNpcPayload = {
   npc: SelectNpcReturns;
   amount: number;
 };
 
-export function healNpcReducer(
+export function addOvershieldToNpcReducer(
   state: Draft<NpcsState>,
-  action: PayloadAction<HealNpcPayload>
+  action: PayloadAction<AddOvershieldToNpcPayload>
 ) {
   const {
     payload: { npc, amount },
@@ -21,8 +21,5 @@ export function healNpcReducer(
     throw new Error(`Could not find npc with id ${npc.id}`);
   }
 
-  npcData.combatStatus.damageReceived = Math.max(
-    npcData.combatStatus.damageReceived - amount,
-    0
-  );
+  npcData.combatStatus.overshield += amount;
 }

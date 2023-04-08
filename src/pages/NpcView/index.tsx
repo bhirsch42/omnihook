@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectNpc } from "../../store/npcs/selectors/selectNpc";
+import { selectNpcById } from "../../store/npcData/selectors/selectNpcById";
 import { NpcCombatStats } from "./NpcCombatStats";
 import { NpcSkills } from "./NpcSkills";
 import { NpcStatuses } from "./NpcStatuses";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { NpcFeatureView } from "../../components/NpcFeatureView";
 import { FormInput } from "../../components/FormInput";
 import { Button } from "../../components/Button";
-import { addOvershieldToNpc, damageNpc, healNpc } from "../../store/npcs";
+import { addOvershieldToNpc, damageNpc, healNpc } from "../../store/npcData";
 
 function NpcActions({
   npcId,
@@ -18,7 +18,7 @@ function NpcActions({
   npcId: string;
   className?: string;
 }) {
-  const npc = useAppSelector(selectNpc(npcId));
+  const npc = useAppSelector(selectNpcById(npcId));
   const [amount, setAmount] = useState(0);
   console.log({ amount });
   const dispatch = useAppDispatch();
@@ -64,7 +64,7 @@ function NpcActions({
 
 export function NpcView({ npcId }: { npcId: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const npc = useAppSelector(selectNpc(npcId));
+  const npc = useAppSelector(selectNpcById(npcId));
 
   return (
     <div className="flex flex-col">

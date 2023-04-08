@@ -1,11 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectNpc } from "../../store/npcs/selectors/selectNpc";
+import { selectNpcById } from "../../store/npcData/selectors/selectNpcById";
 import { MechStatusInput } from "../../components/MechStatusInput";
 import {
+  npcUpdated,
   updateNpcConditions,
   updateNpcResistances,
   updateNpcStatuses,
-} from "../../store/npcs";
+} from "../../store/npcData";
 import { MechConditionsInput } from "../../components/MechConditionsInput";
 import { MechResistancesInput } from "../../components/MechResistancesInput";
 
@@ -16,7 +17,7 @@ export function NpcStatuses({
   npcId: string;
   className?: string;
 }) {
-  const npc = useAppSelector(selectNpc(npcId));
+  const npc = useAppSelector(selectNpcById(npcId));
   const dispatch = useAppDispatch();
 
   return (
@@ -27,6 +28,16 @@ export function NpcStatuses({
           <MechStatusInput
             value={npc.statuses}
             onChange={(statusIds) => {
+              dispatch(
+                npcUpdated({
+                  id: npcId,
+                  changes: {
+                    combatStatus: {
+                      statuses: statusIds,
+                    },
+                  },
+                })
+              );
               dispatch(updateNpcStatuses({ npcId, statusIds }));
             }}
           />

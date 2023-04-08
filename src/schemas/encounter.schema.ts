@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { npcSchema } from "./npc.schema";
+import { npcDataSchema } from "./npcData.schema";
 import { initiativeSchema } from "./initiative.schema";
 
 export const encounterSchema = z.object({

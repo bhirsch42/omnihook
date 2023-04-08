@@ -1,4 +1,4 @@
-import { SelectNpcReturns } from "../store/npcs/selectors/selectNpc";
+import { SelectNpcReturns } from "../store/npcData/selectors/selectNpcById";
 import { ICONS } from "../utils/icons";
 import { StatsTable, StatsTableRow } from "./StatsTable";
 

@@ -1,37 +1,38 @@
 import { without } from "ramda";
 import { useCollections } from "../hooks/useCollections";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectNpc } from "../store/npcs/selectors/selectNpc";
+import { selectNpcById } from "../store/npcData/selectors/selectNpcById";
 import { NpcFeatureView } from "../components/NpcFeatureView";
 import { NpcClassSkillsView } from "../components/NpcClassSkillsView";
 import { NpcClassStatsView } from "../components/NpcClassStatsView";
 import { Button } from "../components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { addFeatureToNpc, removeFeatureFromNpc } from "../store/npcs";
+import { addFeatureToNpc } from "../store/thunks/addFeatureToNpc";
+import { removeFeatureFromNpc } from "../store/thunks/removeFeatureFromNpc";
 
 type EditNpcProps = { npcId: string; onSave: () => void; onCancel: () => void };
 
 export function EditNpc({ npcId, onSave, onCancel }: EditNpcProps) {
-  const npc = useAppSelector(selectNpc(npcId));
+  const npc = useAppSelector(selectNpcById(npcId));
   const collections = useCollections();
   const dispatch = useAppDispatch();
 
-  const selectedFeatures = collections.npcFeatures.findAll(npc.featureIds);
+  const selectedFeatures = npc.features;
 
   const recommendedFeatures = collections.npcFeatures.findAll(
-    without(npc.featureIds, [
-      ...npc.npcClass.baseFeatures,
-      ...npc.npcClass.optionalFeatures,
-    ])
+    without(
+      selectedFeatures.map((o) => o.id),
+      [...npc.npcClass.baseFeatures, ...npc.npcClass.optionalFeatures]
+    )
   );
 
   const handleClickAddFeature = (featureId: string) => {
-    dispatch(addFeatureToNpc({ npcId, featureId }));
+    dispatch(addFeatureToNpc(npcId, featureId));
   };
 
   const handleClickRemoveFeature = (featureId: string) => {
-    dispatch(removeFeatureFromNpc({ npcId, featureId }));
+    dispatch(removeFeatureFromNpc(npcId, featureId));
   };
 
   const handleClickDelete = () => {
