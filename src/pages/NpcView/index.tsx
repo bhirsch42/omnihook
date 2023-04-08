@@ -89,10 +89,10 @@ export function NpcView({
       </button>
       <div className="px-3 pb-3 bg-bgcolor-800">
         <div className="flex mt-3">
-          <div className="flex">
+          <div className="flex w-full">
             <NpcSkills npcId={npcId} className="mr-8" />
             <NpcCombatStats npcId={npcId} className="mr-8" />
-            <NpcStatuses npcId={npcId} className="mr-8" />
+            <NpcStatuses npcId={npcId} className="mr-8 grow" />
             <NpcActions npcId={npcId} />
           </div>
         </div>
