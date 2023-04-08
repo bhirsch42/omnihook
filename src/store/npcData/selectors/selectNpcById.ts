@@ -32,6 +32,7 @@ export const selectNpcById = (id: string) => (state: RootState) => {
     id: npc.id,
     name: npc.name,
     npcClass,
+    mechStatusId: npc.mechStatusId,
     template: npcTemplate,
     features,
     statuses: mechStatus.statuses,

@@ -1,6 +1,8 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { MechStatus } from "../../schemas/mechStatus.schema";
+import { mechStatusDamageAppliedReducer } from "./reducers/mechStatusDamageApplied";
+import { mechStatusHealingAppliedReducer } from "./reducers/mechStatusHealingAppliedReducer";
 
 const mechStatusAdapter = createEntityAdapter<MechStatus>();
 
@@ -15,6 +17,8 @@ export const mechStatusesSlice = createSlice({
     mechStatusAdded: mechStatusAdapter.addOne,
     mechStatusUpdated: mechStatusAdapter.updateOne,
     mechStatusRemoved: mechStatusAdapter.removeOne,
+    mechStatusDamageApplied: mechStatusDamageAppliedReducer,
+    mechStatusHealingApplied: mechStatusHealingAppliedReducer,
   },
 });
 
@@ -24,7 +28,12 @@ export const mechStatusSelectors = mechStatusAdapter.getSelectors(
 
 export const { selectById: selectMechStatusById } = mechStatusSelectors;
 
-export const { mechStatusAdded, mechStatusUpdated, mechStatusRemoved } =
-  mechStatusesSlice.actions;
+export const {
+  mechStatusAdded,
+  mechStatusUpdated,
+  mechStatusRemoved,
+  mechStatusDamageApplied,
+  mechStatusHealingApplied,
+} = mechStatusesSlice.actions;
 
 export const mechStatusesReducer = mechStatusesSlice.reducer;

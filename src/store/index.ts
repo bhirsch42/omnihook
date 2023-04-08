@@ -3,14 +3,16 @@ import {
   configureStore,
   Middleware,
   ThunkAction,
+  ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { pilotsReducer } from "./pilots";
 import { encountersReducer } from "./encounters";
-import { npcDataSelectors, npcsReducer, npcUpdated } from "./npcData";
+import { npcsReducer } from "./npcData";
 import { collectionsReducer } from "./collections";
 import { INITIAL_STATE as INITIAL_COLLECTIONS_STATE } from "./collections";
 import { omit } from "ramda";
 import { mechStatusesReducer } from "./mechStatuses";
+import thunk from "redux-thunk";
 
 const LOCAL_STORAGE_KEY = "omnihook-data";
 
@@ -41,12 +43,12 @@ export const store = configureStore({
     mechStatuses: mechStatusesReducer,
   },
   preloadedState: loadStateFromLocalStorage() as any,
-  middleware: [localStorageMiddleware],
+  middleware: [thunk, localStorageMiddleware],
 });
 
 export type AppGetState = typeof store.getState;
 export type RootState = ReturnType<AppGetState>;
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = ThunkDispatch<RootState, void, AnyAction>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

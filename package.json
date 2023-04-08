@@ -30,6 +30,8 @@
     "react-popper": "^2.3.0",
     "react-redux": "^8.0.5",
     "react-transition-group": "^4.4.5",
+    "redux": "^4",
+    "redux-thunk": "^2.4.2",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },

@@ -9,7 +9,9 @@ import { useState } from "react";
 import { NpcFeatureView } from "../../components/NpcFeatureView";
 import { FormInput } from "../../components/FormInput";
 import { Button } from "../../components/Button";
-import { addOvershieldToNpc, damageNpc, healNpc } from "../../store/npcData";
+import { damageNpc } from "../../store/thunks/damageNpc";
+import { healNpc } from "../../store/thunks/healNpc";
+import { addOvershieldToNpc } from "../../store/thunks/addOvershieldToNpc";
 
 function NpcActions({
   npcId,
@@ -20,7 +22,6 @@ function NpcActions({
 }) {
   const npc = useAppSelector(selectNpcById(npcId));
   const [amount, setAmount] = useState(0);
-  console.log({ amount });
   const dispatch = useAppDispatch();
 
   const handleAction = (fn: (amount: number) => void) => () => {
@@ -39,20 +40,20 @@ function NpcActions({
       <div className="flex flex-wrap -mr-2">
         <Button
           className="mt-2 mr-2"
-          onClick={handleAction(() => dispatch(damageNpc({ npc, amount })))}
+          onClick={handleAction(() => dispatch(damageNpc(npcId, amount)))}
         >
           Damage
         </Button>
         <Button
           className="mt-2 mr-2"
-          onClick={handleAction(() => dispatch(healNpc({ npc, amount })))}
+          onClick={handleAction(() => dispatch(healNpc(npcId, amount)))}
         >
           Heal
         </Button>
         <Button
           className="mt-2 mr-2"
           onClick={handleAction(() =>
-            dispatch(addOvershieldToNpc({ npc, amount }))
+            dispatch(addOvershieldToNpc(npcId, amount))
           )}
         >
           Overshield
@@ -62,12 +63,18 @@ function NpcActions({
   );
 }
 
-export function NpcView({ npcId }: { npcId: string }) {
+export function NpcView({
+  npcId,
+  className,
+}: {
+  npcId: string;
+  className?: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const npc = useAppSelector(selectNpcById(npcId));
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className}`}>
       <button
         className="flex items-center px-3 py-2 text-lg font-bold bg-bgcolor-800 hover:bg-bgcolor-700 transition-colors"
         onClick={() => setIsOpen((state) => !state)}
@@ -91,7 +98,7 @@ export function NpcView({ npcId }: { npcId: string }) {
         </div>
       </div>
 
-      <div className={`bg-bgcolor-800 px-3 pb-3 ${isOpen ? "hidden" : ""}`}>
+      <div className={`bg-bgcolor-800 px-3 pb-3 ${isOpen ? "" : "hidden"}`}>
         <div className="font-bold mb-2">Features</div>
         <div className="flex flex-wrap -mr-2 -mb-2">
           {npc.features.map((feature) => {

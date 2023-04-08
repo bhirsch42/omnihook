@@ -30,11 +30,11 @@ export function EncounterView({ encounterId }: EncounterProps) {
   };
 
   return (
-    <div className="px-3 py-1">
+    <div className="px-3 py-1 overflow-y-scroll h-full">
       <div className="text-lg font-bold">=== Combatants ===</div>
       <div>
         {encounter.npcs.map((npcId) => (
-          <NpcView npcId={npcId} key={npcId} />
+          <NpcView npcId={npcId} key={npcId} className="mb-3" />
         ))}
       </div>
       <div className="mt-3">

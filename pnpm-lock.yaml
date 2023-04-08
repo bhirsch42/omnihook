@@ -32,6 +32,8 @@ specifiers:
   react-popper: ^2.3.0
   react-redux: ^8.0.5
   react-transition-group: ^4.4.5
+  redux: ^4
+  redux-thunk: ^2.4.2
   sass: ^1.60.0
   tailwind-scrollbar: ^2.1.0
   tailwindcss: ^3.3.1
@@ -60,8 +62,10 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.9_react@18.2.0
   react-popper: 2.3.0_d52dtujcogewjimhlbpfze4rs4
-  react-redux: 8.0.5_ddal5w4bzhvnvvplv3twufcima
+  react-redux: 8.0.5_nyagrz7m4ju3og7nyfo2hk36fe
   react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
+  redux: 4.2.1
+  redux-thunk: 2.4.2_redux@4.2.1
   uuid: 9.0.0
   zod: 3.21.4
 
@@ -373,7 +377,7 @@ packages:
     dependencies:
       immer: 9.0.21
       react: 18.2.0
-      react-redux: 8.0.5_ddal5w4bzhvnvvplv3twufcima
+      react-redux: 8.0.5_nyagrz7m4ju3og7nyfo2hk36fe
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
       reselect: 4.1.7
@@ -1115,7 +1119,7 @@ packages:
       warning: 4.0.3
     dev: false
 
-  /react-redux/8.0.5_ddal5w4bzhvnvvplv3twufcima:
+  /react-redux/8.0.5_nyagrz7m4ju3og7nyfo2hk36fe:
     resolution: {integrity: sha512-Q2f6fCKxPFpkXt1qNRZdEDLlScsDWyrgSj0mliK59qU6W5gvBiKkdMEG2lJzhd1rCctf0hb6EtePPLZ2e0m1uw==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -1145,6 +1149,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
+      redux: 4.2.1
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
