@@ -15,16 +15,16 @@ export function createNpcReducer(
     classId: payload.class.id,
     name: payload.class.name,
     tier: 1,
-    stats: {
+    combatStatus: {
       statuses: [],
       conditions: [],
       resistances: [],
-      hp: 0,
+      damageReceived: 0,
       overshield: 0,
-      heat: 0,
-      moves: 0,
-      burn: 0,
-      activations: 0,
+      heatReceived: 0,
+      movementUsed: 0,
+      burnReceived: 0,
+      activationsUsed: 0,
     },
   });
 }

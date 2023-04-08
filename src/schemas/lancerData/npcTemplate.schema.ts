@@ -1,4 +1,4 @@
-import camelize from "camelize-ts";
+import { omit } from "ramda";
 import { z } from "zod";
 
 export const npcTemplateSchema = z
@@ -11,6 +11,12 @@ export const npcTemplateSchema = z
     power: z.number(),
   })
   .strict()
-  .transform((o) => camelize(o, true));
+  .transform((o) => {
+    return {
+      ...omit(["base_features", "optional_features"], o),
+      baseFeatures: o.base_features,
+      optionalFeatures: o.optional_features,
+    };
+  });
 
 export type NpcTemplate = z.infer<typeof npcTemplateSchema>;

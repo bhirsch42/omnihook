@@ -1,6 +1,14 @@
 import { capitalize } from "inflection";
 import { z } from "zod";
 
+export const DAMAGE_TYPES = [
+  "Kinetic",
+  "Energy",
+  "Explosive",
+  "Heat",
+  "Burn",
+] as const;
+
 function preProcessDamageTypeSchema(o: unknown) {
   const result = z.string().transform(capitalize).safeParse(o);
 
@@ -16,7 +24,7 @@ function preProcessDamageTypeSchema(o: unknown) {
 
 export const damageTypeSchema = z.preprocess(
   preProcessDamageTypeSchema,
-  z.enum(["Kinetic", "Energy", "Explosive", "Heat", "Burn", "Variable", "N/A"])
+  z.enum([...DAMAGE_TYPES, "Variable", "N/A"])
 );
 
 export type DamageType = z.infer<typeof damageTypeSchema>;

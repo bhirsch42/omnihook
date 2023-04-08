@@ -30,10 +30,22 @@ import {
   faNetworkWired,
   faHandFist,
   faStairs,
+  faFire,
+  faLandmarkDome,
+  faThermometer,
+  faTemperatureHigh,
 } from "@fortawesome/free-solid-svg-icons";
 import { BonusId } from "../schemas/lancerData/bonusId.schema";
 
-type MoreIcons = "hull" | "agility" | "systems" | "engineering" | "tier";
+type MoreIcons =
+  | "hull"
+  | "agility"
+  | "systems"
+  | "engineering"
+  | "tier"
+  | "heat"
+  | "overshield"
+  | "burn";
 
 export const ICONS: Record<BonusId | MoreIcons, IconDefinition> = {
   ai_cap: faMicrochip,
@@ -104,4 +116,7 @@ export const ICONS: Record<BonusId | MoreIcons, IconDefinition> = {
   systems: faNetworkWired,
   engineering: faScrewdriverWrench,
   tier: faStairs,
+  heat: faTemperatureHigh,
+  burn: faFire,
+  overshield: faShield,
 };

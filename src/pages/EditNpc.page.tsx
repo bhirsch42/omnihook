@@ -21,8 +21,8 @@ export function EditNpc({ npcId, onSave, onCancel }: EditNpcProps) {
 
   const recommendedFeatures = collections.npcFeatures.findAll(
     without(npc.featureIds, [
-      ...npc.class.baseFeatures,
-      ...npc.class.optionalFeatures,
+      ...npc.npcClass.baseFeatures,
+      ...npc.npcClass.optionalFeatures,
     ])
   );
 
@@ -47,7 +47,7 @@ export function EditNpc({ npcId, onSave, onCancel }: EditNpcProps) {
       <div className="flex mb-2 text-lg font-bold">
         <div>{npc.name}</div>
         <div className="pl-3 ml-3 border-l-4 text-bgcolor-400 border-l-bgcolor-700 capitalize italic">
-          {npc.class.role}
+          {npc.npcClass.role}
         </div>
       </div>
 
@@ -60,11 +60,11 @@ export function EditNpc({ npcId, onSave, onCancel }: EditNpcProps) {
       <div className="grid grid-cols-3 gap-3">
         <div className="flex flex-col">
           <NpcClassSkillsView
-            npcClass={npc.class}
+            npcClass={npc.npcClass}
             className="px-3 py-2 border border-bgcolor-700 mb-3"
           />
           <NpcClassStatsView
-            npcClass={npc.class}
+            npcClass={npc.npcClass}
             className="px-3 py-2 border border-bgcolor-700"
           />
         </div>

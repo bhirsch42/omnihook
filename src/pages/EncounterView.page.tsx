@@ -4,6 +4,7 @@ import { addNpcToEncounter } from "../store/encounters";
 import { selectEncounter } from "../store/encounters/selectors/selectEncounter";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { ChooseNpc } from "./ChooseNpc.page";
+import { NpcView } from "./NpcView";
 
 type EncounterProps = {
   encounterId: string;
@@ -32,10 +33,8 @@ export function EncounterView({ encounterId }: EncounterProps) {
     <div className="px-3 py-1">
       <div className="text-lg font-bold">=== Combatants ===</div>
       <div>
-        {encounter.npcs.map((npc) => (
-          <div>
-            {npc.name}, {npc.class.role}
-          </div>
+        {encounter.npcs.map((npcId) => (
+          <NpcView npcId={npcId} key={npcId} />
         ))}
       </div>
       <div className="mt-3">

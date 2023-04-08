@@ -1,0 +1,27 @@
+import { StatsTable, StatsTableRow } from "../../components/StatsTable";
+import { useAppSelector } from "../../store/hooks";
+import { selectNpc } from "../../store/npcs/selectors/selectNpc";
+import { ICONS } from "../../utils/icons";
+
+export function NpcSkills({
+  npcId,
+  className,
+}: {
+  npcId: string;
+  className?: string;
+}) {
+  const npc = useAppSelector(selectNpc(npcId));
+
+  const rows: StatsTableRow[] = [
+    [ICONS.hull, "Hull", npc.skills.hull],
+    [ICONS.agility, "Agility", npc.skills.agility],
+    [ICONS.systems, "Systems", npc.skills.systems],
+    [ICONS.engineering, "Engineering", npc.skills.engineering],
+    [ICONS.save, "Save", npc.skills.save],
+    [ICONS.evade, "Evade", npc.skills.evade],
+    [ICONS.edef, "E-Defense", npc.skills.edef],
+    [ICONS.sensor, "Sensor", npc.skills.sensor],
+  ];
+
+  return <StatsTable rows={rows} className={className} rightAlignLastColumn />;
+}

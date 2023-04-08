@@ -9,6 +9,7 @@ import { NpcFeature } from "../../../schemas/lancerData/npcFeature.schema";
 import { NpcTemplate } from "../../../schemas/lancerData/npcTemplate.schema";
 import { PilotGear } from "../../../schemas/lancerData/pilotGear.schema";
 import { Skill } from "../../../schemas/lancerData/skill.schema";
+import { Status } from "../../../schemas/lancerData/status.schema";
 import { Talent } from "../../../schemas/lancerData/talent.schema";
 import { Collection, createCollection } from "../../../utils/collection";
 

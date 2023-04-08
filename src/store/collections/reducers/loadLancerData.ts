@@ -48,4 +48,8 @@ export function loadLancerDataReducer(
   state.npcTemplates = payload.npcTemplates
     ? [...state.npcTemplates, ...payload.npcTemplates]
     : state.npcTemplates;
+
+  state.statuses = payload.statuses
+    ? [...state.statuses, ...payload.statuses]
+    : state.statuses;
 }

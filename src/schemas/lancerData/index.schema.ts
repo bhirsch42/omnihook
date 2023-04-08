@@ -20,6 +20,7 @@ import { weaponSchema } from "./weapon.schema";
 import { npcClassSchema } from "./npcClass.schema";
 import { npcFeatureSchema } from "./npcFeature.schema";
 import { npcTemplateSchema } from "./npcTemplate.schema";
+import { omit } from "ramda";
 
 const _lancerDataSchema = z
   .object({
@@ -68,12 +69,47 @@ const _lancerDataSchema = z
   })
   .strict();
 
+// Hard to DRY up transformers because `partial()` changes type
 export const lancerDataSchemaPartial = _lancerDataSchema
   .partial()
-  .transform((o) => camelize(o, true));
+  .transform((o) => {
+    return {
+      ...omit(
+        [
+          "core_bonuses",
+          "npc_classes",
+          "npc_features",
+          "npc_templates",
+          "pilot_gear",
+        ],
+        o
+      ),
+      coreBonuses: o.core_bonuses,
+      npcClasses: o.npc_classes,
+      npcFeatures: o.npc_features,
+      npcTemplates: o.npc_templates,
+      pilotGear: o.pilot_gear,
+    };
+  });
 
-export const lancerDataSchema = _lancerDataSchema.transform((o) =>
-  camelize(o, true)
-);
+export const lancerDataSchema = _lancerDataSchema.transform((o) => {
+  return {
+    ...omit(
+      [
+        "core_bonuses",
+        "npc_classes",
+        "npc_features",
+        "npc_templates",
+        "pilot_gear",
+      ],
+      o
+    ),
+    coreBonuses: o.core_bonuses,
+    npcClasses: o.npc_classes,
+    npcFeatures: o.npc_features,
+    npcTemplates: o.npc_templates,
+    pilotGear: o.pilot_gear,
+  };
+});
 
 export type LancerData = z.infer<typeof lancerDataSchema>;

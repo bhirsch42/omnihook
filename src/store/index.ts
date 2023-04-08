@@ -1,4 +1,5 @@
 import { configureStore, Middleware } from "@reduxjs/toolkit";
+import thunkMiddleware from "redux-thunk";
 import { pilotsReducer } from "./pilots";
 import { encountersReducer } from "./encounters";
 import { npcsReducer } from "./npcs";
@@ -34,7 +35,7 @@ export const store = configureStore({
     collections: collectionsReducer,
   },
   preloadedState: loadStateFromLocalStorage() as any,
-  middleware: [localStorageMiddleware],
+  middleware: [thunkMiddleware, localStorageMiddleware],
 });
 
 export type RootState = ReturnType<typeof store.getState>;

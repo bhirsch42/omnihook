@@ -8,16 +8,16 @@ export const npcSchema = z.object({
   templateId: z.string().optional(),
   tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   featureIds: z.string().array(),
-  stats: z.object({
+  combatStatus: z.object({
     statuses: z.string().array(),
     conditions: z.string().array(),
     resistances: z.string().array(),
-    hp: z.number(),
+    damageReceived: z.number(),
     overshield: z.number(),
-    heat: z.number(),
-    moves: z.number(),
-    burn: z.number(),
-    activations: z.number(),
+    heatReceived: z.number(),
+    movementUsed: z.number(),
+    burnReceived: z.number(),
+    activationsUsed: z.number(),
   }),
 });
 

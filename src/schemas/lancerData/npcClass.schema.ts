@@ -1,6 +1,6 @@
-import camelize from "camelize-ts";
 import { z } from "zod";
 import { npcStatsSchema } from "./npcStats.schema";
+import { omit } from "ramda";
 
 export const npcClassSchema = z
   .object({
@@ -17,6 +17,12 @@ export const npcClassSchema = z
     stats: npcStatsSchema,
   })
   .strict()
-  .transform((o) => camelize(o, true));
+  .transform((o) => {
+    return {
+      ...omit(["base_features", "optional_features"], o),
+      baseFeatures: o.base_features,
+      optionalFeatures: o.optional_features,
+    };
+  });
 
 export type NpcClass = z.infer<typeof npcClassSchema>;

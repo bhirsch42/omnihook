@@ -3,9 +3,9 @@ import { z } from "zod";
 import { RootState } from "../..";
 import { lancerData } from "../../../data/lancerData";
 import { Bonus } from "../../../schemas/lancerData/bonus.schema";
-import { selectActivePilot } from "./selectActivePilot";
 import { selectPilot } from "./selectPilot";
 import { selectPilotBonuses } from "./selectPilotBonuses";
+import { BonusId } from "../../../schemas/lancerData/bonusId.schema";
 
 type PilotStats = {
   armor: number;
@@ -71,41 +71,24 @@ const addOrReplace = (
   return replace ? parsedNewVal : oldVal + parsedNewVal;
 };
 
+const BONUS_TO_STAT: Partial<Record<BonusId, keyof PilotStats>> = {
+  pilot_armor: "armor",
+  pilot_edef: "edef",
+  pilot_evasion: "evasion",
+  pilot_gear: "maxGear",
+  pilot_hp: "maxHp",
+  pilot_speed: "speed",
+};
+
 const applyBonus = (stats: PilotStats, bonus: Bonus): PilotStats => {
-  switch (bonus.id) {
-    case "pilot_armor":
-      return {
+  const statKey = BONUS_TO_STAT[bonus.id];
+
+  return statKey
+    ? {
         ...stats,
-        armor: addOrReplace(stats.armor, bonus.val, bonus.replace),
-      };
-    case "pilot_edef":
-      return {
-        ...stats,
-        edef: addOrReplace(stats.edef, bonus.val, bonus.replace),
-      };
-    case "pilot_evasion":
-      return {
-        ...stats,
-        evasion: addOrReplace(stats.evasion, bonus.val, bonus.replace),
-      };
-    case "pilot_gear":
-      return {
-        ...stats,
-        maxGear: addOrReplace(stats.maxGear, bonus.val, bonus.replace),
-      };
-    case "pilot_hp":
-      return {
-        ...stats,
-        maxHp: addOrReplace(stats.maxHp, bonus.val, bonus.replace),
-      };
-    case "pilot_speed":
-      return {
-        ...stats,
-        speed: addOrReplace(stats.speed, bonus.val, bonus.replace),
-      };
-    default:
-      return stats;
-  }
+        [statKey]: addOrReplace(stats[statKey], bonus.val, bonus.replace),
+      }
+    : stats;
 };
 
 const applyBonuses =
