@@ -11,7 +11,9 @@ import { FormInput } from "../../components/FormInput";
 import { Button } from "../../components/Button";
 import { damageNpc } from "../../store/thunks/damageNpc";
 import { healNpc } from "../../store/thunks/healNpc";
-import { addOvershieldToNpc } from "../../store/thunks/addOvershieldToNpc";
+import { setOvershieldOnNpc } from "../../store/thunks/setOvershieldOnNpc";
+import { burnNpc } from "../../store/thunks/burnNpc";
+import { clearBurnOnNpc } from "../../store/thunks/clearBurnOnNpc";
 
 function NpcActions({
   npcId,
@@ -53,10 +55,22 @@ function NpcActions({
         <Button
           className="mt-2 mr-2"
           onClick={handleAction(() =>
-            dispatch(addOvershieldToNpc(npcId, amount))
+            dispatch(setOvershieldOnNpc(npcId, amount))
           )}
         >
-          Overshield
+          Set Overshield
+        </Button>
+        <Button
+          className="mt-2 mr-2"
+          onClick={handleAction(() => dispatch(burnNpc(npcId, amount)))}
+        >
+          Burn
+        </Button>
+        <Button
+          className="mt-2 mr-2"
+          onClick={handleAction(() => dispatch(clearBurnOnNpc(npcId)))}
+        >
+          Clear Burn
         </Button>
       </div>
     </div>
