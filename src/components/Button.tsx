@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
 const BUTTON_COLOR_STYLES = {
   default: "bg-bgcolor-700 hover:bg-bgcolor-600 focus:border-bgcolor-400",

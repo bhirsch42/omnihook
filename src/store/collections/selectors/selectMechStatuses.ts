@@ -5,6 +5,7 @@ export function selectMechStatuses(state: RootState): Status[] {
   return state.collections.statuses.filter(
     (status) =>
       (!status.exclusive || status.exclusive === "Mech") &&
-      status.type === "Status"
+      status.type === "Status" &&
+      !status.isDerived
   );
 }

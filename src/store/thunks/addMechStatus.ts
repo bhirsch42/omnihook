@@ -22,6 +22,8 @@ export function addMechStatus({ id }: AddMechStatusProps): AppThunk {
         movementUsed: 0,
         burnReceived: 0,
         activationsUsed: 0,
+        stressLost: 0,
+        structure: 0,
       })
     );
   };

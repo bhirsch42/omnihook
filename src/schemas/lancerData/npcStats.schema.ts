@@ -9,7 +9,7 @@ export const npcStatsSchema = z
     edef: tieredStatSchema,
     engineering: tieredStatSchema,
     evade: tieredStatSchema,
-    heatcap: tieredStatSchema,
+    heatcap: tieredStatSchema.nullable(),
     hp: tieredStatSchema,
     hull: tieredStatSchema,
     save: tieredStatSchema,

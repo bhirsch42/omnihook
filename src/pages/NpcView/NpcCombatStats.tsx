@@ -25,7 +25,7 @@ export function NpcCombatStats({
       ICONS["heat"],
       "Heat",
       <>
-        {npc.stats.heatReceived}/{npc.stats.maxHeat}
+        {npc.stats.heat}/{npc.stats.maxHeat}
       </>,
     ],
     [
@@ -43,6 +43,13 @@ export function NpcCombatStats({
       </>,
     ],
     [ICONS["burn"], "Burn", <>{npc.stats.burn}</>],
+    [
+      ICONS["stress"],
+      "Stress",
+      <>
+        {npc.stats.stress}/{npc.stats.maxStress}
+      </>,
+    ],
   ];
 
   return <StatsTable rows={rows} className={className} rightAlignLastColumn />;

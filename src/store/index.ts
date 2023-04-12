@@ -2,7 +2,6 @@ import {
   AnyAction,
   configureStore,
   Middleware,
-  ThunkAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { pilotsReducer } from "./pilots";
@@ -50,9 +49,4 @@ export type AppGetState = typeof store.getState;
 export type RootState = ReturnType<AppGetState>;
 export type AppDispatch = ThunkDispatch<RootState, void, AnyAction>;
 
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type AppThunk = (dispatch: AppDispatch, getState: AppGetState) => void;

@@ -33,6 +33,7 @@ specifiers:
   react-redux: ^8.0.5
   react-transition-group: ^4.4.5
   redux: ^4
+  redux-devtools-extension: ^2.13.9
   redux-thunk: ^2.4.2
   sass: ^1.60.0
   tailwind-scrollbar: ^2.1.0
@@ -65,6 +66,7 @@ dependencies:
   react-redux: 8.0.5_nyagrz7m4ju3og7nyfo2hk36fe
   react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
   redux: 4.2.1
+  redux-devtools-extension: 2.13.9_redux@4.2.1
   redux-thunk: 2.4.2_redux@4.2.1
   uuid: 9.0.0
   zod: 3.21.4
@@ -1184,6 +1186,15 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
+
+  /redux-devtools-extension/2.13.9_redux@4.2.1:
+    resolution: {integrity: sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==}
+    deprecated: Package moved to @redux-devtools/extension.
+    peerDependencies:
+      redux: ^3.1.0 || ^4.0.0
+    dependencies:
+      redux: 4.2.1
+    dev: false
 
   /redux-thunk/2.4.2_redux@4.2.1:
     resolution: {integrity: sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==}

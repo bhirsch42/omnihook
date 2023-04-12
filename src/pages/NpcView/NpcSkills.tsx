@@ -21,6 +21,7 @@ export function NpcSkills({
     [ICONS.evade, "Evade", npc.skills.evade],
     [ICONS.edef, "E-Defense", npc.skills.edef],
     [ICONS.sensor, "Sensor", npc.skills.sensor],
+    [ICONS.size, "Size", npc.skills.size],
   ];
 
   return <StatsTable rows={rows} className={className} rightAlignLastColumn />;

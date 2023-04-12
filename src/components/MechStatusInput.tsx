@@ -2,27 +2,30 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectMechStatuses } from "../store/collections/selectors/selectMechStatuses";
 import { MultiSelectInput } from "./MultiSelectInput";
 import { titleize } from "inflection";
-import { mechStatusUpdated, selectMechStatusById } from "../store/mechStatuses";
+import { mechStatusUpdated } from "../store/mechStatuses";
+import { selectMechStatusById } from "../store/mechStatuses/selectors/selectMechStatusById";
+import { StatusType } from "../schemas/lancerData/statusType.schema";
 
-export function MechStatusInput({ mechStatusId }: { mechStatusId: string }) {
+export function MechStatusInput({
+  mechStatusId,
+}: {
+  mechStatusId: StatusType;
+}) {
   const dispatch = useAppDispatch();
 
   const allStatuses = useAppSelector(selectMechStatuses);
 
-  const currentStatuses = useAppSelector((state) => {
-    const mechStatus = selectMechStatusById(state, mechStatusId);
-    if (!mechStatus)
-      throw new Error(`Could not find mechStatus with id ${mechStatusId}`);
-    return mechStatus?.statuses;
-  });
+  const { statuses: currentStatuses } = useAppSelector(
+    selectMechStatusById(mechStatusId)
+  );
 
   const options = allStatuses.map((status) => ({
     id: status.id,
-    value: status.id,
+    value: status.id as StatusType,
     label: titleize(status.name),
   }));
 
-  const handleChange = (statusIds: string[]) => {
+  const handleChange = (statusIds: StatusType[]) => {
     dispatch(
       mechStatusUpdated({
         id: mechStatusId,
@@ -34,7 +37,7 @@ export function MechStatusInput({ mechStatusId }: { mechStatusId: string }) {
   };
 
   return (
-    <MultiSelectInput
+    <MultiSelectInput<StatusType>
       options={options}
       onChange={handleChange}
       value={currentStatuses}

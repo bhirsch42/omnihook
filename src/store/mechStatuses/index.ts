@@ -26,8 +26,6 @@ export const mechStatusSelectors = mechStatusAdapter.getSelectors(
   (state: RootState) => state.mechStatuses
 );
 
-export const { selectById: selectMechStatusById } = mechStatusSelectors;
-
 export const {
   mechStatusAdded,
   mechStatusUpdated,

@@ -1,8 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { MultiSelectInput } from "./MultiSelectInput";
 import { titleize } from "inflection";
-import { mechStatusUpdated, selectMechStatusById } from "../store/mechStatuses";
-import { RESISTANCE_TYPES } from "../schemas/resistanceType.schema";
+import { mechStatusUpdated } from "../store/mechStatuses";
+import {
+  RESISTANCE_TYPES,
+  ResistanceType,
+} from "../schemas/resistanceType.schema";
+import { selectMechStatusById } from "../store/mechStatuses/selectors/selectMechStatusById";
 
 export function MechResistancesInput({
   mechStatusId,
@@ -13,12 +17,9 @@ export function MechResistancesInput({
 
   const allResistances = RESISTANCE_TYPES;
 
-  const currentResistances = useAppSelector((state) => {
-    const mechResistance = selectMechStatusById(state, mechStatusId);
-    if (!mechResistance)
-      throw new Error(`Could not find mechResistance with id ${mechStatusId}`);
-    return mechResistance?.resistances;
-  });
+  const { resistances: currentResistances } = useAppSelector(
+    selectMechStatusById(mechStatusId)
+  );
 
   const options = allResistances.map((resistance) => ({
     id: resistance,
@@ -26,7 +27,7 @@ export function MechResistancesInput({
     label: titleize(resistance),
   }));
 
-  const handleChange = (resistanceIds: string[]) => {
+  const handleChange = (resistanceIds: ResistanceType[]) => {
     dispatch(
       mechStatusUpdated({
         id: mechStatusId,

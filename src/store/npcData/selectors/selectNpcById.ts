@@ -25,8 +25,10 @@ export const selectNpcById = (id: string) => (state: RootState) => {
 
   const maxHp = npcClass.stats.hp[npc.tier];
   const maxMoves = npcClass.stats.speed[npc.tier];
-  const maxHeat = npcClass.stats.heatcap[npc.tier];
+  const maxHeat =
+    (npcClass.stats.heatcap && npcClass.stats.heatcap[npc.tier]) || null;
   const maxActivations = npcClass.stats.activations[npc.tier];
+  const maxStress = 1;
 
   return {
     id: npc.id,
@@ -47,18 +49,21 @@ export const selectNpcById = (id: string) => (state: RootState) => {
       edef: npcClass.stats.edef[npc.tier],
       evade: npcClass.stats.evade[npc.tier],
       sensor: npcClass.stats.sensor[npc.tier],
+      size: npcClass.stats.size[npc.tier],
     },
     stats: {
       maxHp,
       maxMoves,
       maxHeat,
+      maxStress,
       hp: Math.max(maxHp - mechStatus.damageReceived, 0),
-      heatReceived: Math.min(mechStatus.heatReceived, maxHeat),
+      heat: mechStatus.heatReceived,
       moves: maxMoves - mechStatus.movementUsed,
       activations: maxActivations - mechStatus.activationsUsed,
       maxActivations,
       overshield: mechStatus.overshield,
       burn: mechStatus.burnReceived,
+      stress: maxStress - mechStatus.stressLost,
     },
   };
 };

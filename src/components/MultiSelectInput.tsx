@@ -71,7 +71,6 @@ export function MultiSelectInput<T>({
           return (
             <div className="p-2 bg-bgcolor-700 shadow-lg rounded m-1">
               <div className="flex flex-wrap -mr-1 -mb-1">
-                {" "}
                 {unselectedOptions.map((option) => (
                   <Pill
                     className="mr-1 mb-1"
