@@ -10,6 +10,7 @@ import { NpcTemplate } from "../../../schemas/lancerData/npcTemplate.schema";
 import { PilotGear } from "../../../schemas/lancerData/pilotGear.schema";
 import { Skill } from "../../../schemas/lancerData/skill.schema";
 import { Status } from "../../../schemas/lancerData/status.schema";
+import { Tag } from "../../../schemas/lancerData/tag.schema";
 import { Talent } from "../../../schemas/lancerData/talent.schema";
 import { Collection, createCollection } from "../../../utils/collection";
 
@@ -24,6 +25,7 @@ type SelectCollectionsReturns = {
   npcClasses: Collection<NpcClass>;
   npcFeatures: Collection<NpcFeature>;
   npcTemplates: Collection<NpcTemplate>;
+  tags: Collection<Tag>;
 };
 
 export function selectCollections(state: RootState): SelectCollectionsReturns {
@@ -51,5 +53,6 @@ export function selectCollections(state: RootState): SelectCollectionsReturns {
       state.collections.npcTemplates as NpcTemplate[],
       ["name"]
     ),
+    tags: createCollection(state.collections.tags, ["name"]),
   };
 }

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { forwardRef } from "react";
 
 const BUTTON_COLOR_STYLES = {
@@ -32,20 +33,21 @@ type ButtonProps = React.DetailedHTMLProps<
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, color, size, circle, ...buttonProps }, ref) => {
-    const colorStyles = BUTTON_COLOR_STYLES[color || "default"];
-    const sizeStyles = BUTTON_SIZE_STYLES[size || "md"];
-    const circleStyles = circle
-      ? `rounded-full flex items-center justify-center ${
-          BUTTON_CIRCLE_SIZE_STYLES[size || "md"]
-        }`
-      : "rounded px-2 py-1";
+    const styles = clsx(
+      "transition-colors outline-none border border-transparent",
+      BUTTON_COLOR_STYLES[color || "default"],
+      BUTTON_SIZE_STYLES[size || "md"],
+      circle
+        ? [
+            "rounded-full flex items-center justify-center",
+            BUTTON_CIRCLE_SIZE_STYLES[size || "md"],
+          ]
+        : "rounded px-2 py-1",
+      className
+    );
 
     return (
-      <button
-        {...buttonProps}
-        ref={ref}
-        className={`transition-colors outline-none border border-transparent ${colorStyles} ${sizeStyles} ${circleStyles} ${className}`}
-      >
+      <button {...buttonProps} ref={ref} className={styles}>
         {children}
       </button>
     );

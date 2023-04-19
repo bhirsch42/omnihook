@@ -23,11 +23,13 @@ export const selectNpcById = (id: string) => (state: RootState) => {
   if (!mechStatus)
     throw new Error(`Could not find mechStatus with id ${npc.mechStatusId}`);
 
-  const maxHp = npcClass.stats.hp[npc.tier];
-  const maxMoves = npcClass.stats.speed[npc.tier];
+  const tier = 0;
+
+  const maxHp = npcClass.stats.hp[tier];
+  const maxMoves = npcClass.stats.speed[tier];
   const maxHeat =
-    (npcClass.stats.heatcap && npcClass.stats.heatcap[npc.tier]) || null;
-  const maxActivations = npcClass.stats.activations[npc.tier];
+    (npcClass.stats.heatcap && npcClass.stats.heatcap[tier]) || null;
+  const maxActivations = npcClass.stats.activations[tier];
   const maxStress = 1;
 
   return {
@@ -41,15 +43,15 @@ export const selectNpcById = (id: string) => (state: RootState) => {
     conditions: mechStatus.conditions,
     resistances: mechStatus.resistances,
     skills: {
-      hull: npcClass.stats.hull[npc.tier],
-      agility: npcClass.stats.agility[npc.tier],
-      systems: npcClass.stats.systems[npc.tier],
-      engineering: npcClass.stats.engineering[npc.tier],
-      save: npcClass.stats.save[npc.tier],
-      edef: npcClass.stats.edef[npc.tier],
-      evade: npcClass.stats.evade[npc.tier],
-      sensor: npcClass.stats.sensor[npc.tier],
-      size: npcClass.stats.size[npc.tier],
+      hull: npcClass.stats.hull[tier],
+      agility: npcClass.stats.agility[tier],
+      systems: npcClass.stats.systems[tier],
+      engineering: npcClass.stats.engineering[tier],
+      save: npcClass.stats.save[tier],
+      edef: npcClass.stats.edef[tier],
+      evade: npcClass.stats.evade[tier],
+      sensor: npcClass.stats.sensor[tier],
+      size: npcClass.stats.size[tier],
     },
     stats: {
       maxHp,

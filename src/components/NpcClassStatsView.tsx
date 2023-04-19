@@ -25,7 +25,7 @@ export function NpcClassStatsView({
     [ICONS.hp, "HP", <TieredStatView tieredStat={stats.hp} />],
     [ICONS.evasion, "Evasion", <TieredStatView tieredStat={stats.evade} />],
     [ICONS.speed, "Speed", <TieredStatView tieredStat={stats.speed} />],
-    [
+    stats.heatcap && [
       ICONS.heatcap,
       "Heat Capacity",
       <TieredStatView tieredStat={stats.heatcap} />,

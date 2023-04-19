@@ -62,26 +62,28 @@ export function NpcView({
       </button>
       <div className="px-3 pb-3 bg-bgcolor-800">
         <div className="flex mt-3">
-          <div className="flex w-full">
-            <NpcSkills npcId={npcId} className="mr-8" />
-            <NpcCombatStats npcId={npcId} className="mr-8" />
-            <NpcStatuses npcId={npcId} className="mr-8 grow" />
-            <NpcActions npcId={npcId} />
+          <div className="flex w-full gap-8">
+            <NpcSkills npcId={npcId} />
+            <NpcCombatStats npcId={npcId} />
+
+            <div className="flex flex-col gap-1">
+              {npc.features.map((feature) => {
+                return (
+                  <NpcFeatureView
+                    npcFeature={feature}
+                    className="max-w-lg"
+                    key={feature.id}
+                  />
+                );
+              })}
+            </div>
+            <NpcStatuses npcId={npcId} className="grow" />
           </div>
         </div>
       </div>
 
       <div className={`bg-bgcolor-800 px-3 pb-3 ${isOpen ? "" : "hidden"}`}>
-        <div className="font-bold mb-2">Features</div>
-        <div className="flex flex-wrap -mr-2 -mb-2">
-          {npc.features.map((feature) => {
-            return (
-              <div className="flex flex-col mr-2 mb-2" key={feature.id}>
-                <NpcFeatureView npcFeature={feature} className="max-w-lg" />
-              </div>
-            );
-          })}
-        </div>
+        <NpcActions npcId={npcId} />
       </div>
     </div>
   );

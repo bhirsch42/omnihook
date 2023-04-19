@@ -32,7 +32,6 @@ export function loadLancerDataReducer(
     ? [...state.pilotGear, ...payload.pilotGear]
     : state.pilotGear;
 
-  // @ts-ignore – Bug in type inference for zod's enum arrays
   state.frames = payload.frames
     ? [...state.frames, ...payload.frames]
     : state.frames;
@@ -52,4 +51,6 @@ export function loadLancerDataReducer(
   state.statuses = payload.statuses
     ? [...state.statuses, ...payload.statuses]
     : state.statuses;
+
+  state.tags = payload.tags ? [...state.tags, ...payload.tags] : state.tags;
 }

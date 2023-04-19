@@ -29,7 +29,7 @@ export function FormInput<T extends FieldValues>({
   const errorMessage = errors && fieldName && errors[fieldName]?.message;
 
   return (
-    <div className={` ${className}`}>
+    <div className={className}>
       <label className="block text-sm text-textcolor-300 mb-1">
         {">"} {label}
       </label>

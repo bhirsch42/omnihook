@@ -1,5 +1,6 @@
 import { faX, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 
 const PILL_COLOR_STYLES = {
   default: "bg-bgcolor-700",
@@ -47,13 +48,19 @@ export function Pill({
 
     return (
       <div className={`flex ${className}`}>
-        <div className={`${colorStyle} ${style} rounded-l-full pl-3 pr-1 py-1`}>
+        <div
+          className={clsx(colorStyle, style, "rounded-l-full pl-3 pr-1 py-1")}
+        >
           {children}
         </div>
 
         <button
           {...props}
-          className={`${colorStyle} ${buttonStyle} transition-colors rounded-r-full whitespace-nowrap pr-3 pl-2 py-1 flex items-center justify-center text-sm`}
+          className={clsx(
+            colorStyle,
+            buttonStyle,
+            "transition-colors rounded-r-full whitespace-nowrap pr-3 pl-2 py-1 flex items-center justify-center text-sm"
+          )}
           onClick={onClickRemove}
         >
           <FontAwesomeIcon icon={faXmark} />
@@ -67,7 +74,13 @@ export function Pill({
       <button
         {...props}
         onClick={onClick}
-        className={`${colorStyle} ${buttonStyle} ${style} rounded-full px-3 py-1 ${className}`}
+        className={clsx(
+          colorStyle,
+          buttonStyle,
+          style,
+          "rounded-full px-3 py-1",
+          className
+        )}
       >
         {children}
       </button>
@@ -76,7 +89,7 @@ export function Pill({
 
   return (
     <div
-      className={`${colorStyle} ${style} rounded-full px-3 py-1 ${className}`}
+      className={clsx(colorStyle, style, "rounded-full px-3 py-1", className)}
     >
       {children}
     </div>

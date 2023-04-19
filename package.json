@@ -20,6 +20,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tanstack/react-router": "0.0.1-beta.82",
     "camelize-ts": "^2.3.0",
+    "clsx": "^1.2.1",
     "fuse.js": "^6.6.2",
     "inflection": "^2.0.1",
     "lancer-data": "^3.0.47",

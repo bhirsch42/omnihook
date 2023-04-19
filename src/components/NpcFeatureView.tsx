@@ -1,94 +1,17 @@
-import {
-  faChevronUp,
-  faChevronDown,
-  faTriangleExclamation,
-  faCirclePlus,
-  faBarcode,
-  faGun,
-  faBullseye,
-  faBolt,
-  faCircleInfo,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isEmpty } from "ramda";
 import { useState } from "react";
 import { NpcFeature } from "../schemas/lancerData/npcFeature.schema";
-import { ICONS } from "../utils/icons";
-import { RangeView } from "./RangeView";
-import { StatsTable, StatsTableRow } from "./StatsTable";
 import { UserText } from "./UserText";
-import { TieredStatView } from "./TieredStatView";
+import { NpcWeaponView } from "./NpcWeaponView";
+import { TagId } from "../schemas/lancerData/tagId.schema";
+import { useCollections } from "../hooks/useCollections";
+import { titleize } from "inflection";
 
-function TieredDamageView({
-  tieredDamage,
-}: {
-  tieredDamage: Required<NpcFeature>["damage"];
-}) {
-  return (
-    <>
-      {tieredDamage.map(({ damage, type }, i) => {
-        const isLast = i === tieredDamage.length - 1;
-        return (
-          <span className="font-bold" key={i}>
-            <TieredStatView tieredStat={damage} /> {type}
-            {!isLast && <span className="mr-2">,</span>}
-          </span>
-        );
-      })}
-    </>
-  );
-}
-
-function NpcWeaponView({
-  npcFeature,
-  className,
-}: {
-  npcFeature: NpcFeature;
-  className?: string;
-}) {
-  const hasDamage = npcFeature.damage && !isEmpty(npcFeature.damage);
-
-  const rows = [
-    npcFeature.weaponType && [
-      faCircleInfo,
-      "Weapon Type",
-      <span className="font-bold">{npcFeature.weaponType}</span>,
-    ],
-
-    npcFeature.techType && [
-      faBolt,
-      "Tech Type",
-      <span className="font-bold">{npcFeature.techType}</span>,
-    ],
-
-    npcFeature.accuracy && [
-      faBullseye,
-      "Accuracy",
-      <TieredStatView tieredStat={npcFeature.accuracy} />,
-    ],
-
-    npcFeature.attackBonus && [
-      ICONS["attack"],
-      "Attack Bonus",
-      <TieredStatView tieredStat={npcFeature.attackBonus} />,
-    ],
-
-    npcFeature.damage &&
-      !isEmpty(npcFeature.damage) && [
-        ICONS["damage"],
-        "Damage",
-        <TieredDamageView tieredDamage={npcFeature.damage} />,
-      ],
-
-    npcFeature.range && [
-      ICONS["range"],
-      "Range",
-      <RangeView range={npcFeature.range} />,
-    ],
-  ] satisfies StatsTableRow[];
-
-  return <StatsTable rows={rows} className={className} />;
-}
+const FEATURE_DESCRIPTOR_TAG_IDS: TagId[] = [
+  "tg_quick_action",
+  "tg_quick_tech",
+];
 
 export function NpcFeatureView({
   npcFeature,
@@ -100,10 +23,19 @@ export function NpcFeatureView({
   className?: string;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(Boolean(_isOpen));
+  const collections = useCollections();
 
   const toggleIsOpen = () => setIsOpen((state) => !state);
 
   const isAttack = npcFeature.type === "Weapon" || npcFeature.type === "Tech";
+
+  const tags = collections.tags.findAll(npcFeature.tags.map((o) => o.id));
+
+  const descriptorsFromTags = tags
+    .filter((tag) => FEATURE_DESCRIPTOR_TAG_IDS.includes(tag.id))
+    .map((tag) => titleize(tag.name));
+
+  const descriptors = [npcFeature.type, ...descriptorsFromTags];
 
   return (
     <div
@@ -115,7 +47,7 @@ export function NpcFeatureView({
         onClick={toggleIsOpen}
       >
         <div className="pr-3 mr-auto text-sm font-bold">{npcFeature.name}</div>
-        <div className="text-sm italic">{npcFeature.type}</div>
+        <div className="text-sm italic">{descriptors.join(", ")}</div>
         <div className="flex items-center justify-center w-5 h-5 ml-2 text-xs rounded-full">
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </div>

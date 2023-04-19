@@ -9,6 +9,7 @@ import { setOvershieldOnNpc } from "../../store/thunks/setOvershieldOnNpc";
 import { clearBurnOnNpc } from "../../store/thunks/clearBurnOnNpc";
 import { DAMAGE_TYPES } from "../../schemas/lancerData/damageType.schema";
 import { stabilizeNpc } from "../../store/thunks/stabilizeNpc";
+import { clearHeatOnNpc } from "../../store/thunks/clearHeatOnNpc";
 
 export function NpcActions({
   npcId,
@@ -27,17 +28,16 @@ export function NpcActions({
   };
 
   return (
-    <div className={`${className}`}>
+    <div className={`flex gap-8 items-end ${className}`}>
       <FormInput
         label={"Amount"}
         value={amount}
         type="number"
         onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
       />
-      <div className="flex gap-3">
-        <div className="flex flex-col gap-1">
-          <div className="font-bold">Damage</div>
-
+      <div>
+        <div className="font-bold mb-1">Damage</div>
+        <div className="flex gap-2">
           {DAMAGE_TYPES.map((damageType) => (
             <Button
               key={damageType}
@@ -49,9 +49,10 @@ export function NpcActions({
             </Button>
           ))}
         </div>
-        <div className="flex flex-col gap-1">
-          <div className="font-bold">Healing</div>
-
+      </div>
+      <div>
+        <div className="font-bold mb-1">Repair</div>
+        <div className="flex gap-2">
           <Button
             onClick={handleAction(() => dispatch(healNpc(npcId, amount)))}
           >
@@ -64,11 +65,14 @@ export function NpcActions({
           >
             Set Overshield
           </Button>
+          <Button onClick={handleAction(() => dispatch(stabilizeNpc(npcId)))}>
+            Stabilize
+          </Button>
           <Button onClick={handleAction(() => dispatch(clearBurnOnNpc(npcId)))}>
             Clear Burn
           </Button>
-          <Button onClick={handleAction(() => dispatch(stabilizeNpc(npcId)))}>
-            Stabilize
+          <Button onClick={handleAction(() => dispatch(clearHeatOnNpc(npcId)))}>
+            Clear Heat
           </Button>
         </div>
       </div>
