@@ -5,6 +5,7 @@ import {
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { pilotsReducer } from "./pilots";
+import { mechsReducer } from "./mechs";
 import { encountersReducer } from "./encounters";
 import { npcsReducer } from "./npcData";
 import { collectionsReducer } from "./collections";
@@ -36,6 +37,7 @@ const localStorageMiddleware: Middleware = ({ getState }) => {
 export const store = configureStore({
   reducer: {
     pilots: pilotsReducer,
+    mechs: mechsReducer,
     encounters: encountersReducer,
     npcData: npcsReducer,
     collections: collectionsReducer,

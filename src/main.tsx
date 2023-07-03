@@ -5,6 +5,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router";
 import { Provider } from "react-redux";
 import "@total-typescript/ts-reset";
+import initWASM, * as WASM from "omnihook-rs";
 
 import "@fontsource/source-code-pro/200-italic.css";
 import "@fontsource/source-code-pro/200.css";
@@ -31,3 +32,14 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </Provider>
   </React.StrictMode>
 );
+
+initWASM().then(() => {
+  const scriptRunner = WASM.LancerScript.new();
+  // const result = 40 + 2 + 2 * (30 * -5);
+  console.log(
+    "EVAL",
+    scriptRunner.eval_script("let a = 100; 40 + 2 + 2 * (30 * -5)")
+  );
+
+  console.log("EVAL", scriptRunner.eval_script("let b = 100; b * 2"));
+});

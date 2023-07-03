@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "concurrently \"rsw watch\" \"vite\"",
+    "build": "rsw build && tsc && vite build",
+    "rsw": "rsw",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^2.9.11",
     "@popperjs/core": "^2.0.0",
+    "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tanstack/react-router": "0.0.1-beta.82",
@@ -24,6 +26,7 @@
     "fuse.js": "^6.6.2",
     "inflection": "^2.0.1",
     "lancer-data": "^3.0.47",
+    "omnihook-rs": "link:/Users/benhirsch/repos/omnihook/omnihook-rs/pkg",
     "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -32,7 +35,6 @@
     "react-redux": "^8.0.5",
     "react-transition-group": "^4.4.5",
     "redux": "^4",
-    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
@@ -47,11 +49,13 @@
     "@types/uuid": "^9.0.1",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.0",
     "postcss": "^8.4.21",
     "sass": "^1.60.0",
     "tailwind-scrollbar": "^2.1.0",
     "tailwindcss": "^3.3.1",
     "typescript": "^4.9.5",
-    "vite": "^4.2.1"
+    "vite": "^4.2.1",
+    "vite-plugin-rsw": "^2.0.11"
   }
 }

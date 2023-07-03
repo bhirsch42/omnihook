@@ -1,0 +1,9 @@
+interval = 50
+cli = "pnpm"
+
+[new]
+using = "wasm-pack"
+
+[[crates]]
+name = "omnihook-rs"
+link = true
