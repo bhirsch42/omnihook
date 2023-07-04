@@ -6,6 +6,7 @@ import { createMechSchema, CreateMech } from "../schemas/createMech.schema";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { createMech } from "../store/mechs";
 import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
+import { MechFrameInput } from "./MechFrameInput";
 
 type CreateMechFormProps = {
   afterSubmit?: () => void;
@@ -18,13 +19,21 @@ export function CreateMechForm({ afterSubmit }: CreateMechFormProps) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<CreateMech>({
     resolver: zodResolver(createMechSchema),
     defaultValues: { pilotId },
   });
 
+  const mechFrameId = watch("frameId");
+
   console.log("CreateMechForm");
+
+  function handleSelectMechFrame(mechFrameId: string) {
+    setValue("frameId", mechFrameId);
+  }
 
   function handleCreateMech(data: CreateMech) {
     dispatch(createMech(data));
@@ -42,7 +51,11 @@ export function CreateMechForm({ afterSubmit }: CreateMechFormProps) {
           fieldName="name"
           autoFocus
         />
-        {pilotId}
+        <MechFrameInput
+          pilotId={pilotId}
+          onSelect={handleSelectMechFrame}
+          value={mechFrameId}
+        />
         {JSON.stringify(errors)}
         <div className="flex justify-end">
           <Button type="submit">Create Mech</Button>

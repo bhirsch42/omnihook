@@ -1,12 +1,14 @@
 import { lancerCollections } from "../data/lancerData";
 import { Frame } from "../schemas/lancerData/frame.schema";
 import { Trait } from "../schemas/lancerData/trait.schema";
+import { Button } from "./Button";
 import { MechFrameStatsView } from "./MechFrameStatsView";
 import { TraitView } from "./TraitView";
 import { UserText } from "./UserText";
 
 type MechFrameViewProps = {
   mechFrame: Frame;
+  onSelect?: (frameId: string) => void;
 };
 
 function ImageCol({ imageUrl }: { imageUrl: string }) {
@@ -25,7 +27,7 @@ function ImageCol({ imageUrl }: { imageUrl: string }) {
   );
 }
 
-export function MechFrameView({ mechFrame }: MechFrameViewProps) {
+export function MechFrameView({ mechFrame, onSelect }: MechFrameViewProps) {
   const { name, description, imageUrl, source, traits } = mechFrame;
   const manufacturer = lancerCollections.manufacturers.find(source);
 
@@ -39,6 +41,15 @@ export function MechFrameView({ mechFrame }: MechFrameViewProps) {
         <div className="pl-3 ml-3 italic border-l-4 text-bgcolor-400 border-l-bgcolor-700">
           {mechFrame.mechType.join(", ")}
         </div>
+        {onSelect && (
+          <Button
+            onClick={() => onSelect(mechFrame.id)}
+            className="text-sm ml-auto"
+            color="green"
+          >
+            Select
+          </Button>
+        )}
       </div>
       <div className="grid grid-cols-2 grid-rows-[auto_1fr] gap-3 @5xl:grid-rows-1 @5xl:grid-cols-[auto_1fr_auto]">
         <div className="flex flex-col">
