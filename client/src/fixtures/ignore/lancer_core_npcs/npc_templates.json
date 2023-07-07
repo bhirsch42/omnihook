@@ -1,0 +1,238 @@
+[
+  {
+    "id": "npct_commander",
+    "name": "COMMANDER",
+    "description": "Commanders operate on a grand scale, controlling fleets and armies across worlds and interstellar space. They may not be the deadliest soldiers, but they bring out the best in their forces.",
+    "base_features": [
+      "npcf_reinforced_commander",
+      "npcf_voice_of_authority_commander",
+      "npcf_commander_traits_commander"
+    ],
+    "optional_features": [
+      "npcf_bolster_network_commander",
+      "npcf_press_the_attack_commander",
+      "npcf_press_on_commander",
+      "npcf_quick_march_commander",
+      "npcf_military_discipline_commander"
+    ],
+    "power": 50
+  },
+  {
+    "id": "npct_rpv",
+    "name": "RPV",
+    "description": "Remote-pilot vehicles – RPVs – are any mechs piloted by NHPs, offsite pilots, or comp/con units. They trade e-war vulnerability for individual unit strength, and can operate outside the restrictions imposed on systems piloted by organic, in-vehicle units.",
+    "base_features": [
+      "npcf_bonus_hp_rpv",
+      "npcf_no_pilot_rpv",
+      "npcf_vulnerable_to_tech_rpv"
+    ],
+    "optional_features": [],
+    "power": 20
+  },
+  {
+    "id": "npct_elite",
+    "name": "ELITE",
+    "description": "Elite enemies are tougher and more powerful than most – just a step down from Ultras. They might be especially tough or experienced pilots, special forces, or foes using a higher level of technology or better quality gear than the rank and file. Elites can act several times each round and get additional Structure, which effectively doubles their HP and allows them to make structure damage checks like PCs.",
+    "base_features": [
+      "npcf_reinforced_elite",
+      "npcf_ready_and_waiting_elite",
+      "npcf_career_soldier_elite",
+      "npcf_specialist_kit_elite"
+    ],
+    "optional_features": [],
+    "power": 100
+  },
+  {
+    "id": "npct_exotic",
+    "name": "EXOTIC",
+    "description": "Even in a galaxy of wonders, Exotics are strange and dangerous enemies. Some feature unique technologies not yet available to the wider galaxy or wield archaic weapon styles updated to the modern day, while others carry equipment or adopt tactics that are totally alien to Union doctrine.",
+    "base_features": [
+      "npcf_xenotech_exotic",
+      "npcf_hardened_target_exotic",
+      "npcf_exotic_systems_exotic"
+    ],
+    "optional_features": [
+      "npcf_living_chassis_exotic",
+      "npcf_blinkspace_carver_exotic",
+      "npcf_realspace_extrusion_exotic",
+      "npcf_living_weaponry_exotic",
+      "npcf_paracausal_weapon_exotic",
+      "npcf_chronotorus_exotic",
+      "npcf_regenerator_exotic"
+    ],
+    "power": 20
+  },
+  {
+    "id": "npct_grunt",
+    "name": "GRUNT",
+    "description": "Grunts are a step above cannon fodder. They typically take to the field in mass-produced or stock mechs—trained for discipline rather than excellence. Grunts may not be threats on their own, but in a group, they become an overwhelming mass of bodies and projectiles that threatens even the most powerful enemies.",
+    "base_features": [
+      "npcf_chaff_grunt",
+      "npcf_weak_grunt",
+      "npcf_rank_and_file_grunt"
+    ],
+    "optional_features": [],
+    "power": -75
+  },
+  {
+    "id": "npct_mercenary",
+    "name": "MERCENARY",
+    "description": "Mercenaries offer their services to the highest bidder. They may have an attachment to a faith or flag, but when it comes to doing business, they’re loyal only to the highest bidder.",
+    "base_features": [
+      "npcf_opportunist_mercenary",
+      "npcf_mercenary_systems_and_traits_mercenary"
+    ],
+    "optional_features": [
+      "npcf_bounty_hunter_mercenary",
+      "npcf_efficient_killer_mercenary",
+      "npcf_favors_owed_mercenary",
+      "npcf_scout_drone_mercenary",
+      "npcf_last_word_mercenary"
+    ],
+    "power": 20
+  },
+  {
+    "id": "npct_pirate",
+    "name": "PIRATE",
+    "description": "Pirates live on the boundaries—the forgotten bolt-holes of occupied space. They range far, operating around blink gates, interstellar shipping lanes, and worlds that are yet to be settled. They can be found wherever resources are kept or moved, people are desperate, and the law is stretched thin.",
+    "base_features": [
+      "npcf_deadly_pirate",
+      "npcf_pirate_systems_and_traits_pirate"
+    ],
+    "optional_features": [
+      "npcf_boarding_leash_pirate",
+      "npcf_splinter_rounds_pirate",
+      "npcf_coreworm_rockets_pirate",
+      "npcf_prying_claws_pirate",
+      "npcf_slaver_signal_pirate"
+    ],
+    "power": 20
+  },
+  {
+    "id": "npct_ship",
+    "name": "SHIP",
+    "description": "Whether civilian or military, Ships are defined by their flight capability and designed for space travel. Although they are mostly used outside the bounds of an atmosphere, most can operate closer to the ground when needed.<br>This template can be applied to any Mech NPC. They lose the Mech tag and become a Ship instead.",
+    "base_features": [
+      "npcf_flier_ship",
+      "npcf_massive_size_ship",
+      "npcf_crew_ship",
+      "npcf_armored_hull_ship",
+      "npcf_no_manipulators_ship",
+      "npcf_limited_melee_attacks_ship",
+      "npcf_transport_ship"
+    ],
+    "optional_features": [],
+    "power": 20
+  },
+  {
+    "id": "npct_spacer",
+    "name": "SPACER",
+    "description": "Spacers are those born and bred in the hard vacuum of the endless void. They are adept at maneuvering in and around the difficult, low-g environments found only in space and low orbit – blink and space stations, asteroid fields, and the emptiness between ships in military and commercial fleets.",
+    "base_features": [
+      "npcf_maneuverable_spacer",
+      "npcf_spacer_systems_spacer"
+    ],
+    "optional_features": [
+      "npcf_concussion_gun_spacer",
+      "npcf_gravity_rifle_spacer",
+      "npcf_sealant_trap_spacer",
+      "npcf_thumper_grenades_spacer"
+    ],
+    "power": 20
+  },
+  {
+    "id": "npct_ultra",
+    "name": "ULTRA",
+    "description": "Ultras are the most dangerous individual foes a lancer might face on the battlefield – the champions, favored soldiers, chosen ones, and other mighty warriors of a fighting force. An Ultra might command a small retinue or lead an army from the front, but they are no grand strategists. Their primary tasks are always direct engagement with the enemy, holding or breaking lines, and ensuring through heroic efforts that their side wins the day.<br>Ultras are powerful enemies capable of taking on multiple mechs at once, along the lines of “boss” characters in video games. Like Elites, they have extra Structure, meaning they roll on the structure damage table and are much more resilient than most NPCs. Because they’re so much more powerful than regular NPCs (and keeping track of them is much more complex), it’s recommended you only use one Ultra in any given combat encounter.",
+    "base_features": [
+      "npcf_best_of_the_best_ultra",
+      "npcf_shock_and_awe_ultra",
+      "npcf_deadly_ultra",
+      "npcf_juggernaut_ultra",
+      "npcf_reinforced_ultra",
+      "npcf_legendary_ultra",
+      "npcf_advanced_kit_ultra",
+      "npcf_resilient_ultra",
+      "npcf_reflex_ultra",
+      "npcf_ultra_systems_and_traits_ultra"
+    ],
+    "optional_features": [
+      "npcf_hover_propulsion_ultra",
+      "npcf_repulsion_field_ultra",
+      "npcf_siege_shield_ultra",
+      "npcf_slivershielding_ultra",
+      "npcf_short_cycle_lance_ultra",
+      "npcf_volley_module_ultra",
+      "npcf_wolfhound_missile_ultra",
+      "npcf_argus_armor_ultra",
+      "npcf_devastator_ultra",
+      "npcf_evasive_ultra",
+      "npcf_extra_deadly_ultra",
+      "npcf_fortress_ultra",
+      "npcf_lead_the_charge_ultra",
+      "npcf_legion_ultra",
+      "npcf_limitless_ultra",
+      "npcf_sight_ultra",
+      "npcf_superior_construction_ultra",
+      "npcf_superior_frame_ultra",
+      "npcf_superior_reactor_ultra",
+      "npcf_superior_targeting_ultra",
+      "npcf_supreme_maintenance_ultra",
+      "npcf_supreme_melee_ultra",
+      "npcf_unstoppable_ultra",
+      "npcf_hellfire_projector_ultra",
+      "npcf_ravager_turret_ultra"
+    ],
+    "power": 300
+  },
+  {
+    "id": "npct_veteran",
+    "name": "VETERAN",
+    "description": "Veterans are hardened, experienced fighters that have survived several direct engagements. This isn’t their first rodeo, and their ability to withstand morale shocks is far higher than an untested greenhorn. Their value on the field is the experience they bring to a deployment and their steady presence along the line.<br>Use the Veteran template to make more memorable characters.",
+    "base_features": [
+      "npcf_reinforced_veteran",
+      "npcf_veterancy_veteran",
+      "npcf_veteran_traits_veteran"
+    ],
+    "optional_features": [
+      "npcf_acrobat_veteran",
+      "npcf_deadly_veteran",
+      "npcf_feign_death_veteran",
+      "npcf_hacker_veteran",
+      "npcf_hardened_target_veteran",
+      "npcf_headshot_veteran",
+      "npcf_insulated_veteran",
+      "npcf_legendary_veteran",
+      "npcf_lesser_sight_veteran",
+      "npcf_lightning_reflexes_veteran",
+      "npcf_limitless_veteran",
+      "npcf_nhp_co_pilot_veteran",
+      "npcf_parting_gift_veteran",
+      "npcf_rodeo_master_veteran",
+      "npcf_self_repair_veteran",
+      "npcf_shock_armor_veteran",
+      "npcf_slippery_veteran",
+      "npcf_steel_jaw_veteran",
+      "npcf_vipers_speed_veteran"
+    ],
+    "power": 50
+  },
+  {
+    "id": "npct_vehicle",
+    "name": "VEHICLE",
+    "description": "Despite the prevalence of mechs, the majority of armored combat, transport, scouting, and myriad other civilian and military tasks falls to the humble tracked or wheeled vehicle. Powered by fusion, internal combustion, electricity, hydrogen, wind, people, paracausal engines, or something even more unusual, vehicles can carry people, mount weapons, be girded in armor, or otherwise accomplish quickly the simple tasks for which they were designed: moving people and things quickly and in good condition from point A to point B.<br>This template can be applied to any Mech NPC. They lose the Mech tag and become a Vehicle instead.",
+    "base_features": [
+      "npcf_limited_handling_vehicle",
+      "npcf_crew_vehicle",
+      "npcf_no_manipulators_vehicle",
+      "npcf_limited_melee_vehicle",
+      "npcf_type_vehicle"
+    ],
+    "optional_features": [
+      "npcf_flier_vehicle",
+      "npcf_transport_vehicle",
+      "npcf_treads_or_hover_vehicle"
+    ],
+    "power": 20
+  }
+]
