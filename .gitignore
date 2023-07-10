@@ -24,3 +24,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Rust
+server/target
+server/target4vicB
+server/sqlite

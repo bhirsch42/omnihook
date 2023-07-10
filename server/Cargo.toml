@@ -1,8 +1,24 @@
 [package]
-name = "server"
+name = "example-sqlite"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+publish = false
 
 [dependencies]
+axum = "0.6.0"
+
+[dependencies.axum-login]
+features = ["sqlite"]
+
+[dependencies.rand]
+version = "0.8.5"
+features = ["min_const_gen"]
+
+[dependencies.sqlx]
+version = "0.6.1"
+default-features = false
+features = ["runtime-tokio-rustls", "sqlite"]
+
+[dependencies.tokio]
+version = "1.0"
+features = ["full"]
