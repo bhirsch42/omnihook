@@ -5,7 +5,11 @@ edition = "2021"
 publish = false
 
 [dependencies]
-axum = "0.6.0"
+axum = { version = "0.6.0", features = ["ws", "macros", "http2"] }
+axum-server = { version = "0.5.1", features = ["tls-rustls", "tls-openssl"] }
+hyper = { version = "0.14.27", features = ["full"] }
+tokio = { version = "1.0", features = ["full"] }
+tower = "0.4.13"
 
 [dependencies.axum-login]
 features = ["sqlite"]
@@ -18,7 +22,3 @@ features = ["min_const_gen"]
 version = "0.6.1"
 default-features = false
 features = ["runtime-tokio-rustls", "sqlite"]
-
-[dependencies.tokio]
-version = "1.0"
-features = ["full"]
