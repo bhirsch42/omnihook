@@ -1,14 +1,17 @@
 import "./App.scss";
 import { Outlet } from "@tanstack/react-router";
-import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { ChoosePilot } from "./pages/ChoosePilot.page";
-import { WindowManager } from "./components/WindowManager";
-import { selectActivePilotSafe } from "./store/pilots/selectors/selectActivePilotSafe";
+import { useAppDispatch } from "./store/hooks";
 import { loadLancerData } from "./store/collections";
 import rawLancerData from "lancer-data";
 import { useDebug } from "./debug";
 import { once } from "ramda";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { axiosClient } from "./axiosClient";
 
 const loadData = once(async (dispatch: Dispatch<AnyAction>) => {
   dispatch(loadLancerData(rawLancerData));
@@ -20,22 +23,33 @@ const loadData = once(async (dispatch: Dispatch<AnyAction>) => {
   }
 });
 
+const queryClient = new QueryClient();
+
+const SessionManager: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["login"],
+    queryFn: () => axiosClient.get("/protected"),
+  });
+
+  console.log({ isLoading, error, data });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return <>{children}</>;
+};
+
 function App() {
   const dispatch = useAppDispatch();
   loadData(dispatch);
   useDebug();
 
-  const pilot = useAppSelector(selectActivePilotSafe);
-
   return (
     <div className="p-3 App">
-      {pilot ? (
-        <WindowManager>
+      <QueryClientProvider client={queryClient}>
+        <SessionManager>
           <Outlet />
-        </WindowManager>
-      ) : (
-        <ChoosePilot />
-      )}
+        </SessionManager>
+      </QueryClientProvider>
     </div>
   );
 }

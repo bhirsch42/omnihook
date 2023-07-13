@@ -35,6 +35,7 @@ export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
 
 export function ChoosePilot() {
   const pilots = useAppSelector(selectAllPilots);
+  console.log("ChoosePilot", { pilots });
 
   if (pilots.length === 0) {
     return (

@@ -13,10 +13,27 @@ import { Mechs } from "./Mechs.page";
 import { PilotView } from "./PilotView/index.page";
 import { EncounterList } from "./EncounterList.page";
 import { useWindowManager } from "../components/WindowManager/WindowManagerContext";
+import { useEffect } from "react";
+import { useRouter } from "@tanstack/react-router";
+import { selectActivePilotSafe } from "../store/pilots/selectors/selectActivePilotSafe";
 
 export function Desktop() {
   const { openWindow } = useWindowManager();
-  const pilotId = useAppSelector(selectActivePilot).id;
+  const pilot = useAppSelector(selectActivePilotSafe);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!pilot) {
+      router.navigate({ to: "/pilots" });
+    }
+  }, [pilot]);
+
+  if (!pilot) {
+    return null;
+  }
+
+  const pilotId = pilot.id;
 
   function handleClickCompendium() {
     openWindow({

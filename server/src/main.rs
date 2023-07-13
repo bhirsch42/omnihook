@@ -6,15 +6,25 @@
 
 use std::{net::SocketAddr, sync::Arc};
 
-use axum::{extract::State, response::IntoResponse, routing::get, Extension, Router};
+use axum::{
+    extract::{self, State},
+    response::{IntoResponse, Response},
+    routing::get,
+    Extension, Json, Router,
+};
 use axum_login::{
-    axum_sessions::{async_session::MemoryStore, SessionLayer},
+    axum_sessions::{
+        async_session::{serde::Serialize, MemoryStore},
+        SessionLayer,
+    },
     secrecy::SecretVec,
     AuthLayer, AuthUser, RequireAuthorizationLayer, SqliteStore,
 };
-use axum_server::tls_rustls::RustlsConfig;
+use hyper::{http::HeaderValue, Method};
 use rand::Rng;
 use sqlx::sqlite::SqlitePoolOptions;
+
+use tower_http::cors::{Any, CorsLayer};
 
 #[derive(Debug, Default, Clone, sqlx::FromRow)]
 struct User {
@@ -60,6 +70,13 @@ struct AppState {
 
 type AuthContext = axum_login::extractors::AuthContext<i64, User, SqliteStore<User>>;
 
+#[derive(Serialize)]
+struct SuccessResponse {
+    success: bool,
+}
+
+const SUCCESS_RESPONSE: SuccessResponse = SuccessResponse { success: true };
+
 #[tokio::main]
 async fn main() {
     let secret = rand::thread_rng().gen::<[u8; 64]>();
@@ -84,6 +101,11 @@ async fn main() {
         },
     });
 
+    let cors = CorsLayer::new()
+        .allow_methods([Method::GET, Method::POST])
+        .allow_origin("http://127.0.0.1:5173".parse::<HeaderValue>().unwrap())
+        .allow_credentials(true);
+
     let app = Router::new()
         .route("/protected", get(protected_handler))
         .route_layer(RequireAuthorizationLayer::<i64, User>::login())
@@ -91,6 +113,7 @@ async fn main() {
         .route("/logout", get(logout_handler))
         .layer(auth_layer)
         .layer(session_layer)
+        .layer(cors)
         .with_state(router_state);
 
     println!("Serving on: http://127.0.0.1:3010");
@@ -104,16 +127,21 @@ async fn main() {
         .unwrap();
 }
 
-async fn logout_handler(mut auth: AuthContext) {
+async fn logout_handler(mut auth: AuthContext) -> impl IntoResponse {
     dbg!("Logging out user: {}", &auth.current_user);
     auth.logout().await;
+    format!("{{ success: true }}")
 }
 
 async fn protected_handler(Extension(user): Extension<User>) -> impl IntoResponse {
     format!("Logged in as: {}", user.name)
 }
 
-async fn login_handler(State(state): State<Arc<AppState>>, mut auth: AuthContext) {
+async fn login_handler(
+    State(state): State<Arc<AppState>>,
+    mut auth: AuthContext,
+) -> impl IntoResponse {
     let user = state.mysql.find_user().await;
     auth.login(&user).await.unwrap();
+    Json(SUCCESS_RESPONSE)
 }
