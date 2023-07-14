@@ -1,4 +1,4 @@
-import { Frame } from "../schemas/lancerData/frame.schema";
+import { MechFrame } from "../schemas/lancerData/mechFrame.schema";
 import { ICONS } from "../utils/icons";
 import { StatsTable, StatsTableRow } from "./StatsTable";
 
@@ -6,7 +6,7 @@ export function MechFrameStatsView({
   mechFrame,
   className,
 }: {
-  mechFrame: Frame;
+  mechFrame: MechFrame;
   className?: string;
 }) {
   const { stats } = mechFrame;

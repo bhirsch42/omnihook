@@ -5,10 +5,10 @@ import { coreSystemSchema } from "./coreSystem.schema";
 import { counterSchema } from "./counter.schema";
 import { frameStatsSchema } from "./frameStats.schema";
 import { mechTypeSchema } from "./mechType.schema";
-import { mountSchema } from "./mount.schema";
+import { mountTypeSchema } from "./mountType.schema";
 import { traitSchema } from "./trait.schema";
 
-export const frameSchema = z
+export const mechFrameSchema = z
   .object({
     id: z.string(),
     description: z.string(),
@@ -22,12 +22,16 @@ export const frameSchema = z
     stats: frameStatsSchema,
     other_art: artSchema.array().optional(),
     mechtype: mechTypeSchema.array(),
-    mounts: mountSchema.array(),
+    mounts: mountTypeSchema.array(),
     traits: traitSchema.array(),
     data_type: z.enum(["frame"]).optional(),
     counters: counterSchema.array().optional(),
   })
   .strict()
-  .transform((o) => ({ ...camelize(o, true), mechType: o.mechtype }));
+  .transform((o) => ({
+    ...camelize(o, true),
+    mechType: o.mechtype,
+    mounts: o.mounts,
+  }));
 
-export type Frame = z.infer<typeof frameSchema>;
+export type MechFrame = z.infer<typeof mechFrameSchema>;

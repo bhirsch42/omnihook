@@ -40,7 +40,7 @@ export function FormInput<T extends FieldValues>({
         {...inputProps}
       />
       {typeof errorMessage === "string" && (
-        <div className="text-sm text-red-500">{errorMessage}</div>
+        <div className="text-sm text-red-500 mt-1">{errorMessage}</div>
       )}
     </div>
   );

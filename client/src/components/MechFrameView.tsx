@@ -1,13 +1,12 @@
 import { lancerCollections } from "../data/lancerData";
-import { Frame } from "../schemas/lancerData/frame.schema";
-import { Trait } from "../schemas/lancerData/trait.schema";
+import { MechFrame } from "../schemas/lancerData/mechFrame.schema";
 import { Button } from "./Button";
 import { MechFrameStatsView } from "./MechFrameStatsView";
 import { TraitView } from "./TraitView";
 import { UserText } from "./UserText";
 
 type MechFrameViewProps = {
-  mechFrame: Frame;
+  mechFrame: MechFrame;
   onSelect?: (frameId: string) => void;
 };
 

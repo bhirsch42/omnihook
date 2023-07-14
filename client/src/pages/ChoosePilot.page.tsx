@@ -5,12 +5,15 @@ import { setActivePilot } from "../store/pilots";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { selectAllPilots } from "../store/pilots/selectors/selectAllPilots";
+import { useRouter } from "@tanstack/react-router";
 
 export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   function handleClick(id: string) {
     dispatch(setActivePilot(id));
+    router.navigate({ to: "/" });
   }
 
   return (
@@ -35,7 +38,6 @@ export function SelectPilot({ pilots }: { pilots: Pilot[] }) {
 
 export function ChoosePilot() {
   const pilots = useAppSelector(selectAllPilots);
-  console.log("ChoosePilot", { pilots });
 
   if (pilots.length === 0) {
     return (

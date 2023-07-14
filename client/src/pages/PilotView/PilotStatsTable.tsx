@@ -9,6 +9,7 @@ import { useAppSelector } from "../../store/hooks";
 import { selectPilotStats } from "../../store/pilots/selectors/selectPilotStats";
 import { selectPilot } from "../../store/pilots/selectors/selectPilot";
 import { StatsTable } from "../../components/StatsTable";
+import clsx from "clsx";
 
 export function PilotStatsTable({
   pilotId,
@@ -22,7 +23,8 @@ export function PilotStatsTable({
   return (
     <StatsTable
       fillHeight
-      className={className}
+      className={clsx(className, "text-xl")}
+      rightAlignLastColumn
       rows={[
         [faHeart, "HP", `${pilot.hp}/${pilotStats.maxHp}`],
         [faShield, "Armor", pilotStats.armor],

@@ -2,7 +2,7 @@ import { CollectionsState } from "..";
 import { RootState } from "../..";
 import { Background } from "../../../schemas/lancerData/background.schema";
 import { CoreBonus } from "../../../schemas/lancerData/coreBonus.schema";
-import { Frame } from "../../../schemas/lancerData/frame.schema";
+import { MechFrame } from "../../../schemas/lancerData/mechFrame.schema";
 import { Manufacturer } from "../../../schemas/lancerData/manufacturer.schema";
 import { NpcClass } from "../../../schemas/lancerData/npcClass.schema";
 import { NpcFeature } from "../../../schemas/lancerData/npcFeature.schema";
@@ -21,7 +21,7 @@ type SelectCollectionsReturns = {
   coreBonuses: Collection<CoreBonus>;
   talents: Collection<Talent>;
   pilotGear: Collection<PilotGear>;
-  mechFrames: Collection<Frame>;
+  mechFrames: Collection<MechFrame>;
   npcClasses: Collection<NpcClass>;
   npcFeatures: Collection<NpcFeature>;
   npcTemplates: Collection<NpcTemplate>;
@@ -41,7 +41,9 @@ export function selectCollections(state: RootState): SelectCollectionsReturns {
     pilotGear: createCollection(state.collections.pilotGear as PilotGear[], [
       "name",
     ]),
-    mechFrames: createCollection(state.collections.frames as Frame[], ["name"]),
+    mechFrames: createCollection(state.collections.frames as MechFrame[], [
+      "name",
+    ]),
     npcClasses: createCollection(state.collections.npcClasses as NpcClass[], [
       "name",
     ]),

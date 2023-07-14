@@ -4,7 +4,7 @@ import { SearchCollection } from "../../components/SearchCollection";
 import { SearchResultsSection } from "../../components/SearchCollection/SearchResultsSection";
 import { SearchResultSidebarItem } from "../../components/SearchCollection/SearchResultSidebarItem";
 import { SearchResult } from "../../components/SearchCollection/SearchResult";
-import { Frame } from "../../schemas/lancerData/frame.schema";
+import { MechFrame } from "../../schemas/lancerData/mechFrame.schema";
 import { MechLicense } from "../../schemas/mechLicense.schema";
 import { useAppSelector } from "../../store/hooks";
 import { selectActivePilot } from "../../store/pilots/selectors/selectActivePilot";
@@ -15,13 +15,7 @@ type ChooseMechFrameProps = {
   licenses: MechLicense[];
 };
 
-function hasLicense(mechFrame: Frame, licenses: MechLicense[]): boolean {
-  console.log(
-    "hasLicense",
-    mechFrame,
-    licenses,
-    !!licenses.find((license) => license.licenseId === mechFrame.licenseId)
-  );
+function hasLicense(mechFrame: MechFrame, licenses: MechLicense[]): boolean {
   return !!licenses.find(
     (license) => license.licenseId === mechFrame.licenseId
   );

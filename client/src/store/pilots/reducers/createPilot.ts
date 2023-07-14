@@ -18,5 +18,12 @@ export function createPilotReducer(
     licenseLevelSnapshots: {},
     gear: [],
     ...action.payload,
+    licenses: [{ licenseId: "mf_standard_pattern_i_everest", rank: 0 }],
+    mechSkills: {
+      hull: 0,
+      agility: 0,
+      systems: 0,
+      engineering: 0,
+    },
   });
 }

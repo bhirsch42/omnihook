@@ -2,11 +2,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormInput } from "./FormInput";
 import { Button } from "./Button";
-import { createMechSchema, CreateMech } from "../schemas/createMech.schema";
+import {
+  createMechFormSchema,
+  CreateMech,
+} from "../schemas/createMechForm.schema";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { createMech } from "../store/mechs";
 import { selectActivePilot } from "../store/pilots/selectors/selectActivePilot";
 import { MechFrameInput } from "./MechFrameInput";
+import { useCollections } from "../hooks/useCollections";
 
 type CreateMechFormProps = {
   afterSubmit?: () => void;
@@ -15,6 +19,7 @@ type CreateMechFormProps = {
 export function CreateMechForm({ afterSubmit }: CreateMechFormProps) {
   const { id: pilotId } = useAppSelector(selectActivePilot);
   const dispatch = useAppDispatch();
+  const collections = useCollections();
 
   const {
     register,
@@ -23,20 +28,24 @@ export function CreateMechForm({ afterSubmit }: CreateMechFormProps) {
     watch,
     formState: { errors },
   } = useForm<CreateMech>({
-    resolver: zodResolver(createMechSchema),
+    resolver: zodResolver(createMechFormSchema),
     defaultValues: { pilotId },
   });
 
   const mechFrameId = watch("frameId");
-
-  console.log("CreateMechForm");
 
   function handleSelectMechFrame(mechFrameId: string) {
     setValue("frameId", mechFrameId);
   }
 
   function handleCreateMech(data: CreateMech) {
-    dispatch(createMech(data));
+    dispatch(
+      createMech({
+        name: data.name,
+        pilotId: data.pilotId,
+        frame: collections.mechFrames.find(data.frameId),
+      })
+    );
     afterSubmit && afterSubmit();
   }
 
@@ -51,12 +60,17 @@ export function CreateMechForm({ afterSubmit }: CreateMechFormProps) {
           fieldName="name"
           autoFocus
         />
+
         <MechFrameInput
           pilotId={pilotId}
           onSelect={handleSelectMechFrame}
           value={mechFrameId}
         />
-        {JSON.stringify(errors)}
+
+        {errors.frameId && (
+          <div className="text-red-500 mb-3">You must select a mech frame</div>
+        )}
+
         <div className="flex justify-end">
           <Button type="submit">Create Mech</Button>
         </div>

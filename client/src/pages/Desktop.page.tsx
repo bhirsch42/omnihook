@@ -16,8 +16,17 @@ import { useWindowManager } from "../components/WindowManager/WindowManagerConte
 import { useEffect } from "react";
 import { useRouter } from "@tanstack/react-router";
 import { selectActivePilotSafe } from "../store/pilots/selectors/selectActivePilotSafe";
+import { WindowManager } from "../components/WindowManager";
 
 export function Desktop() {
+  return (
+    <WindowManager>
+      <DesktopInner />
+    </WindowManager>
+  );
+}
+
+function DesktopInner() {
   const { openWindow } = useWindowManager();
   const pilot = useAppSelector(selectActivePilotSafe);
 

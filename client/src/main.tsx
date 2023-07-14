@@ -6,40 +6,32 @@ import { router } from "./router";
 import { Provider } from "react-redux";
 import "@total-typescript/ts-reset";
 import initWASM, * as WASM from "omnihook-rs";
-
-import "@fontsource/source-code-pro/200-italic.css";
-import "@fontsource/source-code-pro/200.css";
-import "@fontsource/source-code-pro/300-italic.css";
-import "@fontsource/source-code-pro/300.css";
-import "@fontsource/source-code-pro/400-italic.css";
-import "@fontsource/source-code-pro/400.css";
-import "@fontsource/source-code-pro/500-italic.css";
-import "@fontsource/source-code-pro/500.css";
-import "@fontsource/source-code-pro/600-italic.css";
-import "@fontsource/source-code-pro/600.css";
-import "@fontsource/source-code-pro/700-italic.css";
-import "@fontsource/source-code-pro/700.css";
-import "@fontsource/source-code-pro/800-italic.css";
-import "@fontsource/source-code-pro/800.css";
-import "@fontsource/source-code-pro/900-italic.css";
-import "@fontsource/source-code-pro/900.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionManager, useSession } from "./SessionManager";
 import { store } from "./store";
+import "./fonts";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <SessionManager>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </SessionManager>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
 initWASM().then(() => {
   const scriptRunner = WASM.LancerScript.new();
-  // const result = 40 + 2 + 2 * (30 * -5);
+
   console.log(
     "EVAL",
-    scriptRunner.eval_script("let a = 100; 40 + 2 + 2 * (30 * -5)")
+    scriptRunner.eval_script(
+      "let a = 100; let b = 40 + 2 + 2 * (30 * -5); b * a"
+    )
   );
-
-  console.log("EVAL", scriptRunner.eval_script("let b = 100; b * 2"));
 });

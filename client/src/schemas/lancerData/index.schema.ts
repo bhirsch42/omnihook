@@ -4,7 +4,7 @@ import { standardActionSchema } from "./standardAction.schema";
 import { backgroundSchema } from "./background.schema";
 import { coreBonusSchema } from "./coreBonus.schema";
 import { environmentSchema } from "./environment.schema";
-import { frameSchema } from "./frame.schema";
+import { mechFrameSchema } from "./mechFrame.schema";
 import { manufacturerSchema } from "./manufacturer.schema";
 import { modSchema } from "./mod.schema";
 import { pilotGearSchema } from "./pilotGear.schema";
@@ -29,7 +29,7 @@ const _lancerDataSchema = z
     core_bonuses: coreBonusSchema.array(),
     environments: environmentSchema.array(),
     factions: z.never().array(),
-    frames: frameSchema.array(),
+    frames: mechFrameSchema.array(),
     glossary: z.object({ name: z.string(), description: z.string() }).array(),
     info: z
       .object({

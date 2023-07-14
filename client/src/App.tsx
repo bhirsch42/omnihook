@@ -6,12 +6,6 @@ import rawLancerData from "lancer-data";
 import { useDebug } from "./debug";
 import { once } from "ramda";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-import { axiosClient } from "./axiosClient";
 
 const loadData = once(async (dispatch: Dispatch<AnyAction>) => {
   dispatch(loadLancerData(rawLancerData));
@@ -23,21 +17,6 @@ const loadData = once(async (dispatch: Dispatch<AnyAction>) => {
   }
 });
 
-const queryClient = new QueryClient();
-
-const SessionManager: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["login"],
-    queryFn: () => axiosClient.get("/protected"),
-  });
-
-  console.log({ isLoading, error, data });
-
-  if (isLoading) return <div>Loading...</div>;
-
-  return <>{children}</>;
-};
-
 function App() {
   const dispatch = useAppDispatch();
   loadData(dispatch);
@@ -45,11 +24,7 @@ function App() {
 
   return (
     <div className="p-3 App">
-      <QueryClientProvider client={queryClient}>
-        <SessionManager>
-          <Outlet />
-        </SessionManager>
-      </QueryClientProvider>
+      <Outlet />
     </div>
   );
 }
