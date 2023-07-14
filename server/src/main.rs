@@ -1,74 +1,32 @@
-//! Run with
-//!
-//! ```not_rust
-//! cd examples && cargo run -p example-sqlite
-//! ```
+mod sqlite_store;
+mod user;
+
+#[macro_use]
+extern crate log;
 
 use std::{net::SocketAddr, sync::Arc};
 
-use axum::{
-    extract::{self, State},
-    response::{IntoResponse, Response},
-    routing::get,
-    Extension, Json, Router,
-};
+use axum::{extract::State, response::IntoResponse, routing::get, Extension, Json, Router};
 use axum_login::{
     axum_sessions::{
         async_session::{serde::Serialize, MemoryStore},
         SessionLayer,
     },
-    secrecy::SecretVec,
-    AuthLayer, AuthUser, RequireAuthorizationLayer, SqliteStore,
+    AuthLayer, RequireAuthorizationLayer,
 };
 use hyper::{http::HeaderValue, Method};
 use rand::Rng;
-use sqlx::sqlite::SqlitePoolOptions;
 
-use tower_http::cors::{Any, CorsLayer};
+use tower_http::cors::CorsLayer;
 
-#[derive(Debug, Default, Clone, sqlx::FromRow)]
-struct User {
-    id: i64,
-    password_hash: String,
-    name: String,
-}
-
-impl AuthUser<i64> for User {
-    fn get_id(&self) -> i64 {
-        self.id
-    }
-
-    fn get_password_hash(&self) -> SecretVec<u8> {
-        SecretVec::new(self.password_hash.clone().into())
-    }
-}
-
-struct MySQL {
-    pool: sqlx::Pool<sqlx::Sqlite>,
-}
-
-impl MySQL {
-    async fn conn(&self) -> sqlx::pool::PoolConnection<sqlx::Sqlite> {
-        self.pool.acquire().await.unwrap()
-    }
-
-    async fn find_user(&self) -> User {
-        let mut conn = self.conn().await;
-
-        let user: User = sqlx::query_as("select * from users where id = 1")
-            .fetch_one(&mut conn)
-            .await
-            .unwrap();
-
-        user
-    }
-}
+use sqlite_store::SqliteStore;
+use user::User;
 
 struct AppState {
-    mysql: MySQL,
+    sqlite_store: SqliteStore,
 }
 
-type AuthContext = axum_login::extractors::AuthContext<i64, User, SqliteStore<User>>;
+type AuthContext = axum_login::extractors::AuthContext<String, User, axum_login::SqliteStore<User>>;
 
 #[derive(Serialize)]
 struct SuccessResponse {
@@ -76,30 +34,23 @@ struct SuccessResponse {
 }
 
 const SUCCESS_RESPONSE: SuccessResponse = SuccessResponse { success: true };
+const DB_URL: &str = "omnihook-store.db";
 
 #[tokio::main]
 async fn main() {
+    env_logger::init();
     let secret = rand::thread_rng().gen::<[u8; 64]>();
 
     let session_store = MemoryStore::new();
     let session_layer = SessionLayer::new(session_store, &secret).with_secure(false);
 
-    let pool = SqlitePoolOptions::new()
-        .connect("sqlite/user_store.db")
-        .await
-        .unwrap();
+    let sqlite_store = SqliteStore::new(DB_URL).await;
 
-    let user_store = SqliteStore::<User>::new(pool);
+    let pool = sqlite_store.pool.clone();
+    let user_store = axum_login::SqliteStore::<User>::new(pool);
     let auth_layer = AuthLayer::new(user_store, &secret);
 
-    let router_state = Arc::new(AppState {
-        mysql: MySQL {
-            pool: SqlitePoolOptions::new()
-                .connect("sqlite/user_store.db")
-                .await
-                .unwrap(),
-        },
-    });
+    let router_state = Arc::new(AppState { sqlite_store });
 
     let cors = CorsLayer::new()
         .allow_methods([Method::GET, Method::POST])
@@ -108,7 +59,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/protected", get(protected_handler))
-        .route_layer(RequireAuthorizationLayer::<i64, User>::login())
+        .route_layer(RequireAuthorizationLayer::<String, User>::login())
         .route("/login", get(login_handler))
         .route("/logout", get(logout_handler))
         .layer(auth_layer)
@@ -116,7 +67,7 @@ async fn main() {
         .layer(cors)
         .with_state(router_state);
 
-    println!("Serving on: http://127.0.0.1:3010");
+    info!("Serving on: http://127.0.0.1:3010");
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3010));
     // let tls_config = RustlsConfig::from_pem_file()
@@ -130,18 +81,18 @@ async fn main() {
 async fn logout_handler(mut auth: AuthContext) -> impl IntoResponse {
     dbg!("Logging out user: {}", &auth.current_user);
     auth.logout().await;
-    format!("{{ success: true }}")
+    Json(SUCCESS_RESPONSE)
 }
 
 async fn protected_handler(Extension(user): Extension<User>) -> impl IntoResponse {
-    format!("Logged in as: {}", user.name)
+    format!("Logged in as: {}", user.username)
 }
 
 async fn login_handler(
     State(state): State<Arc<AppState>>,
     mut auth: AuthContext,
 ) -> impl IntoResponse {
-    let user = state.mysql.find_user().await;
+    let user = state.sqlite_store.find_user().await;
     auth.login(&user).await.unwrap();
     Json(SUCCESS_RESPONSE)
 }

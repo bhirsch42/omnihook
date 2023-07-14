@@ -1,13 +1,16 @@
 [package]
-name = "example-sqlite"
+name = "omnihook-server"
 version = "0.1.0"
 edition = "2021"
 publish = false
 
 [dependencies]
+anyhow = "1.0.71"
 axum = { version = "0.6.0", features = ["ws", "macros", "http2"] }
 axum-server = { version = "0.5.1", features = ["tls-rustls", "tls-openssl"] }
+env_logger = "0.10.0"
 hyper = { version = "0.14.27", features = ["full"] }
+log = "0.4.19"
 serde = { version = "1.0.171", features = ["serde_derive"] }
 tokio = { version = "1.0", features = ["full"] }
 tower = "0.4.13"
@@ -23,4 +26,4 @@ features = ["min_const_gen"]
 [dependencies.sqlx]
 version = "0.6.1"
 default-features = false
-features = ["runtime-tokio-rustls", "sqlite"]
+features = ["runtime-tokio-rustls", "sqlite", "chrono"]

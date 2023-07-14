@@ -18,7 +18,7 @@ function createBoundsFromPadding(padding: number): WindowViewBounds {
 }
 
 export const WINDOW_SIZES = ["sm", "md", "lg"] as const;
-export type WindowSizes = typeof WINDOW_SIZES[number];
+export type WindowSizes = (typeof WINDOW_SIZES)[number];
 
 const BOUNDS: Record<WindowSizes, WindowViewBounds> = {
   sm: createBoundsFromPadding(0.3),
