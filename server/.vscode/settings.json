@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["AUTOINCREMENT", "omnihook", "Rustls", "sqlx"]
+  "cSpell.words": [
+    "AUTOINCREMENT",
+    "Hasher",
+    "omnihook",
+    "randomsalt",
+    "Rustls",
+    "sqlx"
+  ]
 }
